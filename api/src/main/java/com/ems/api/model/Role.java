@@ -1,21 +1,22 @@
 package com.ems.api.model;
 
-import jakarta.persistence.*;
+public enum Role {
 
-@Entity
-public class Role {
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private String id;
+    ADMIN(1,"THE ALL POWERFUL ALL MIGHTY"),TEACHER(2, "NOT SO GOOD GUY"),STUDENT(3,"THE DUMB ONE"),GUEST(0,"THE UNWANTED");
+
+    private long id;
     private String description;
-    @Enumerated(EnumType.STRING)
-    private RoleLevel roleLevel;
+    Role (long id, String description){
+        this.id = id;
+        this.description = description;
+    }
 
-    public String getId() {
+
+    public long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -25,13 +26,5 @@ public class Role {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public RoleLevel getRoleLevel() {
-        return roleLevel;
-    }
-
-    public void setRoleLevel(RoleLevel roleLevel) {
-        this.roleLevel = roleLevel;
     }
 }

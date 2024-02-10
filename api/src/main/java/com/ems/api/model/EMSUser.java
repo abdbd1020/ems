@@ -9,7 +9,8 @@ public class EMSUser {
     @GeneratedValue(strategy = GenerationType.UUID)
 
     private String id;
-
+    @Enumerated(EnumType.STRING)
+    private Role role;
     private String name;
     private String email;
     private String password;
@@ -24,6 +25,14 @@ public class EMSUser {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     public String getName() {
