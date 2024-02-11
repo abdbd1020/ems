@@ -1,30 +1,15 @@
 package com.ems.api.model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.PrimaryKeyJoinColumn;
 
 @Entity
-public class Teacher {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private String id;
+@PrimaryKeyJoinColumn(name = "user_id")
+public class Teacher extends EMSUser {
 
     private String facultyName;
     private String designation;
 
-    @OneToOne
-    @MapsId
-    @JoinColumn(name = "user_id")
-    private EMSUser user;
-
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public String getFacultyName() {
         return facultyName;
@@ -42,11 +27,4 @@ public class Teacher {
         this.designation = designation;
     }
 
-    public EMSUser getUser() {
-        return user;
-    }
-
-    public void setUser(EMSUser user) {
-        this.user = user;
-    }
 }
