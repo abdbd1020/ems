@@ -18,4 +18,8 @@ public class AdminService {
     public ArrayList<EMSUser> getAllUsers() {
         return adminRepository.getAllUsers();
     }
+
+    public String updateUser(EMSUser user) {
+        return adminRepository.updateUser(user);
+    }
 }
