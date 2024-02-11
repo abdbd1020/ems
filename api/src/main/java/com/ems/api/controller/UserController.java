@@ -16,4 +16,14 @@ public class UserController {
 
         return userService.createUserAndFetchToken(user);
     }
+
+    @GetMapping("/login")
+    public String logIn(@RequestBody EMSUser user) {
+        return userService.logInAndFetchToken(user);
+    }
+
+    @PostMapping("/updateuser")
+    public String updateUser(@RequestBody EMSUser user) {
+        return userService.updateUser(user);
+    }
 }

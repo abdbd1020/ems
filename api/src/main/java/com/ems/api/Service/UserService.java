@@ -20,4 +20,18 @@ public class UserService {
         userRepository.saveUser(user);
         return user.getId();
     }
+
+    @Transactional
+    public String logInAndFetchToken(EMSUser emsUser) {
+        EMSUser user = userRepository.getUserByName(emsUser.getName());
+        if (user != null && user.getPassword().equals(emsUser.getPassword())){
+            return user.getId();
+        }
+        return "Invalid User";
+    }
+
+    public String updateUser(EMSUser user) {
+        userRepository.updateUser(user);
+        return user.getId();
+    }
 }

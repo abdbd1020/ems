@@ -11,6 +11,7 @@ public class EMSUser {
     private String id;
     @Enumerated(EnumType.STRING)
     private Role role;
+    @Column(unique = true)
     private String name;
     private String email;
     private String password;
