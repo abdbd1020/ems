@@ -1,6 +1,6 @@
 package com.ems.api.controller;
 
-import com.ems.api.Service.UserService;
+import com.ems.api.service.UserService;
 import com.ems.api.model.EMSUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

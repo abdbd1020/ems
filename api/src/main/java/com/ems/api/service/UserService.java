@@ -1,4 +1,4 @@
-package com.ems.api.Service;
+package com.ems.api.service;
 
 import com.ems.api.model.EMSUser;
 import com.ems.api.model.Role;
