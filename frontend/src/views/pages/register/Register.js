@@ -1,4 +1,6 @@
-import React from 'react'
+import React from "react";
+import { Link, useNavigate } from "react-router-dom";
+
 import {
   CButton,
   CCard,
@@ -10,9 +12,9 @@ import {
   CInputGroup,
   CInputGroupText,
   CRow,
-} from '@coreui/react'
-import CIcon from '@coreui/icons-react'
-import { cilLockLocked, cilUser } from '@coreui/icons'
+} from "@coreui/react";
+import CIcon from "@coreui/icons-react";
+import { cilLockLocked, cilUser } from "@coreui/icons";
 
 const Register = () => {
   return (
@@ -29,7 +31,10 @@ const Register = () => {
                     <CInputGroupText>
                       <CIcon icon={cilUser} />
                     </CInputGroupText>
-                    <CFormInput placeholder="Username" autoComplete="username" />
+                    <CFormInput
+                      placeholder="Username"
+                      autoComplete="username"
+                    />
                   </CInputGroup>
                   <CInputGroup className="mb-3">
                     <CInputGroupText>@</CInputGroupText>
@@ -58,6 +63,12 @@ const Register = () => {
                   <div className="d-grid">
                     <CButton color="success">Create Account</CButton>
                   </div>
+                  <CRow className="text-center py-2">
+                    <p>
+                      Already have an account?
+                      <Link to="/login"> Log In </Link>
+                    </p>
+                  </CRow>
                 </CForm>
               </CCardBody>
             </CCard>
@@ -65,7 +76,7 @@ const Register = () => {
         </CRow>
       </CContainer>
     </div>
-  )
-}
+  );
+};
 
-export default Register
+export default Register;

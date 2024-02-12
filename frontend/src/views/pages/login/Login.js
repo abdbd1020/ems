@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
@@ -55,9 +54,6 @@ const Login = () => {
             <CCardGroup>
               <CCard className="p-4">
                 <CCardBody>
-                  <CContainer className="d-flex justify-content-center">
-                    <img src="logo.jpeg" alt="logo" height={150} />
-                  </CContainer>
                   <CForm>
                     <h1>Login</h1>
                     <p className="text-medium-emphasis">
@@ -87,35 +83,6 @@ const Login = () => {
                         placeholder="******"
                       />
                     </CInputGroup>
-                    <CInputGroup className="mb-3">
-                      <CFormCheck
-                        inline
-                        type="radio"
-                        id="inlineCheckbox1"
-                        value={ClientEnum.ADMIN_TYPE}
-                        label={ClientEnum.ADMIN_TYPE}
-                        checked={type === ClientEnum.ADMIN_TYPE}
-                        onChange={(e) => setType(e.target.value)}
-                      />
-                      <CFormCheck
-                        inline
-                        type="radio"
-                        id="inlineCheckbox2"
-                        value={ClientEnum.TEACHER_TYPE}
-                        label="INSTRUCTOR"
-                        checked={type === ClientEnum.TEACHER_TYPE}
-                        onChange={(e) => setType(e.target.value)}
-                      />
-                      <CFormCheck
-                        inline
-                        type="radio"
-                        id="inlineCheckbox3"
-                        value={ClientEnum.STUDENT_TYPE}
-                        label={ClientEnum.STUDENT_TYPE}
-                        checked={type === ClientEnum.STUDENT_TYPE}
-                        onChange={(e) => setType(e.target.value)}
-                      />
-                    </CInputGroup>
 
                     <CRow>
                       <CCol xs={6}>
@@ -127,6 +94,12 @@ const Login = () => {
                           Login
                         </CButton>
                       </CCol>
+                    </CRow>
+                    <CRow className="text-end">
+                      <p>
+                        Don&apos;t have an account?
+                        <Link to="/register"> Register </Link>
+                      </p>
                     </CRow>
                   </CForm>
                 </CCardBody>
