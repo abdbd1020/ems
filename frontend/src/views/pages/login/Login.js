@@ -67,7 +67,7 @@ const Login = () => {
                         type="email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        id="exampleFormControlInput2"
+                        id="exampleFormControlInput1"
                         placeholder="name@example.com"
                       />
                     </CInputGroup>

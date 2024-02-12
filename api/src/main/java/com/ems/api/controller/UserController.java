@@ -5,10 +5,12 @@ import com.ems.api.model.EMSUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin(origins = "http://localhost:3000")
 
 @RestController
 @RequestMapping("/user")
 public class UserController {
+
     @Autowired
     private UserService userService;
     @PostMapping("/signup")
@@ -16,6 +18,13 @@ public class UserController {
 
         return userService.createUserAndFetchToken(user);
     }
+
+    @GetMapping("/test")
+    public String test(@RequestBody EMSUser user) {
+
+        return "Working";
+    }
+
 
     @GetMapping("/login")
     public String logIn(@RequestBody EMSUser user) {

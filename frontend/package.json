@@ -2,6 +2,8 @@
   "name": "frontend",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://127.0.0.1:8080",
+
   "dependencies": {
     "@coreui/chartjs": "^3.1.2",
     "@coreui/icons": "^3.0.1",
@@ -22,6 +24,7 @@
     "simplebar": "^6.2.5",
     "simplebar-react": "^3.2.4",
     "style-loader": "^3.3.4",
+    "sweetalert2": "^11.10.5",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -51,4 +54,5 @@
   "devDependencies": {
     "eslint-plugin-prettier": "^5.1.3"
   }
+
 }

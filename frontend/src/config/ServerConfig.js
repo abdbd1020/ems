@@ -1,15 +1,13 @@
-/* eslint-disable prettier/prettier */
 import utility from "../utility/utility";
 
 const prod = {
   url: {
-    // API_URL: 'http://35.224.190.237:2526',
-    API_URL: "http://127.0.0.1:5000",
+    API_URL: "http://127.0.0.1:8080",
   },
 };
 const dev = {
   url: {
-    API_URL: "http://127.0.0.1:5000",
+    API_URL: "http://127.0.0.1:8080",
   },
 };
 
