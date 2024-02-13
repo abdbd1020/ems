@@ -1,6 +1,7 @@
 package com.ems.api.repository;
 
 import com.ems.api.model.EMSUser;
+import com.ems.api.model.Role;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,20 +9,22 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class UserRepository {
+
+
     @Autowired
     private EntityManager entityManager;
 
-    @Transactional
-    public EMSUser saveUser(EMSUser user) {
-        entityManager.persist(user);
-        return user;
-    }
-    public EMSUser getUserByName (String name) {
-
-        return entityManager.createQuery("SELECT u FROM EMSUser u WHERE u.name = :name", EMSUser.class)
-                .setParameter("name", name)
+    public EMSUser findByRole(Role role) {
+        return entityManager.createQuery("SELECT u FROM EMSUser u WHERE u.role = :role", EMSUser.class)
+                .setParameter("role", role)
                 .getSingleResult();
     }
+
+    @Transactional
+    public void saveUser(EMSUser user) {
+        entityManager.persist(user);
+    }
+
 
     public void updateUser(EMSUser user) {
 
@@ -32,5 +35,12 @@ public class UserRepository {
                 .setParameter("phone", user.getPhone())
                 .setParameter("id", user.getId())
                 .executeUpdate();
+    }
+
+    public EMSUser getUserByEmail(String email) {
+
+        return entityManager.createQuery("SELECT u FROM EMSUser u WHERE u.email = :email", EMSUser.class)
+                .setParameter("email", email)
+                .getSingleResult();
     }
 }

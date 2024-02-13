@@ -27,9 +27,9 @@ const Login = () => {
 
   const handleSubmit = async () => {
     const payload = {
-      userEmail: email,
-      userPassword: password,
-      userType: type,
+      email: email,
+      password: password,
+      role: type,
     };
     console.log(payload);
     const response = await DefaultService.instance.login(payload);
@@ -81,6 +81,35 @@ const Login = () => {
                         onChange={(e) => setPassword(e.target.value)}
                         id="exampleFormControlInput2"
                         placeholder="******"
+                      />
+                    </CInputGroup>
+                    <CInputGroup className="mb-3">
+                      <CFormCheck
+                        inline
+                        type="radio"
+                        id="inlineCheckbox1"
+                        value={ClientEnum.ADMIN_TYPE}
+                        label={ClientEnum.ADMIN_TYPE}
+                        checked={type === ClientEnum.ADMIN_TYPE}
+                        onChange={(e) => setType(e.target.value)}
+                      />
+                      <CFormCheck
+                        inline
+                        type="radio"
+                        id="inlineCheckbox2"
+                        value={ClientEnum.TEACHER_TYPE}
+                        label="TEACHER"
+                        checked={type === ClientEnum.TEACHER_TYPE}
+                        onChange={(e) => setType(e.target.value)}
+                      />
+                      <CFormCheck
+                        inline
+                        type="radio"
+                        id="inlineCheckbox3"
+                        value={ClientEnum.STUDENT_TYPE}
+                        label={ClientEnum.STUDENT_TYPE}
+                        checked={type === ClientEnum.STUDENT_TYPE}
+                        onChange={(e) => setType(e.target.value)}
                       />
                     </CInputGroup>
 

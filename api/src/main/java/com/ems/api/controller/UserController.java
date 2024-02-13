@@ -20,13 +20,13 @@ public class UserController {
     }
 
     @GetMapping("/test")
-    public String test(@RequestBody EMSUser user) {
+    public String test() {
 
         return "Working";
     }
 
 
-    @GetMapping("/login")
+    @PostMapping("/login")
     public String logIn(@RequestBody EMSUser user) {
         return userService.logInAndFetchToken(user);
     }

@@ -27,20 +27,22 @@ export default class DefaultService {
     let retry = 0;
 
     while (retry++ < 2) {
-      console.log(ServerConfig.url.API_URL + "/login");
+      console.log(ServerConfig.url.API_URL + "/user/login");
       try {
         const loginResponse = await axios.post(
-          ServerConfig.url.API_URL + "/login",
+          ServerConfig.url.API_URL + "/user/login",
           payload,
           DefaultService.instance.getHeader(),
         );
-
-        switch (loginResponse.data.responseMessage) {
-          default:
-            return loginResponse.data;
+        console.log(loginResponse);
+        if (loginResponse.status == "200") {
+          return {
+            status: true,
+            data: loginResponse.data,
+          };
         }
       } catch (error) {
-        console.log("Error in login in services/TeacherService.js");
+        console.log("Error in login in services/DefaultService.js");
         console.log(error);
         retry++;
       }
@@ -67,7 +69,7 @@ export default class DefaultService {
           };
         }
       } catch (error) {
-        console.log("Error in login in services/TeacherService.js");
+        console.log("Error in login in services/DefaultService.js");
         console.log(error);
         retry++;
       }
