@@ -31,14 +31,13 @@ const Login = () => {
       password: password,
       role: type,
     };
-    console.log(payload);
     const response = await DefaultService.instance.login(payload);
     if (response.status) {
-      console.log(response);
-      response.user[0].type = type;
-      localStorage.setItem("user", JSON.stringify(response.user[0]));
+      localStorage.setItem("user", JSON.stringify(response.data));
+      localStorage.setItem("userRole", JSON.stringify(type));
+
       if (type === ClientEnum.ADMIN_TYPE)
-        navigate("/admin/teacher/teacher-list", { replace: true });
+        navigate("/admin/user-list", { replace: true });
       else if (type === ClientEnum.TEACHER_TYPE)
         navigate("/teacher/course-list", { replace: true });
       else if (type === ClientEnum.STUDENT_TYPE)

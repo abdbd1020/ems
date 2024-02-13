@@ -17,6 +17,7 @@ import { sygnet } from "../assets/brand/sygnet";
 
 import SimpleBar from "simplebar-react";
 import "simplebar/dist/simplebar.min.css";
+import navigation from "../_nav";
 
 // sidebar nav config
 // import navigation from "../_nav";
@@ -46,7 +47,9 @@ const AppSidebar = () => {
         <img src="logo.jpeg" alt="logo" height={80}></img>
       </CSidebarBrand>
       <CSidebarNav>
-        <SimpleBar>{/* <AppSidebarNav items={navigation} /> */}</SimpleBar>
+        <SimpleBar>
+          <AppSidebarNav items={navigation} />
+        </SimpleBar>
       </CSidebarNav>
       <CSidebarToggler
         className="d-none d-lg-flex"

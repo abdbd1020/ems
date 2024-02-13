@@ -33,7 +33,6 @@ const Register = () => {
       password: password,
       phone: phone,
     };
-    console.log(payload);
     const response = await DefaultService.instance.register(payload);
 
     if (response.status) {

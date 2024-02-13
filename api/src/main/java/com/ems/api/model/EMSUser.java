@@ -1,6 +1,7 @@
 package com.ems.api.model;
 
 import jakarta.persistence.*;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @Entity
 public class EMSUser {
@@ -19,7 +20,6 @@ public class EMSUser {
     private String phone;
     @Enumerated(EnumType.STRING)
     private Status status;
-
 
     public String getId() {
         return id;

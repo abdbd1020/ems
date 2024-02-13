@@ -34,7 +34,6 @@ export default class DefaultService {
           payload,
           DefaultService.instance.getHeader(),
         );
-        console.log(loginResponse);
         if (loginResponse.status == "200") {
           return {
             status: true,
