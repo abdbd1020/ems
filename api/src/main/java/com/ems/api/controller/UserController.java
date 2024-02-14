@@ -1,5 +1,6 @@
 package com.ems.api.controller;
 
+import com.ems.api.config.SecurityConfig;
 import com.ems.api.service.UserService;
 import com.ems.api.model.EMSUser;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
     @PostMapping("/signup")
     public String signUp(@RequestBody EMSUser user) {
 

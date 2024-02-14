@@ -11,12 +11,18 @@ import org.springframework.stereotype.Repository;
 public class UserRepository {
 
 
+
     @Autowired
     private EntityManager entityManager;
 
     public EMSUser findByRole(Role role) {
         return entityManager.createQuery("SELECT u FROM EMSUser u WHERE u.role = :role", EMSUser.class)
                 .setParameter("role", role)
+                .getSingleResult();
+    }
+    public EMSUser findByName(String name) {
+        return entityManager.createQuery("SELECT u FROM EMSUser u WHERE u.name = :name", EMSUser.class)
+                .setParameter("name", name)
                 .getSingleResult();
     }
 

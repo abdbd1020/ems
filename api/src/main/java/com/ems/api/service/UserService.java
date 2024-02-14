@@ -1,5 +1,6 @@
 package com.ems.api.service;
 
+import com.ems.api.config.SecurityConfig;
 import com.ems.api.model.EMSUser;
 import com.ems.api.model.Role;
 import com.ems.api.model.Status;
@@ -14,11 +15,20 @@ import org.springframework.web.server.ResponseStatusException;
 public class UserService {
 
     @Autowired
+    JwtService jwtService;
+
+    @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private SecurityConfig securityConfig;
+
+
     @Transactional
     public String createUserAndFetchToken(EMSUser user) {
         user.setRole(Role.GUEST);
         user.setStatus(Status.INACTIVE);
+        user.setPassword(securityConfig.passwordEncoder().encode(user.getPassword()));
         userRepository.saveUser(user);
         return user.getId();
     }
@@ -27,12 +37,9 @@ public class UserService {
     public String logInAndFetchToken(EMSUser emsUser) {
         EMSUser user = userRepository.getUserByEmail(emsUser.getEmail());
 
-        if (user == null) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid credentials");
 
-        }
 
-        if (!user.getPassword().equals(emsUser.getPassword())) {
+        if (!isPasswordMatching(emsUser.getPassword(), user.getPassword())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid credentials");
         }
 
@@ -45,11 +52,23 @@ public class UserService {
         }
 
         // Successful authentication and authorization
-        return user.getId();
+
+        return jwtService.generateToken(emsUser.getName());
     }
 
     public String updateUser(EMSUser user) {
         userRepository.updateUser(user);
         return user.getId();
+    }
+
+    private boolean isPasswordMatching(String rawPassword, String hashedPassword) {
+        // Check if the hashed password starts with the bcrypt identifier
+        if (hashedPassword.startsWith("$2a$")) {
+            // Hash the raw password and compare it with the stored hashed password
+            return securityConfig.passwordEncoder().matches(rawPassword, hashedPassword);
+        } else {
+            // Compare plain text password with stored hashed password (for admin)
+            return rawPassword.equals(hashedPassword);
+        }
     }
 }

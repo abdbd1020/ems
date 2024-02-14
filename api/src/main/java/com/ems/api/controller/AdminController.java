@@ -1,5 +1,6 @@
 package com.ems.api.controller;
 
+import com.ems.api.config.SecurityConfig;
 import com.ems.api.dto.AuthRequest;
 import com.ems.api.model.EMSUser;
 import com.ems.api.service.AdminService;
@@ -18,8 +19,10 @@ import java.util.ArrayList;
 @RequestMapping("/admin")
 public class AdminController {
     @Autowired
-
     private AuthenticationManager authenticationManager;
+
+    @Autowired
+    SecurityConfig securityConfig;
 
     @Autowired
     private AdminService adminService;
@@ -37,14 +40,17 @@ public class AdminController {
     }
 
     @PostMapping("/authenticate")
-    public String AuthenticateAndGetToken(@RequestBody AuthRequest authRequest) {
-        Authentication authentication =  authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getName(), authRequest.getPassword()));
+    public String authenticateAndGetToken(@RequestBody AuthRequest authRequest) {
+
+        System.out.println("authRequest");
+        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getName(), authRequest.getPassword()));
+
+        System.out.println("authentication");
 
         if (authentication.isAuthenticated()) {
-                    return jwtService.generateToken(authRequest.getName());
-                }
-        else{
-            throw new UsernameNotFoundException("Invalid username or password");
+            return jwtService.generateToken(authRequest.getName());
+        } else {
+            throw new UsernameNotFoundException("invalid user request !");
         }
 
     }
