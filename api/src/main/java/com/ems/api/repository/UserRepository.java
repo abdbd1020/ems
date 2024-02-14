@@ -49,4 +49,6 @@ public class UserRepository {
                 .setParameter("email", email)
                 .getSingleResult();
     }
+
+
 }

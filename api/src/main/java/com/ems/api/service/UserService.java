@@ -51,9 +51,7 @@ public class UserService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Role mismatch");
         }
 
-        // Successful authentication and authorization
-
-        return jwtService.generateToken(emsUser.getName());
+        return jwtService.generateToken(user.getEmail());
     }
 
     public String updateUser(EMSUser user) {
@@ -62,12 +60,9 @@ public class UserService {
     }
 
     private boolean isPasswordMatching(String rawPassword, String hashedPassword) {
-        // Check if the hashed password starts with the bcrypt identifier
         if (hashedPassword.startsWith("$2a$")) {
-            // Hash the raw password and compare it with the stored hashed password
             return securityConfig.passwordEncoder().matches(rawPassword, hashedPassword);
         } else {
-            // Compare plain text password with stored hashed password (for admin)
             return rawPassword.equals(hashedPassword);
         }
     }

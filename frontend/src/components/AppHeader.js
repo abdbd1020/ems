@@ -43,7 +43,8 @@ const AppHeader = () => {
   }
 
   const signout = () => {
-    localStorage.removeItem("user");
+    localStorage.removeItem("userJWT");
+    localStorage.removeItem("userRole");
     navigate("/login", { replace: true });
   };
 

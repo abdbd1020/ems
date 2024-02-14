@@ -1,5 +1,7 @@
 package com.ems.api.config;
 
+import com.ems.api.filter.JwtAuthFilter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -18,6 +20,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 
@@ -25,6 +28,9 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableWebSecurity
 @EnableMethodSecurity(securedEnabled = true, jsr250Enabled = true)
 public class SecurityConfig {
+
+    @Autowired
+    JwtAuthFilter jwtAuthFilter;
 
 
 
@@ -36,7 +42,8 @@ public class SecurityConfig {
                         .requestMatchers(new AntPathRequestMatcher("/admin/authenticate/**")).permitAll()
                         .requestMatchers(new AntPathRequestMatcher("/user/login")).permitAll()
                         .requestMatchers(new AntPathRequestMatcher("/admin/authenticate")).permitAll()
-                        .anyRequest().authenticated());
+                        .anyRequest().authenticated()).addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+
 
 
         return http.build();

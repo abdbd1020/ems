@@ -13,7 +13,7 @@ class AdminService {
       try {
         const getTeacherListResponse = await axios.get(
           ServerConfig.url.API_URL + "/admin/getallusers",
-          DefaultService.instance.getHeader(),
+          DefaultService.instance.getHeaderWithToken(),
         );
         if (getTeacherListResponse.status == "200") {
           return {

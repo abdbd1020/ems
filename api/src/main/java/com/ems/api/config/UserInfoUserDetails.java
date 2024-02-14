@@ -19,9 +19,11 @@ public class UserInfoUserDetails implements UserDetails {
     private List<GrantedAuthority> authorities;
 
     public UserInfoUserDetails(EMSUser emsUser) {
-        name=emsUser.getName();
+        name=emsUser.getEmail();
         password=emsUser.getPassword();
-        authorities= (List<GrantedAuthority>) Arrays.stream(new Role[]{emsUser.getRole()});
+        authorities= Arrays.stream(new String[]{emsUser.getRole().toString()})
+                .map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toList());
 
     }
 

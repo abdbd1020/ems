@@ -39,19 +39,4 @@ public class AdminController {
         return adminService.updateUser(user);
     }
 
-    @PostMapping("/authenticate")
-    public String authenticateAndGetToken(@RequestBody AuthRequest authRequest) {
-
-        System.out.println("authRequest");
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getName(), authRequest.getPassword()));
-
-        System.out.println("authentication");
-
-        if (authentication.isAuthenticated()) {
-            return jwtService.generateToken(authRequest.getName());
-        } else {
-            throw new UsernameNotFoundException("invalid user request !");
-        }
-
-    }
 }

@@ -16,6 +16,21 @@ export default class DefaultService {
       },
     };
   }
+  getHeaderWithToken() {
+    const userJWT = JSON.parse(localStorage.getItem("userJWT"));
+    // add bearer token
+    const bearerToken = "Bearer " + userJWT;
+
+    return {
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "*",
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        authorization: bearerToken,
+      },
+    };
+  }
   defaultResponse() {
     return {
       status: false,

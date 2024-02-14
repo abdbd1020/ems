@@ -33,7 +33,7 @@ const Login = () => {
     };
     const response = await DefaultService.instance.login(payload);
     if (response.status) {
-      localStorage.setItem("user", JSON.stringify(response.data));
+      localStorage.setItem("userJWT", JSON.stringify(response.data));
       localStorage.setItem("userRole", JSON.stringify(type));
 
       if (type === ClientEnum.ADMIN_TYPE)
