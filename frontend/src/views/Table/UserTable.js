@@ -23,7 +23,7 @@ const UserTable = ({ userList }) => {
 
   const handleUpdate = async (UserId) => {
     const userData = userList.filter((user) => user.id === UserId);
-    navigate("/admin/update-user", { state: { userData }, replace: true });
+    navigate("/admin/user/update-user", { state: { userData }, replace: true });
   };
 
   return (

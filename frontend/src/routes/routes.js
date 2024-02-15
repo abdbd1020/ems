@@ -16,7 +16,12 @@ const AdminInactiveUserList = React.lazy(
 const AdminUpdateUser = React.lazy(
   () => import("../views/admin/user/AdminUpdateUser"),
 );
-
+const AdminFacultysList = React.lazy(
+  () => import("../views/admin/faculty/AdminFacultyList"),
+);
+const AdminAddUpdateFaculty = React.lazy(
+  () => import("../views/admin/faculty/AdminAddUpdateFaculty"),
+);
 const routes = [
   { path: "/", exact: true, name: "Home" },
   { path: "/dashboard", name: "Dashboard", element: Dashboard },
@@ -37,9 +42,19 @@ const routes = [
     element: AdminInactiveUserList,
   },
   {
-    path: "/admin/update-user",
+    path: "/admin/user/update-user",
     name: "Update User",
     element: AdminUpdateUser,
+  },
+  {
+    path: "/admin/faculty/faculty-list",
+    name: "Faculty List",
+    element: AdminFacultysList,
+  },
+  {
+    path: "/admin/faculty/add-update-faculty",
+    name: "Add Faculty",
+    element: AdminAddUpdateFaculty,
   },
 ];
 

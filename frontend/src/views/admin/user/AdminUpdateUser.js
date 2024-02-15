@@ -49,7 +49,7 @@ const AdminUpdateUser = () => {
         text: "User has been updated.",
         icon: "success",
       }).then(() => {
-        navigate("/admin/user-list");
+        navigate("/admin/user/inactive-user-list");
       });
     } else {
       Swal.fire({
@@ -57,7 +57,7 @@ const AdminUpdateUser = () => {
         text: "Please try again.",
         icon: "error",
       }).then(() => {
-        navigate("/admin/user-list");
+        navigate("/admin/user/inactive-user-list");
       });
     }
   };

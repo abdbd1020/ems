@@ -1,6 +1,7 @@
 package com.ems.api.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 
@@ -10,8 +11,10 @@ public class Faculty {
     @jakarta.persistence.Id
     @GeneratedValue(strategy = GenerationType.UUID)
     String Id;
+    @NotNull
     @Column(unique = true)
     String name;
+    @NotNull
     private String description;
 
     public String getId() {

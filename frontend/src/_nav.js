@@ -49,12 +49,27 @@ const _nav = [
     ],
   },
   {
-    component: CNavItem,
-    name: "Users",
-    to: "/admin/user-list",
+    component: CNavGroup,
+    name: "Faculty",
+    to: "/admin/faculty/",
     icon: <CIcon icon={cilStar} customClassName="nav-icon" />,
     authority: ClientEnum.ADMIN_TYPE,
+    items: [
+      {
+        component: CNavItem,
+        name: "Faculty List",
+        to: "/admin/faculty/faculty-list",
+        authority: ClientEnum.ADMIN_TYPE,
+      },
+      {
+        component: CNavItem,
+        name: "Add Faculty",
+        to: "/admin/faculty/add-update-faculty",
+        authority: ClientEnum.ADMIN_TYPE,
+      },
+    ],
   },
+
   {
     component: CNavItem,
     name: "IN/OUT Register",

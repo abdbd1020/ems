@@ -47,59 +47,7 @@ class AdminService {
           };
         }
       } catch (error) {
-        console.log("Error in" + api + " in services/AdminService.js");
-        console.log(error);
-        retry++;
-      }
-    }
-    return DefaultService.instance.defaultResponse();
-  }
-
-  async updateUser(payload) {
-    let retry = 0;
-
-    while (retry++ < 2) {
-      console.log(ServerConfig.url.API_URL + "/admin/updateuser");
-      try {
-        const addTeacherResponse = await axios.post(
-          ServerConfig.url.API_URL + "/admin/updateuser",
-          payload,
-          DefaultService.instance.getHeader(),
-        );
-
-        if (addTeacherResponse.status == "200") {
-          return {
-            status: true,
-            responseMessage: addTeacherResponse.data.responseMessage,
-          };
-        }
-      } catch (error) {
-        console.log("Error in addTeacher in services/AdminService.js");
-        console.log(error);
-        retry++;
-      }
-    }
-    return DefaultService.instance.defaultResponse();
-  }
-
-  async deleteUser(payload) {
-    let retry = 0;
-
-    while (retry++ < 2) {
-      console.log(ServerConfig.url.API_URL + "/admin_delete_teacher");
-      try {
-        const addTeacherResponse = await axios.post(
-          ServerConfig.url.API_URL + "/admin_delete_teacher",
-          payload,
-          DefaultService.instance.getHeader(),
-        );
-
-        switch (addTeacherResponse.data.responseMessage) {
-          default:
-            return addTeacherResponse.data;
-        }
-      } catch (error) {
-        console.log("Error in deleteTeacher in services/AdminService.js");
+        console.log("Error in " + api + " in services/AdminService.js");
         console.log(error);
         retry++;
       }
@@ -118,6 +66,145 @@ class AdminService {
   async getAllStudents() {
     const api = "/getallstudents";
     return this.getAllSpecifiicUsers(api);
+  }
+
+  async updateUser(payload) {
+    let retry = 0;
+
+    while (retry++ < 2) {
+      console.log(ServerConfig.url.API_URL + "/admin/updateuser");
+      try {
+        const addTeacherResponse = await axios.post(
+          ServerConfig.url.API_URL + "/admin/updateuser",
+          payload,
+          DefaultService.instance.getHeaderWithToken(),
+        );
+
+        if (addTeacherResponse.status == "200") {
+          return {
+            status: true,
+            responseMessage: addTeacherResponse.data.responseMessage,
+          };
+        }
+      } catch (error) {
+        console.log("Error in addTeacher in services/AdminService.js");
+        console.log(error);
+        retry++;
+      }
+    }
+    return DefaultService.instance.defaultResponse();
+  }
+
+  // async deleteUser(payload) {
+  //   let retry = 0;
+
+  //   while (retry++ < 2) {
+  //     console.log(ServerConfig.url.API_URL + "/admin_delete_teacher");
+  //     try {
+  //       const addTeacherResponse = await axios.post(
+  //         ServerConfig.url.API_URL + "/admin_delete_teacher",
+  //         payload,
+  //         DefaultService.instance.getHeaderWithToken(),
+  //       );
+
+  //       switch (addTeacherResponse.data.responseMessage) {
+  //         default:
+  //           return addTeacherResponse.data;
+  //       }
+  //     } catch (error) {
+  //       console.log("Error in deleteTeacher in services/AdminService.js");
+  //       console.log(error);
+  //       retry++;
+  //     }
+  //   }
+  //   return DefaultService.instance.defaultResponse();
+  // }
+
+  async getAllFaculty() {
+    let retry = 0;
+
+    while (retry++ < 2) {
+      console.log(ServerConfig.url.API_URL + "/admin/getallfaculty");
+      try {
+        const getTeacherListResponse = await axios.get(
+          ServerConfig.url.API_URL + "/admin/getallfaculty",
+          DefaultService.instance.getHeaderWithToken(),
+        );
+        if (getTeacherListResponse.status == "200") {
+          return {
+            status: true,
+            facultyList: getTeacherListResponse.data,
+          };
+        }
+      } catch (error) {
+        console.log("Error in getAllFaculty in services/AdminService.js");
+        console.log(error);
+        retry++;
+      }
+    }
+    return DefaultService.instance.defaultResponse();
+  }
+
+  async createFaculty(payload) {
+    for (const key in payload) {
+      console.log(key, payload[key]);
+    }
+
+    let retry = 0;
+
+    while (retry++ < 2) {
+      console.log(ServerConfig.url.API_URL + "/admin/addfaculty");
+      try {
+        const addTeacherResponse = await axios.post(
+          ServerConfig.url.API_URL + "/admin/addfaculty",
+          payload,
+          DefaultService.instance.getHeaderWithToken(),
+        );
+
+        if (addTeacherResponse.status == "200") {
+          return {
+            status: true,
+            responseMessage: addTeacherResponse.data.responseMessage,
+          };
+        }
+      } catch (error) {
+        console.log("Error in createFaculty in services/AdminService.js");
+        console.log(error);
+        retry++;
+      }
+    }
+    return DefaultService.instance.defaultResponse();
+  }
+
+  async updateFaculty(payload) {
+    for (const key in payload) {
+      console.log(key, payload[key]);
+    }
+
+    let retry = 0;
+
+    while (retry++ < 2) {
+      console.log(ServerConfig.url.API_URL + "/admin/updatefaculty");
+      try {
+        const addTeacherResponse = await axios.post(
+          ServerConfig.url.API_URL + "/admin/updatefaculty",
+          payload,
+          DefaultService.instance.getHeaderWithToken(),
+        );
+
+        if (addTeacherResponse.status == "200") {
+          return {
+            status: true,
+            responseMessage: addTeacherResponse.data.responseMessage,
+          };
+        }
+      } catch (error) {
+        console.log("Error in updatefaculty in services/AdminService.js");
+        console.log(error);
+        retry++;
+      }
+    }
+    return DefaultService.instance.defaultResponse();
   }
 }
 

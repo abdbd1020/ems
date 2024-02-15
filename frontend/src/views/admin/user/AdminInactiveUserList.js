@@ -21,7 +21,6 @@ import UserTable from "src/views/Table/UserTable";
 const column = ["Name", "Email", "Phone", "Role", "Status", "Action"];
 
 const AdminInactiveUserLis = () => {
-  console.log("InactiveUserList");
   const navigate = useNavigate();
 
   const [tableData, setTableData] = useState([]);

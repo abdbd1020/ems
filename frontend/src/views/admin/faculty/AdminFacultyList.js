@@ -16,10 +16,12 @@ import {
 } from "@coreui/react";
 import { DocsExample } from "src/components";
 import AdminService from "src/services/AdminService";
+import { useNavigate } from "react-router-dom";
 
-const column = ["Name", "Email", "Phone", "Action"];
+const column = ["Name", "Description", , "Action"];
 
-const TeacherList = () => {
+const AdminFacultysList = () => {
+  const navigate = useNavigate();
   const [tableData, setTableData] = useState([]);
 
   useEffect(() => {
@@ -27,19 +29,19 @@ const TeacherList = () => {
   }, []);
 
   const fetchTeacherList = async () => {
-    const response = await AdminService.instance.getTeacherList();
+    const response = await AdminService.instance.getAllFaculty();
     console.log(response);
-    if (response.status) setTableData(response.teacherList);
+    if (response.status) setTableData(response.facultyList);
   };
 
-  const handleDelete = async (teacherId) => {
-    const payload = {
-      teacherId: teacherId,
-    };
-
-    const response = await AdminService.instance.deleteTeacher(payload);
-    console.log(response);
-    if (response.status) fetchTeacherList();
+  const handleUpdate = async (facultyIid) => {
+    const facultyData = tableData.filter(
+      (faculty) => faculty.id === facultyIid,
+    );
+    navigate("/admin/faculty/add-update-faculty", {
+      state: { facultyData },
+      replace: true,
+    });
   };
 
   return (
@@ -47,7 +49,7 @@ const TeacherList = () => {
       <CCol xs={12}>
         <CCard className="mb-4">
           <CCardHeader>
-            <strong>Instructor List</strong>
+            <strong>Faculty List</strong>
           </CCardHeader>
           <CCardBody>
             <CTable striped>
@@ -65,18 +67,17 @@ const TeacherList = () => {
               <CTableBody>
                 {tableData.map((row) => {
                   return (
-                    <CTableRow key={row.teacherId}>
+                    <CTableRow key={row.id}>
                       <CTableHeaderCell scope="row">
-                        {row.teacherName}
+                        {row.name}
                       </CTableHeaderCell>
-                      <CTableDataCell>{row.teacherEmail}</CTableDataCell>
-                      <CTableDataCell>{row.teacherPhone}</CTableDataCell>
+                      <CTableDataCell>{row.description}</CTableDataCell>
                       <CTableDataCell>
                         <CButton
-                          color="danger"
-                          onClick={() => handleDelete(row.teacherId)}
+                          color="success"
+                          onClick={() => handleUpdate(row.id)}
                         >
-                          Delete
+                          Update
                         </CButton>
                       </CTableDataCell>
                     </CTableRow>
@@ -91,4 +92,4 @@ const TeacherList = () => {
   );
 };
 
-export default TeacherList;
+export default AdminFacultysList;

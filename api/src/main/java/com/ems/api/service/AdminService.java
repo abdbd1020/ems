@@ -1,8 +1,6 @@
 package com.ems.api.service;
 
-import com.ems.api.model.EMSUser;
-import com.ems.api.model.Role;
-import com.ems.api.model.Status;
+import com.ems.api.model.*;
 import com.ems.api.repository.AdminRepository;
 import com.ems.api.repository.UserRepository;
 import jakarta.transaction.Transactional;
@@ -18,6 +16,7 @@ public class AdminService {
 
     @Autowired
     private UserRepository userRepository;
+
 
     @Transactional
     public ArrayList<EMSUser> getAllUsers() {
@@ -55,5 +54,22 @@ public class AdminService {
         return adminRepository.getAllUsersByRole(role);
     }
 
+    @Transactional
+    public ArrayList<Department> getAllDepartments() {
+        return adminRepository.getAllDepartments();
+    }
+    @Transactional
+    public ArrayList<Faculty> getAllFaculty() {
+        return adminRepository.getAllFaculty();
+    }
+    @Transactional
+    public String addFaculty(Faculty faculty) {
+        adminRepository.saveFaculty(faculty);
+        return "Faculty Added Successfully";
+    }
 
+    @Transactional
+    public String updateFaculty(Faculty faculty) {
+        return adminRepository.updateFaculty(faculty);
+    }
 }

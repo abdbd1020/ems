@@ -1,7 +1,9 @@
 package com.ems.api.controller;
 
 import com.ems.api.config.SecurityConfig;
+import com.ems.api.model.Department;
 import com.ems.api.model.EMSUser;
+import com.ems.api.model.Faculty;
 import com.ems.api.model.Role;
 import com.ems.api.service.AdminService;
 import com.ems.api.service.JwtService;
@@ -29,8 +31,6 @@ public class AdminController {
     }
     @PostMapping("/updateuser")
     public String updateUser(@RequestBody EMSUser user) {
-        System.out.println("user.getId()");
-
 
         return adminService.updateUser(user);
     }
@@ -45,6 +45,26 @@ public class AdminController {
     @GetMapping("/getallteachers")
     public ArrayList<EMSUser> getAllTeachers() {
         return adminService.getAllUsersByRole(Role.TEACHER);
+    }
+
+    @GetMapping("/getalldepartments")
+    public ArrayList<Department> getAllDepartments() {
+        return adminService.getAllDepartments();
+    }
+    @GetMapping("/getallfaculty")
+    public ArrayList<Faculty> getAllFaculty() {
+          return adminService.getAllFaculty();
+
+    }
+    @PostMapping("/addfaculty")
+    public String addFaculty(@RequestBody Faculty faculty) {
+        System.out.println(faculty.getName());
+        System.out.println(faculty.getDescription());
+        return adminService.addFaculty(faculty);
+    }
+    @PostMapping("/updatefaculty")
+    public String updateFaculty(@RequestBody Faculty faculty) {
+        return adminService.updateFaculty(faculty);
     }
 
 }

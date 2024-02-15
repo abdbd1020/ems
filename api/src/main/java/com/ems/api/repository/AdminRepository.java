@@ -1,8 +1,6 @@
 package com.ems.api.repository;
 
-import com.ems.api.model.EMSUser;
-import com.ems.api.model.Role;
-import com.ems.api.model.Status;
+import com.ems.api.model.*;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,5 +44,32 @@ public class AdminRepository {
         return (ArrayList<EMSUser>) entityManager.createQuery("SELECT u FROM EMSUser u WHERE u.role = :role", EMSUser.class)
                 .setParameter("role", role)
                 .getResultList();
+    }
+    @Transactional
+    public ArrayList<Department> getAllDepartments() {
+        return (ArrayList<Department>) entityManager.createQuery("SELECT d FROM Department d", Department.class).getResultList();
+    }
+    @Transactional
+    public ArrayList<Faculty> getAllFaculty() {
+        return (ArrayList<Faculty>) entityManager.createQuery("SELECT f FROM Faculty f", Faculty.class).getResultList();
+    }
+
+    @Transactional
+    public void saveFaculty(Faculty faculty) {
+        System.out.println(faculty.getName());
+        System.out.println(faculty.getDescription());
+        entityManager.createQuery("INSERT INTO Faculty (name, description) VALUES (:name, :description)")
+                .setParameter("name", faculty.getName())
+                .setParameter("description", faculty.getDescription())
+                .executeUpdate();
+    }
+    @Transactional
+    public String updateFaculty(Faculty faculty) {
+        entityManager.createQuery("UPDATE Faculty f SET f.name = :name, f.description = :description WHERE f.id = :id")
+                .setParameter("name", faculty.getName())
+                .setParameter("description", faculty.getDescription())
+                .setParameter("id", faculty.getId())
+                .executeUpdate();
+        return "Faculty Updated Successfully";
     }
 }
