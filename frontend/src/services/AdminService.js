@@ -30,6 +30,31 @@ class AdminService {
     return DefaultService.instance.defaultResponse();
   }
 
+  async getAllSpecifiicUsers(api) {
+    let retry = 0;
+
+    while (retry++ < 2) {
+      console.log(ServerConfig.url.API_URL + "/admin" + api);
+      try {
+        const getTeacherListResponse = await axios.get(
+          ServerConfig.url.API_URL + "/admin" + api,
+          DefaultService.instance.getHeaderWithToken(),
+        );
+        if (getTeacherListResponse.status == "200") {
+          return {
+            status: true,
+            userList: getTeacherListResponse.data,
+          };
+        }
+      } catch (error) {
+        console.log("Error in" + api + " in services/AdminService.js");
+        console.log(error);
+        retry++;
+      }
+    }
+    return DefaultService.instance.defaultResponse();
+  }
+
   async updateUser(payload) {
     let retry = 0;
 
@@ -80,6 +105,19 @@ class AdminService {
       }
     }
     return DefaultService.instance.defaultResponse();
+  }
+
+  async getAllInactiveUsers() {
+    const api = "/getallinactiveusers";
+    return this.getAllSpecifiicUsers(api);
+  }
+  async getAllTeachers() {
+    const api = "/getallteachers";
+    return this.getAllSpecifiicUsers(api);
+  }
+  async getAllStudents() {
+    const api = "/getallstudents";
+    return this.getAllSpecifiicUsers(api);
   }
 }
 

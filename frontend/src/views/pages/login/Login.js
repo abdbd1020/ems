@@ -37,7 +37,7 @@ const Login = () => {
       localStorage.setItem("userRole", JSON.stringify(type));
 
       if (type === ClientEnum.ADMIN_TYPE)
-        navigate("/admin/user-list", { replace: true });
+        navigate("/admin/user/inactive-user-list", { replace: true });
       else if (type === ClientEnum.TEACHER_TYPE)
         navigate("/teacher/course-list", { replace: true });
       else if (type === ClientEnum.STUDENT_TYPE)

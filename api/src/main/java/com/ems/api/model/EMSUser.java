@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 public class EMSUser {
 
     @Id

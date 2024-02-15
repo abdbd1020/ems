@@ -1,4 +1,5 @@
-import React from 'react'
+import React from "react";
+import { Link, useNavigate } from "react-router-dom";
 import {
   CButton,
   CCol,
@@ -7,11 +8,16 @@ import {
   CInputGroup,
   CInputGroupText,
   CRow,
-} from '@coreui/react'
-import CIcon from '@coreui/icons-react'
-import { cilMagnifyingGlass } from '@coreui/icons'
+} from "@coreui/react";
 
 const Page500 = () => {
+  const navigate = useNavigate();
+  const handleButtonClick = () => {
+    localStorage.removeItem("userJWT");
+    localStorage.removeItem("userRole");
+    navigate("/login", { replace: true });
+  };
+
   return (
     <div className="bg-light min-vh-100 d-flex flex-row align-items-center">
       <CContainer>
@@ -24,18 +30,16 @@ const Page500 = () => {
                 The page you are looking for is temporarily unavailable.
               </p>
             </span>
-            <CInputGroup className="input-prepend">
-              <CInputGroupText>
-                <CIcon icon={cilMagnifyingGlass} />
-              </CInputGroupText>
-              <CFormInput type="text" placeholder="What are you looking for?" />
-              <CButton color="info">Search</CButton>
-            </CInputGroup>
+            <p>
+              <button onClick={handleButtonClick} className="btn btn-link pl-0">
+                Go back to Login Page
+              </button>
+            </p>
           </CCol>
         </CRow>
       </CContainer>
     </div>
-  )
-}
+  );
+};
 
-export default Page500
+export default Page500;

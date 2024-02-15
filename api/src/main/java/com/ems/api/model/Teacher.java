@@ -1,22 +1,26 @@
 package com.ems.api.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.PrimaryKeyJoinColumn;
+import jakarta.persistence.*;
 
 @Entity
-@PrimaryKeyJoinColumn(name = "user_id")
+@PrimaryKeyJoinColumn(name = "TeacherUserId")
+
 public class Teacher extends EMSUser {
 
-    private String facultyName;
+    @ManyToOne
+    @JoinColumn(name = "faculty_name", nullable = false)
+    private Faculty faculty;
+
     private String designation;
 
+    // Getter and setter methods for faculty and designation
 
-    public String getFacultyName() {
-        return facultyName;
+    public Faculty getFaculty() {
+        return faculty;
     }
 
-    public void setFacultyName(String facultyName) {
-        this.facultyName = facultyName;
+    public void setFaculty(Faculty faculty) {
+        this.faculty = faculty;
     }
 
     public String getDesignation() {
@@ -26,5 +30,4 @@ public class Teacher extends EMSUser {
     public void setDesignation(String designation) {
         this.designation = designation;
     }
-
 }

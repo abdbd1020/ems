@@ -24,7 +24,10 @@ public class AdminService {
         return adminRepository.getAllUsers();
     }
 
+    @Transactional
+
     public String updateUser(EMSUser user) {
+        System.out.println(user.getId());
         return adminRepository.updateUser(user);
     }
 
@@ -41,4 +44,16 @@ public class AdminService {
             System.out.println("Created admin user with email: " + newAdmin.getEmail() + " and password: " + newAdmin.getPassword());
         }
     }
+    @Transactional
+
+    public ArrayList<EMSUser> getInactiveUsers() {
+        return adminRepository.getInactiveUsers();
+    }
+    @Transactional
+
+    public ArrayList<EMSUser> getAllUsersByRole(Role role) {
+        return adminRepository.getAllUsersByRole(role);
+    }
+
+
 }

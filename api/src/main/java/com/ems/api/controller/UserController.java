@@ -1,6 +1,5 @@
 package com.ems.api.controller;
 
-import com.ems.api.config.SecurityConfig;
 import com.ems.api.service.UserService;
 import com.ems.api.model.EMSUser;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,8 +32,8 @@ public class UserController {
         return userService.logInAndFetchToken(user);
     }
 
-    @PostMapping("/updateuser")
-    public String updateUser(@RequestBody EMSUser user) {
-        return userService.updateUser(user);
-    }
+//    @PostMapping("/updateuser")
+//    public String updateUser(@RequestBody EMSUser user) {
+//        return userService.updateUser(user);
+//    }
 }

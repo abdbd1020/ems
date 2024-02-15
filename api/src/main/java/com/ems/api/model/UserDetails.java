@@ -1,24 +1,21 @@
-package com.ems.api.config;
+package com.ems.api.model;
 
-import com.ems.api.model.EMSUser;
-import com.ems.api.model.Role;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class UserInfoUserDetails implements UserDetails {
+public class UserDetails implements org.springframework.security.core.userdetails.UserDetails {
 
 
     private String name;
     private String password;
     private List<GrantedAuthority> authorities;
 
-    public UserInfoUserDetails(EMSUser emsUser) {
+    public UserDetails(EMSUser emsUser) {
         name=emsUser.getEmail();
         password=emsUser.getPassword();
         authorities= Arrays.stream(new String[]{emsUser.getRole().toString()})

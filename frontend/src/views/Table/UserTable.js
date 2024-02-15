@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {
   CButton,
   CCard,
@@ -14,28 +14,15 @@ import {
   CTableHeaderCell,
   CTableRow,
 } from "@coreui/react";
-import { DocsExample } from "src/components";
-import AdminService from "src/services/AdminService";
 import { Link, useNavigate } from "react-router-dom";
 
 const column = ["Name", "Email", "Phone", "Role", "Status", "Action"];
 
-const UserList = () => {
+const UserTable = ({ userList }) => {
   const navigate = useNavigate();
 
-  const [tableData, setTableData] = useState([]);
-
-  useEffect(() => {
-    fetchUserList();
-  }, []);
-
-  const fetchUserList = async () => {
-    const response = await AdminService.instance.getAllUsers();
-    if (response.status) setTableData(response.userList);
-  };
-
   const handleUpdate = async (UserId) => {
-    const userData = tableData.filter((user) => user.id === UserId);
+    const userData = userList.filter((user) => user.id === UserId);
     navigate("/admin/update-user", { state: { userData }, replace: true });
   };
 
@@ -60,7 +47,7 @@ const UserList = () => {
                 </CTableRow>
               </CTableHead>
               <CTableBody>
-                {tableData.map((row) => {
+                {userList.map((row) => {
                   return (
                     <CTableRow key={row.id}>
                       <CTableHeaderCell scope="row">
@@ -90,4 +77,4 @@ const UserList = () => {
   );
 };
 
-export default UserList;
+export default UserTable;
