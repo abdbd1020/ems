@@ -1,6 +1,7 @@
 package com.ems.api.controller;
 
 import com.ems.api.config.SecurityConfig;
+import com.ems.api.dto.DepartmentRequest;
 import com.ems.api.model.Department;
 import com.ems.api.model.EMSUser;
 import com.ems.api.model.Faculty;
@@ -58,13 +59,21 @@ public class AdminController {
     }
     @PostMapping("/addfaculty")
     public String addFaculty(@RequestBody Faculty faculty) {
-        System.out.println(faculty.getName());
-        System.out.println(faculty.getDescription());
+
         return adminService.addFaculty(faculty);
     }
     @PostMapping("/updatefaculty")
     public String updateFaculty(@RequestBody Faculty faculty) {
         return adminService.updateFaculty(faculty);
+    }
+    @PostMapping("/adddepartment")
+    public String addDepartment(@RequestBody DepartmentRequest departmentRequest){
+
+        return adminService.addDepartment(departmentRequest);
+    }
+    @PostMapping("/updatedepartment")
+    public String updateDepartment(@RequestBody DepartmentRequest departmentRequest){
+        return adminService.updateDepartment(departmentRequest);
     }
 
 }

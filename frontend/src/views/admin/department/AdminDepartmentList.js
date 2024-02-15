@@ -18,26 +18,28 @@ import { DocsExample } from "src/components";
 import AdminService from "src/services/AdminService";
 import { useNavigate } from "react-router-dom";
 
-const column = ["Name", "Description", , "Action"];
+const column = ["Name", "Description", "Faculty", "Action"];
 
-const AdminFacultysList = () => {
+const AdminDepartmentsList = () => {
   const navigate = useNavigate();
   const [tableData, setTableData] = useState([]);
 
   useEffect(() => {
-    fetchFacultyList();
+    fetchTeacherList();
   }, []);
 
-  const fetchFacultyList = async () => {
-    const response = await AdminService.instance.getAllFaculty();
+  const fetchTeacherList = async () => {
+    const response = await AdminService.instance.getAllDepartment();
     console.log(response);
-    if (response.status) setTableData(response.facultyList);
+    if (response.status) setTableData(response.departmentList);
   };
 
-  const handleUpdate = async (facultyid) => {
-    const facultyData = tableData.filter((faculty) => faculty.id === facultyid);
-    navigate("/admin/faculty/add-update-faculty", {
-      state: { facultyData },
+  const handleUpdate = async (departmentid) => {
+    const departmentData = tableData.filter(
+      (department) => department.id === departmentid,
+    );
+    navigate("/admin/department/add-update-department", {
+      state: { departmentData },
       replace: true,
     });
   };
@@ -47,7 +49,7 @@ const AdminFacultysList = () => {
       <CCol xs={12}>
         <CCard className="mb-4">
           <CCardHeader>
-            <strong>Faculty List</strong>
+            <strong>Department List</strong>
           </CCardHeader>
           <CCardBody>
             <CTable striped>
@@ -70,6 +72,7 @@ const AdminFacultysList = () => {
                         {row.name}
                       </CTableHeaderCell>
                       <CTableDataCell>{row.description}</CTableDataCell>
+                      <CTableDataCell>{row.faculty.name}</CTableDataCell>
                       <CTableDataCell>
                         <CButton
                           color="success"
@@ -90,4 +93,4 @@ const AdminFacultysList = () => {
   );
 };
 
-export default AdminFacultysList;
+export default AdminDepartmentsList;

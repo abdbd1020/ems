@@ -12,7 +12,7 @@ public class Department {
     String name;
     String description;
     @ManyToOne
-    @JoinColumn(name = "faculty_name", nullable = false)
+    @JoinColumn(name = "faculty_id", nullable = false)
     private Faculty faculty;
 
     public String getId() {
@@ -37,5 +37,13 @@ public class Department {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Faculty getFaculty() {
+        return faculty;
+    }
+
+    public void setFaculty(Faculty faculty) {
+        this.faculty = faculty;
     }
 }

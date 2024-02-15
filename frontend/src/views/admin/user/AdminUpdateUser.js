@@ -13,6 +13,11 @@ import {
   CInputGroup,
   CRow,
   CFormCheck,
+  CDropdown,
+  CDropdownMenu,
+  CDropdownItem,
+  CDropdownToggle,
+  CFormSelect,
 } from "@coreui/react";
 import AdminService from "src/services/AdminService";
 import { ClientEnum } from "src/ClientEnum";
@@ -71,29 +76,26 @@ const AdminUpdateUser = () => {
           </CCardHeader>
           <CCardBody>
             <CForm>
-              <CRow className="justify-content-between">
-                <CCol xs={6}>
-                  <p>Activate User</p>
-                </CCol>
-                <CCol
-                  xs={3}
-                  className="d-flex justify-content-end align-items-center"
+              <div className="mb-3">
+                <CFormLabel htmlFor="exampleFormControlInput1">
+                  Activate User
+                </CFormLabel>
+                <CFormSelect
+                  id="formSelectDefault"
+                  className="ms-auto"
+                  value={status}
+                  onChange={(e) =>
+                    setStatus(
+                      e.target.value === ClientEnum.USER_ACTIVE
+                        ? ClientEnum.USER_ACTIVE
+                        : ClientEnum.USER_INACTIVE,
+                    )
+                  }
                 >
-                  <CFormSwitch
-                    id="formSwitchCheckDefault"
-                    className="ms-auto"
-                    checked={status === ClientEnum.USER_ACTIVE}
-                    onChange={(e) =>
-                      setStatus(
-                        e.target.checked
-                          ? ClientEnum.USER_ACTIVE
-                          : ClientEnum.USER_INACTIVE,
-                      )
-                    }
-                  />
-                </CCol>
-              </CRow>
-
+                  <option value={ClientEnum.USER_ACTIVE}>Active</option>
+                  <option value={ClientEnum.USER_INACTIVE}>Inactive</option>
+                </CFormSelect>
+              </div>
               <div className="mb-3">
                 <CFormLabel htmlFor="exampleFormControlInput1">Name</CFormLabel>
                 <CFormInput
@@ -128,7 +130,10 @@ const AdminUpdateUser = () => {
                   placeholder="+8801234567890"
                 />
               </div>
-              <div className="mb-3 text-center">
+              <div className="mb-3">
+                <CFormLabel htmlFor="exampleFormControlInput1">
+                  User Type
+                </CFormLabel>
                 <CInputGroup className="mb-3 d-inline-flex align-items-center">
                   <CFormCheck
                     inline
@@ -159,6 +164,7 @@ const AdminUpdateUser = () => {
                   />
                 </CInputGroup>
               </div>
+              <div className="mb-3 text-center"></div>
             </CForm>
             <CContainer className="my-3 d-flex justify-content-end">
               <CButton color="primary" onClick={handleSubmit}>

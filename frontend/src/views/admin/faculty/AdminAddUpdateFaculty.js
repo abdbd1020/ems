@@ -30,7 +30,7 @@ const AdminAddUpdateFaculty = () => {
   const [name, setName] = useState();
   const [description, setDescription] = useState();
   const [updateOrCreateString, setUpdateOrCreateString] = useState(
-    facultyData ? " Faculty Update" : "Faculty Create",
+    facultyData ? "Update Faculty" : "Create Faculty",
   );
 
   useEffect(() => {
@@ -107,7 +107,7 @@ const AdminAddUpdateFaculty = () => {
                   id="exampleFormControlInput2"
                   placeholder="description"
                   onChange={(e) => setDescription(e.target.value)}
-                  style={{ height: "3em" }}
+                  style={{ height: "10em" }}
                 />
               </div>
             </CForm>

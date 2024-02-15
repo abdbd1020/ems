@@ -206,6 +206,85 @@ class AdminService {
     }
     return DefaultService.instance.defaultResponse();
   }
+
+  async getAllDepartment() {
+    let retry = 0;
+
+    while (retry++ < 2) {
+      console.log(ServerConfig.url.API_URL + "/admin/getalldepartments");
+      try {
+        const getTeacherListResponse = await axios.get(
+          ServerConfig.url.API_URL + "/admin/getalldepartments",
+          DefaultService.instance.getHeaderWithToken(),
+        );
+        if (getTeacherListResponse.status == "200") {
+          return {
+            status: true,
+            departmentList: getTeacherListResponse.data,
+          };
+        }
+      } catch (error) {
+        console.log("Error in getAllDepartment in services/AdminService.js");
+        console.log(error);
+        retry++;
+      }
+    }
+    return DefaultService.instance.defaultResponse();
+  }
+
+  async createDepartment(payload) {
+    let retry = 0;
+
+    while (retry++ < 2) {
+      console.log(ServerConfig.url.API_URL + "/admin/adddepartment");
+      try {
+        const addTeacherResponse = await axios.post(
+          ServerConfig.url.API_URL + "/admin/adddepartment",
+          payload,
+          DefaultService.instance.getHeaderWithToken(),
+        );
+
+        if (addTeacherResponse.status == "200") {
+          return {
+            status: true,
+            responseMessage: addTeacherResponse.data.responseMessage,
+          };
+        }
+      } catch (error) {
+        console.log("Error in createDepartment in services/AdminService.js");
+        console.log(error);
+        retry++;
+      }
+    }
+    return DefaultService.instance.defaultResponse();
+  }
+
+  async updateDepartment(payload) {
+    let retry = 0;
+
+    while (retry++ < 2) {
+      console.log(ServerConfig.url.API_URL + "/admin/updatedepartment");
+      try {
+        const addTeacherResponse = await axios.post(
+          ServerConfig.url.API_URL + "/admin/updatedepartment",
+          payload,
+          DefaultService.instance.getHeaderWithToken(),
+        );
+
+        if (addTeacherResponse.status == "200") {
+          return {
+            status: true,
+            responseMessage: addTeacherResponse.data.responseMessage,
+          };
+        }
+      } catch (error) {
+        console.log("Error in updateDepartment in services/AdminService.js");
+        console.log(error);
+        retry++;
+      }
+    }
+    return DefaultService.instance.defaultResponse();
+  }
 }
 
 export default AdminService;

@@ -1,7 +1,9 @@
 package com.ems.api.service;
 
+import com.ems.api.dto.DepartmentRequest;
 import com.ems.api.model.*;
 import com.ems.api.repository.AdminRepository;
+import com.ems.api.repository.FacultyRepository;
 import com.ems.api.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,8 @@ public class AdminService {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private FacultyRepository facultyRepository;
 
 
     @Transactional
@@ -26,7 +30,6 @@ public class AdminService {
     @Transactional
 
     public String updateUser(EMSUser user) {
-        System.out.println(user.getId());
         return adminRepository.updateUser(user);
     }
 
@@ -71,5 +74,30 @@ public class AdminService {
     @Transactional
     public String updateFaculty(Faculty faculty) {
         return adminRepository.updateFaculty(faculty);
+    }
+
+    @Transactional
+    public String addDepartment(DepartmentRequest departmentRequest) {
+
+        Department department = getDepartmentFromRequest(departmentRequest);
+
+        return adminRepository.addDepartment(department);
+    }
+
+    @Transactional
+    public String updateDepartment(DepartmentRequest departmentRequest) {
+        Department department = getDepartmentFromRequest(departmentRequest);
+        department.setId(departmentRequest.getId());
+        return adminRepository.updateDepartment(department);
+
+    }
+    @Transactional
+    private Department getDepartmentFromRequest(DepartmentRequest departmentRequest) {
+        Faculty faculty = facultyRepository.getFacultyById(departmentRequest.getFacultyId());
+        Department department = new Department();
+        department.setName(departmentRequest.getName());
+        department.setFaculty(faculty);
+        department.setDescription(departmentRequest.getDescription());
+        return department;
     }
 }

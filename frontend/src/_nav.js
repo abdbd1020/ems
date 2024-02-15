@@ -69,6 +69,27 @@ const _nav = [
       },
     ],
   },
+  {
+    component: CNavGroup,
+    name: "Department",
+    to: "/admin/department/",
+    icon: <CIcon icon={cilStar} customClassName="nav-icon" />,
+    authority: ClientEnum.ADMIN_TYPE,
+    items: [
+      {
+        component: CNavItem,
+        name: "Department List",
+        to: "/admin/department/department-list",
+        authority: ClientEnum.ADMIN_TYPE,
+      },
+      {
+        component: CNavItem,
+        name: "Add Department",
+        to: "/admin/department/add-update-department",
+        authority: ClientEnum.ADMIN_TYPE,
+      },
+    ],
+  },
 
   {
     component: CNavItem,
