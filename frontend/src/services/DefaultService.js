@@ -17,9 +17,9 @@ export default class DefaultService {
     };
   }
   getHeaderWithToken() {
-    const userJWT = JSON.parse(localStorage.getItem("userJWT"));
+    const currentUserData = JSON.parse(localStorage.getItem("currentUserData"));
     // add bearer token
-    const bearerToken = "Bearer " + userJWT;
+    const bearerToken = "Bearer " + currentUserData.userJWT;
 
     return {
       headers: {

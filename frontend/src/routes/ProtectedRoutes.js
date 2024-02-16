@@ -2,10 +2,10 @@ import React from "react";
 import { Outlet, Navigate } from "react-router-dom";
 
 const ProtectedRoutes = () => {
-  const userJWT = JSON.parse(localStorage.getItem("userJWT"));
-  console.log(userJWT);
+  const currentUserData = JSON.parse(localStorage.getItem("currentUserData"));
+  console.log(currentUserData);
 
-  return userJWT ? <Outlet /> : <Navigate to="/login" />;
+  return currentUserData ? <Outlet /> : <Navigate to="/login" />;
 };
 
 export default ProtectedRoutes;

@@ -7,8 +7,8 @@ import { CBadge } from "@coreui/react";
 import { ClientEnum } from "../ClientEnum";
 
 export const AppSidebarNav = ({ items }) => {
-  const user = JSON.parse(localStorage.getItem("user"));
-  const userRole = JSON.parse(localStorage.getItem("userRole"));
+  const currentUserData = JSON.parse(localStorage.getItem("currentUserData"));
+  const userRole = currentUserData.role;
   const location = useLocation();
 
   const generateUniqueId = () => uuidv4(); // Function to generate unique IDs

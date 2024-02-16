@@ -28,6 +28,9 @@ const AdminDepartmentsList = React.lazy(
 const AdminAddUpdateDepartment = React.lazy(
   () => import("../views/admin/department/AdminAddUpdateDepartment"),
 );
+const TeacherUpdateProfile = React.lazy(
+  () => import("../views/teacher/profile/TeacherUpdateProfile"),
+);
 const routes = [
   { path: "/", exact: true, name: "Home" },
   { path: "/dashboard", name: "Dashboard", element: Dashboard },
@@ -71,6 +74,11 @@ const routes = [
     path: "/admin/department/add-update-department",
     name: "Add Department",
     element: AdminAddUpdateDepartment,
+  },
+  {
+    path: "/teacher/profile/update-profile",
+    name: "Update Profile",
+    element: TeacherUpdateProfile,
   },
 ];
 

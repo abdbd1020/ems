@@ -2,9 +2,7 @@ package com.ems.api.service;
 
 import com.ems.api.dto.DepartmentRequest;
 import com.ems.api.model.*;
-import com.ems.api.repository.AdminRepository;
-import com.ems.api.repository.FacultyRepository;
-import com.ems.api.repository.UserRepository;
+import com.ems.api.repository.*;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +18,10 @@ public class AdminService {
     private UserRepository userRepository;
     @Autowired
     private FacultyRepository facultyRepository;
+    @Autowired
+    private StudentRepository studentRepository;
+    @Autowired
+    private TeacherRepository teacherRepository;
 
 
     @Transactional
@@ -28,8 +30,23 @@ public class AdminService {
     }
 
     @Transactional
-
     public String updateUser(EMSUser user) {
+
+        if (user.getRole().equals(Role.STUDENT)) {
+            Student student = studentRepository.getStudentById(user.getId());
+            if (student == null) {
+                studentRepository.createStudent(user.getId());
+            }
+
+        }
+        if (user.getRole().equals(Role.TEACHER)) {
+            Teacher teacher = teacherRepository.getTeacherById(user.getId());
+            if (teacher == null) {
+                teacherRepository.createTeacher(user.getId());
+            }
+
+        }
+
         return adminRepository.updateUser(user);
     }
 

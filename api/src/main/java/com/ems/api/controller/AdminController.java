@@ -32,7 +32,6 @@ public class AdminController {
     }
     @PostMapping("/updateuser")
     public String updateUser(@RequestBody EMSUser user) {
-
         return adminService.updateUser(user);
     }
     @GetMapping("/getallinactiveusers")

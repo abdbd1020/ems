@@ -2,6 +2,7 @@ package com.ems.api.repository;
 
 import com.ems.api.model.EMSUser;
 import com.ems.api.model.Role;
+import com.ems.api.model.Student;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,7 @@ public class UserRepository {
         entityManager.persist(user);
     }
 
-
+    @Transactional
     public void updateUser(EMSUser user) {
 
         entityManager.createQuery("UPDATE EMSUser u SET u.name = :name, u.email = :email, u.password = :password, u.phone = :phone WHERE u.id = :id")
@@ -44,6 +45,7 @@ public class UserRepository {
                 .setParameter("id", user.getId())
                 .executeUpdate();
     }
+    @Transactional
 
     public EMSUser getUserByEmail(String email) {
 
@@ -53,5 +55,10 @@ public class UserRepository {
     }
 
 
-
+    @Transactional
+    public EMSUser findByEmail(String email) {
+        return entityManager.createQuery("SELECT u FROM EMSUser u WHERE u.email = :email", EMSUser.class)
+                .setParameter("email", email)
+                .getSingleResult();
+    }
 }

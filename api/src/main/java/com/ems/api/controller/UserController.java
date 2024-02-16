@@ -32,8 +32,8 @@ public class UserController {
         return userService.logInAndFetchToken(user);
     }
 
-//    @PostMapping("/updateuser")
-//    public String updateUser(@RequestBody EMSUser user) {
-//        return userService.updateUser(user);
+//    @GetMapping("/getuserbyid")
+//    public EMSUser getUserById(@RequestParam String id) {
+//        return userService.getUserById(id);
 //    }
 }

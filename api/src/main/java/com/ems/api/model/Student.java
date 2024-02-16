@@ -1,11 +1,15 @@
 package com.ems.api.model;
 
 import jakarta.persistence.*;
-
 @Entity
-@PrimaryKeyJoinColumn(name = "StudentUserId")
+public class Student {
 
-public class Student extends EMSUser {
+    @Id
+    private String id;
+
+    @OneToOne
+    @JoinColumn(name = "student_user_id")
+    private EMSUser emsUser;
 
     @ManyToOne
     @JoinColumn(name = "department_name", nullable = false)
@@ -18,7 +22,23 @@ public class Student extends EMSUser {
     private String studentId;
     private int batchNo;
 
-    // Getter and setter methods for department, advisor, studentId, and batchNo
+    // constructors, getters, setters, and other methods
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public EMSUser getEmsUser() {
+        return emsUser;
+    }
+
+    public void setEmsUser(EMSUser emsUser) {
+        this.emsUser = emsUser;
+    }
 
     public Department getDepartment() {
         return department;

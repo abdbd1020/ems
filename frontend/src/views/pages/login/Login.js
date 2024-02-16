@@ -33,13 +33,22 @@ const Login = () => {
     };
     const response = await DefaultService.instance.login(payload);
     if (response.status) {
-      localStorage.setItem("userJWT", JSON.stringify(response.data));
-      localStorage.setItem("userRole", JSON.stringify(type));
+      const currentUserData = {
+        email: email,
+        role: type,
+        userJWT: response.data,
+      };
+      localStorage.setItem("currentUserData", JSON.stringify(currentUserData));
+      const test = JSON.parse(localStorage.getItem("currentUserData"));
+      console.log(test);
 
       if (type === ClientEnum.ADMIN_TYPE)
         navigate("/admin/user/inactive-user-list", { replace: true });
       else if (type === ClientEnum.TEACHER_TYPE)
-        navigate("/teacher/course-list", { replace: true });
+        navigate("/teacher/profile/update-profile", {
+          state: { email: email },
+          replace: true,
+        });
       else if (type === ClientEnum.STUDENT_TYPE)
         navigate("/student/course-list", { replace: true });
     }
