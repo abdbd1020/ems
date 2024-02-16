@@ -1,6 +1,7 @@
 package com.ems.api.service;
 
 import com.ems.api.config.SecurityConfig;
+import com.ems.api.dto.ResetPasswordRequest;
 import com.ems.api.model.EMSUser;
 import com.ems.api.model.Role;
 import com.ems.api.model.Status;
@@ -65,5 +66,16 @@ public class UserService {
         } else {
             return rawPassword.equals(hashedPassword);
         }
+    }
+
+    public String resetPassword(ResetPasswordRequest resetPasswordRequest) {
+        EMSUser user = userRepository.getUserByEmail(resetPasswordRequest.getEmail());
+//        check if current password is correct
+        if (!isPasswordMatching(resetPasswordRequest.getCurrentPassword(), user.getPassword())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid current password");
+        }
+        user.setPassword(securityConfig.passwordEncoder().encode(resetPasswordRequest.getNewPassword()));
+        userRepository.updateUser(user);
+        return "Password reset successful";
     }
 }

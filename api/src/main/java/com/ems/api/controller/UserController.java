@@ -1,5 +1,6 @@
 package com.ems.api.controller;
 
+import com.ems.api.dto.ResetPasswordRequest;
 import com.ems.api.service.UserService;
 import com.ems.api.model.EMSUser;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,4 +37,8 @@ public class UserController {
 //    public EMSUser getUserById(@RequestParam String id) {
 //        return userService.getUserById(id);
 //    }
+    @PostMapping("/resetpassword")
+    public String resetPassword(@RequestBody ResetPasswordRequest resetPasswordRequest) {
+        return userService.resetPassword(resetPasswordRequest);
+    }
 }

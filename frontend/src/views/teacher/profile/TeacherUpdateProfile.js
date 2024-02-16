@@ -33,7 +33,8 @@ const TeacherUpdateProfile = () => {
   const [phone, setPhone] = useState("");
   const [designation, setDesignation] = useState("");
 
-  const teacherEmail = location.state ? location.state.email : null;
+  const currentUserData = JSON.parse(localStorage.getItem("currentUserData"));
+  const teacherEmail = currentUserData ? currentUserData.email : null;
   const [userData, setUserData] = useState({});
   const [tableData, setTableData] = useState([]);
   const [selectedFaculty, setSelectedFaculty] = useState(null);
@@ -66,7 +67,7 @@ const TeacherUpdateProfile = () => {
         setEmail(response.data.emsUser.email);
         setPhone(response.data.emsUser.phone);
         response.data.faculty
-          ? setSelectedFaculty(response.data.faculty)
+          ? setSelectedFaculty(response.data.faculty.name)
           : setSelectedFaculty(null);
       }
     } catch (error) {
@@ -76,7 +77,20 @@ const TeacherUpdateProfile = () => {
 
   const handleSubmit = async () => {
     try {
-      console.log("designation", designation);
+      if (
+        name.length < 3 ||
+        email.length < 3 ||
+        phone.length < 3 ||
+        !selectedFaculty ||
+        designation.length < 3
+      ) {
+        Swal.fire({
+          title: "Failed!",
+          text: "Please fill all the fields.",
+          icon: "error",
+        });
+        return;
+      }
       const facultyId = tableData.filter(
         (faculty) => faculty.name === selectedFaculty,
       );

@@ -90,4 +90,31 @@ export default class DefaultService {
     }
     return DefaultService.instance.defaultResponse();
   }
+
+  async resetPassword(payload) {
+    let retry = 0;
+
+    while (retry++ < 2) {
+      console.log(ServerConfig.url.API_URL + "/user/resetpassword");
+      try {
+        const loginResponse = await axios.post(
+          ServerConfig.url.API_URL + "/user/resetpassword",
+          payload,
+          DefaultService.instance.getHeaderWithToken(),
+        );
+
+        if (loginResponse.status == "200") {
+          return {
+            status: true,
+            data: loginResponse.data,
+          };
+        }
+      } catch (error) {
+        console.log("Error in login in services/DefaultService.js");
+        console.log(error);
+        retry++;
+      }
+    }
+    return DefaultService.instance.defaultResponse();
+  }
 }

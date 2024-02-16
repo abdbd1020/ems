@@ -31,6 +31,7 @@ const AdminAddUpdateDepartment = React.lazy(
 const TeacherUpdateProfile = React.lazy(
   () => import("../views/teacher/profile/TeacherUpdateProfile"),
 );
+const ResetPassword = React.lazy(() => import("../views/user/ResetPassword"));
 const routes = [
   { path: "/", exact: true, name: "Home" },
   { path: "/dashboard", name: "Dashboard", element: Dashboard },
@@ -79,6 +80,11 @@ const routes = [
     path: "/teacher/profile/update-profile",
     name: "Update Profile",
     element: TeacherUpdateProfile,
+  },
+  {
+    path: "/user/reset-password",
+    name: "Reset Password",
+    element: ResetPassword,
   },
 ];
 

@@ -18,6 +18,8 @@ import CIcon from "@coreui/icons-react";
 import { cilLockLocked, cilUser } from "@coreui/icons";
 import { ClientEnum } from "../../../ClientEnum";
 import DefaultService from "../../../services/DefaultService";
+import TeacherService from "src/services/TeacherService";
+import Swal from "sweetalert2";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -44,12 +46,29 @@ const Login = () => {
 
       if (type === ClientEnum.ADMIN_TYPE)
         navigate("/admin/user/inactive-user-list", { replace: true });
-      else if (type === ClientEnum.TEACHER_TYPE)
-        navigate("/teacher/profile/update-profile", {
-          state: { email: email },
-          replace: true,
+      else if (type === ClientEnum.TEACHER_TYPE) {
+        const teacherData = await TeacherService.instance.getTeacherByEmail({
+          email: email,
         });
-      else if (type === ClientEnum.STUDENT_TYPE)
+
+        if (!teacherData.data.faculty) {
+          Swal.fire({
+            icon: "success",
+            title: "Incomplete Profile.",
+            text: "Please update your profile first!",
+          }).then(() => {
+            navigate("/teacher/profile/update-profile", {
+              state: { email: email },
+              replace: true,
+            });
+          });
+        } else {
+          navigate("/teacher/profile/update-profile", {
+            state: { email: email },
+            replace: true,
+          });
+        }
+      } else if (type === ClientEnum.STUDENT_TYPE)
         navigate("/student/course-list", { replace: true });
     }
   };

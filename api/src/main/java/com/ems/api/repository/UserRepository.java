@@ -37,13 +37,7 @@ public class UserRepository {
     @Transactional
     public void updateUser(EMSUser user) {
 
-        entityManager.createQuery("UPDATE EMSUser u SET u.name = :name, u.email = :email, u.password = :password, u.phone = :phone WHERE u.id = :id")
-                .setParameter("name", user.getName())
-                .setParameter("email", user.getEmail())
-                .setParameter("password", user.getPassword())
-                .setParameter("phone", user.getPhone())
-                .setParameter("id", user.getId())
-                .executeUpdate();
+        entityManager.merge(user);
     }
     @Transactional
 
