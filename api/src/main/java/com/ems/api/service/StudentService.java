@@ -8,6 +8,7 @@ import com.ems.api.model.*;
 import com.ems.api.repository.*;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -42,7 +43,7 @@ public class StudentService {
         return student;
     }
     @Transactional
-    public String updateStudentAndFetchToken(Student student) {
+    public String updateStudentAndFetchToken(@NotNull Student student) {
         EMSUser user = userRepository.getUserByEmail(student.getEmsUser().getEmail());
         user.setEmail(student.getEmsUser().getEmail());
         user.setName(student.getEmsUser().getName());
@@ -84,7 +85,7 @@ public class StudentService {
 
     }
     @Transactional
-    public String sendAdvisorRequest(AdvisorRequest advisorRequest) {
+    public String sendAdvisorRequest(@NotNull AdvisorRequest advisorRequest) {
         String studentId = userRepository.findByEmail(advisorRequest.getEmail()).getId();
         Student student = studentRepository.getStudentById(studentId);
         Teacher teacher = teacherRepository.getTeacherById(advisorRequest.getId());
@@ -98,8 +99,7 @@ public class StudentService {
 
     }
     @Transactional
-
-    public ArrayList<AdvisorAssignmentResponse> requestedAdvisorAssignmentList(EmailRequest emailRequest) {
+    public ArrayList<AdvisorAssignmentResponse> requestedAdvisorAssignmentList(@NotNull EmailRequest emailRequest) {
         String studentId = userRepository.findByEmail(emailRequest.getEmail()).getId();
         Student student = studentRepository.getStudentById(studentId);
         ArrayList<AdvisorAssignment> advisorAssignments  = advisorAssignmentRepository.getRequestedAdvisorAssignmentList(student);
@@ -121,23 +121,27 @@ public class StudentService {
 
     }
     @Transactional
-
-    public Teacher getCurrentAdvisor(EmailRequest emailRequest) {
+    public Teacher getCurrentAdvisor(@NotNull EmailRequest emailRequest) {
         String studentId = userRepository.findByEmail(emailRequest.getEmail()).getId();
         Student student = studentRepository.getStudentById(studentId);
         AdvisorAssignment advisorAssignment = advisorAssignmentRepository.getCurrentAdvisorOfSingleStudent(student);
+        if(advisorAssignment==null) {
+            return null;
+        }
         if(advisorAssignment.getTeacher().getEmsUser().getStatus().equals(Status.INACTIVE)) {
             return null;
         }
         Teacher teacher = advisorAssignment.getTeacher();
         entityManager.detach(teacher.getEmsUser());
         teacher.getEmsUser().setPassword("");
+        System.out.println(teacher.getEmsUser().getPassword());
+        System.out.println(teacher.getEmsUser().getEmail());
+        System.out.println(teacher.getEmsUser().getRole());
         return teacher;
 
     }
     @Transactional
-
-    public String removeAdvisor(EmailRequest emailRequest) {
+    public String removeAdvisor(@NotNull EmailRequest emailRequest) {
         String studentId = userRepository.findByEmail(emailRequest.getEmail()).getId();
         Student student = studentRepository.getStudentById(studentId);
         AdvisorAssignment advisorAssignment = advisorAssignmentRepository.getCurrentAdvisorOfSingleStudent(student);

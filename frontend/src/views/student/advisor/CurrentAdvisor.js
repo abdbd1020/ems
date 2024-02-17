@@ -36,7 +36,11 @@ const CurrentAdvisor = () => {
     const response = await StudentService.instance.getCurrentAdvisor(payload);
     // check respose.data length is 0 or not
     if (response?.data?.length !== 0) {
+      setCurrentAdvisorData(response.data);
+
       setHaveAdvisor(true);
+    } else {
+      setHaveAdvisor(false);
     }
   };
 
@@ -54,18 +58,17 @@ const CurrentAdvisor = () => {
       navigate("/student/advisor/available-advisor-list", { replace: true });
     }
   };
-
-  if (haveAdvisor) {
+  if (!haveAdvisor) {
     return (
       <div>
         <CRow>
           <CCol xs={12}>
             <CCard className="mb-4">
               <CCardHeader>
-                <strong>Availabe Advisor</strong>
+                <strong>No Advisor</strong>
               </CCardHeader>
               <CCardBody>
-                <h1>You already have an advisor.</h1>
+                <h1>You dont have any advisor.</h1>
               </CCardBody>
             </CCard>
           </CCol>

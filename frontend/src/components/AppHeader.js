@@ -15,9 +15,7 @@ import {
 import CIcon from "@coreui/icons-react";
 import { cilBell, cilEnvelopeOpen, cilList, cilMenu } from "@coreui/icons";
 
-import { AppBreadcrumb } from "./index";
-import { AppHeaderDropdown } from "./header/index";
-import { logo } from "../assets/brand/logo";
+import { logo } from "src/assets/brand/logo";
 import { ClientEnum } from "../ClientEnum";
 
 const AppHeader = () => {
@@ -35,7 +33,7 @@ const AppHeader = () => {
   }
   if (user.type === ClientEnum.TEACHER_TYPE) {
     name = user.teacherName;
-    type = "INSTRUCTOR";
+    type = user.type;
   }
   if (user.type === ClientEnum.STUDENT_TYPE) {
     name = user.studentName;
@@ -57,9 +55,7 @@ const AppHeader = () => {
         >
           <CIcon icon={cilMenu} size="lg" />
         </CHeaderToggler>
-        <CHeaderBrand className="mx-auto d-md-none" to="/">
-          <CIcon icon={logo} height={48} alt="Logo" />
-        </CHeaderBrand>
+        <CHeaderBrand className="mx-auto d-md-none" to="/"></CHeaderBrand>
         <CHeaderNav className="d-none d-md-flex me-auto "></CHeaderNav>
         <CHeaderNav className="ms-3">
           <CNavItem className="me-4 mt-1">

@@ -6,8 +6,8 @@ import jakarta.persistence.*;
 public class AdvisorAssignment {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String id;
 
     @ManyToOne
     @JoinColumn(name = "student_id")
@@ -20,11 +20,11 @@ public class AdvisorAssignment {
     private boolean isAccepted;
 
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

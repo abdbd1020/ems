@@ -1,16 +1,16 @@
 package com.ems.api.dto;
 
 public class AdviseeRequest {
-    private Long Id;
+    private String Id;
     private String adviseeName;
     private String adviseeDepartment;
     private int adviseeBatchNo;
 
-    public Long getId() {
+    public String getId() {
         return Id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         Id = id;
     }
 

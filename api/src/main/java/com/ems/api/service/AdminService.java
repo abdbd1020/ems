@@ -4,6 +4,7 @@ import com.ems.api.dto.DepartmentRequest;
 import com.ems.api.model.*;
 import com.ems.api.repository.*;
 import jakarta.transaction.Transactional;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,7 +35,7 @@ public class AdminService {
     }
 
     @Transactional
-    public String updateUser(EMSUser user) {
+    public String updateUser(@NotNull EMSUser user) {
 
         if (user.getRole().equals(Role.STUDENT)) {
             Student student = studentRepository.getStudentById(user.getId());

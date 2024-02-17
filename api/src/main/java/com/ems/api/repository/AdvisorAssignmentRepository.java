@@ -42,7 +42,7 @@ public class AdvisorAssignmentRepository {
 
     }
 
-    public AdvisorAssignment getAdvisorAssignmentsById(Long id) {
+    public AdvisorAssignment getAdvisorAssignmentsById(String id) {
         return entityManager.find(AdvisorAssignment.class, id);
     }
 
@@ -52,8 +52,14 @@ public class AdvisorAssignmentRepository {
     }
 
     public AdvisorAssignment getCurrentAdvisorOfSingleStudent(Student student) {
-        return entityManager.createQuery("SELECT a FROM AdvisorAssignment a WHERE a.student = :student AND a.isAccepted = true", AdvisorAssignment.class)
-                .setParameter("student", student)
-                .getSingleResult();
+        try{
+            return entityManager.createQuery("SELECT a FROM AdvisorAssignment a WHERE a.student = :student AND a.isAccepted = true", AdvisorAssignment.class)
+                    .setParameter("student", student)
+                    .getSingleResult();
+        }
+        catch (Exception e){
+            return null;
+        }
+
     }
 }

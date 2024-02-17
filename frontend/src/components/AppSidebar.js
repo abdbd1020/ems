@@ -38,13 +38,10 @@ const AppSidebar = () => {
     >
       <CSidebarBrand
         className="d-none d-md-flex"
-        style={{ backgroundColor: "#F7F7F7" }}
+        style={{ backgroundColor: "#304054" }}
         to="/"
       >
-        {/* <CIcon className="sidebar-brand-full" icon={logoNegative} height={35} />
-        <CIcon className="sidebar-brand-narrow" icon={sygnet} height={35} /> */}
-        {/* <h3 className="p-2 text-center">Despatch Simulation</h3> */}
-        <img src="logo.jpeg" alt="logo" height={80}></img>
+        <CIcon icon={sygnet} height={35} alt="Logo" />
       </CSidebarBrand>
       <CSidebarNav>
         <SimpleBar>

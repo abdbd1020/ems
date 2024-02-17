@@ -7,6 +7,7 @@ import com.ems.api.model.Role;
 import com.ems.api.model.Status;
 import com.ems.api.repository.UserRepository;
 import jakarta.transaction.Transactional;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -26,7 +27,7 @@ public class UserService {
 
 
     @Transactional
-    public String createUserAndFetchToken(EMSUser user) {
+    public String createUserAndFetchToken(@NotNull EMSUser user) {
         user.setRole(Role.GUEST);
         user.setStatus(Status.INACTIVE);
         user.setPassword(securityConfig.passwordEncoder().encode(user.getPassword()));
@@ -35,12 +36,12 @@ public class UserService {
     }
 
     @Transactional
-    public String logInAndFetchToken(EMSUser emsUser) {
+    public String logInAndFetchToken(@NotNull EMSUser emsUser) {
         EMSUser user = userRepository.getUserByEmail(emsUser.getEmail());
 
 
 
-        if (!isPasswordMatching(emsUser.getPassword(), user.getPassword())) {
+        if (isPasswordNotMatching(emsUser.getPassword(), user.getPassword())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid credentials");
         }
 
@@ -60,18 +61,18 @@ public class UserService {
         return user.getId();
     }
 
-    private boolean isPasswordMatching(String rawPassword, String hashedPassword) {
+    private boolean isPasswordNotMatching(String rawPassword, @NotNull String hashedPassword) {
         if (hashedPassword.startsWith("$2a$")) {
-            return securityConfig.passwordEncoder().matches(rawPassword, hashedPassword);
+            return !securityConfig.passwordEncoder().matches(rawPassword, hashedPassword);
         } else {
-            return rawPassword.equals(hashedPassword);
+            return !rawPassword.equals(hashedPassword);
         }
     }
 
-    public String resetPassword(ResetPasswordRequest resetPasswordRequest) {
+    public String resetPassword(@NotNull ResetPasswordRequest resetPasswordRequest) {
         EMSUser user = userRepository.getUserByEmail(resetPasswordRequest.getEmail());
 //        check if current password is correct
-        if (!isPasswordMatching(resetPasswordRequest.getCurrentPassword(), user.getPassword())) {
+        if (isPasswordNotMatching(resetPasswordRequest.getCurrentPassword(), user.getPassword())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid current password");
         }
         user.setPassword(securityConfig.passwordEncoder().encode(resetPasswordRequest.getNewPassword()));

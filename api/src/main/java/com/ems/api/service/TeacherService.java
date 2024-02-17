@@ -31,7 +31,7 @@ public class TeacherService {
     @Autowired
     private StudentRepository studentRepository;
     @Transactional
-    public String acceptAdvisor(AdvisorAssignment advisorAssignment) {
+    public String acceptAdvisor(@NotNull AdvisorAssignment advisorAssignment) {
         AdvisorAssignment currentAdvisorAssignment = advisorAssignmentRepository.getAdvisorAssignmentsById(advisorAssignment.getId());
         currentAdvisorAssignment.setAccepted(true);
         return advisorAssignmentRepository.acceptAdvisorAssignment(currentAdvisorAssignment);
@@ -46,7 +46,7 @@ public class TeacherService {
 
 
     @Transactional
-    public String updateTeacherAndFetchToken(Teacher teacher) {
+    public String updateTeacherAndFetchToken(@NotNull Teacher teacher) {
         EMSUser user = userRepository.getUserByEmail(teacher.getEmsUser().getEmail());
         user.setEmail(teacher.getEmsUser().getEmail());
         user.setName(teacher.getEmsUser().getName());
@@ -58,7 +58,7 @@ public class TeacherService {
 
     }
     @Transactional
-    public ArrayList<AdviseeRequest> getAllAdviseeRequest(EmailRequest emailRequest) {
+    public ArrayList<AdviseeRequest> getAllAdviseeRequest(@NotNull EmailRequest emailRequest) {
         Teacher teacher = getTeacherByEmail(emailRequest.getEmail());
         ArrayList<AdvisorAssignment> advisorAssignments = advisorAssignmentRepository.getAdvisorAssignmentsByAdvisor(teacher);
         ArrayList<AdviseeRequest> adviseeRequests = new ArrayList<>();
