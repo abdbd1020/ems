@@ -17,12 +17,9 @@ public class TeacherRepository {
     }
     @Transactional
     public Teacher getTeacherById(String id) {
-        try{
+
             return entityManager.find(Teacher.class, id);
-        }
-        catch (Exception e){
-            return null;
-        }
+
 
 
     }

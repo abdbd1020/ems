@@ -19,6 +19,7 @@ import { cilLockLocked, cilUser } from "@coreui/icons";
 import { ClientEnum } from "../../../ClientEnum";
 import DefaultService from "../../../services/DefaultService";
 import TeacherService from "src/services/TeacherService";
+import StudentService from "src/services/StudentService";
 import Swal from "sweetalert2";
 
 const Login = () => {
@@ -34,6 +35,7 @@ const Login = () => {
       role: type,
     };
     const response = await DefaultService.instance.login(payload);
+
     if (response.status) {
       const currentUserData = {
         email: email,
@@ -41,12 +43,10 @@ const Login = () => {
         userJWT: response.data,
       };
       localStorage.setItem("currentUserData", JSON.stringify(currentUserData));
-      const test = JSON.parse(localStorage.getItem("currentUserData"));
-      console.log(test);
 
-      if (type === ClientEnum.ADMIN_TYPE)
+      if (type === ClientEnum.ADMIN_TYPE) {
         navigate("/admin/user/inactive-user-list", { replace: true });
-      else if (type === ClientEnum.TEACHER_TYPE) {
+      } else if (type === ClientEnum.TEACHER_TYPE) {
         const teacherData = await TeacherService.instance.getTeacherByEmail({
           email: email,
         });
@@ -68,8 +68,29 @@ const Login = () => {
             replace: true,
           });
         }
-      } else if (type === ClientEnum.STUDENT_TYPE)
-        navigate("/student/course-list", { replace: true });
+      } else if (type === ClientEnum.STUDENT_TYPE) {
+        const studentData = await StudentService.instance.getStudentByEmail({
+          email: email,
+        });
+
+        if (!studentData.data.faculty) {
+          Swal.fire({
+            icon: "success",
+            title: "Incomplete Profile.",
+            text: "Please update your profile first!",
+          }).then(() => {
+            navigate("/student/profile/update-profile", {
+              state: { email: email },
+              replace: true,
+            });
+          });
+        } else {
+          navigate("/student/profile/update-profile", {
+            state: { email: email },
+            replace: true,
+          });
+        }
+      }
     }
   };
 

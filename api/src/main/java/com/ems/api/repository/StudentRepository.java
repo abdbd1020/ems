@@ -14,12 +14,8 @@ public class StudentRepository {
 
    @Transactional
     public Student getStudentById(String id) {
-        try{
             return entityManager.find(Student.class, id);
-        }
-        catch (Exception e){
-            return null;
-        }
+
 
     }
     @Transactional
@@ -28,10 +24,15 @@ public class StudentRepository {
 
     }
     @Transactional
-    public void createStudent(String id) {
-
-        entityManager.createQuery("INSERT INTO Student (id) VALUES (:id)")
-                .setParameter("id", id)
+    public void createStudent(String studentId) {
+        entityManager.createNativeQuery("INSERT INTO Student (student_id, batch_no) VALUES (:studentId, :batchNo)")
+                .setParameter("studentId", studentId)
+                .setParameter("batchNo", 0)
                 .executeUpdate();
+    }
+
+    @Transactional
+    public void updateStudent(Student student) {
+        entityManager.merge(student);
     }
 }

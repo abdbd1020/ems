@@ -116,6 +116,30 @@ const _nav = [
   },
 
   {
+    component: CNavGroup,
+    name: "Profile",
+    to: "/student",
+    icon: <CIcon icon={cilStar} customClassName="nav-icon" />,
+    authority: ClientEnum.STUDENT_TYPE,
+    items: [
+      {
+        component: CNavItem,
+        name: "Update Profile",
+        to: "/student/profile/update-profile",
+        icon: <CIcon icon={cilDrop} customClassName="nav-icon" />,
+        authority: ClientEnum.STUDENT_TYPE,
+      },
+      {
+        component: CNavItem,
+        name: "Reset Password",
+        to: "/user/reset-password",
+        icon: <CIcon icon={cilDrop} customClassName="nav-icon" />,
+        authority: ClientEnum.STUDENT_TYPE,
+      },
+    ],
+  },
+
+  {
     component: CNavItem,
     name: "IN/OUT Register",
     to: "/register",

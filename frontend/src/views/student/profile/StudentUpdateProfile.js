@@ -20,55 +20,55 @@ import {
 } from "@coreui/react";
 import CIcon from "@coreui/icons-react";
 import { cilLockLocked, cilPhone, cilUser } from "@coreui/icons";
-import TeacherService from "src/services/TeacherService";
+import StudentService from "src/services/StudentService";
 import React, { useEffect, useState } from "react";
 import AdminService from "src/services/AdminService";
 
-const TeacherUpdateProfile = () => {
+const StudentUpdateProfile = () => {
   const navigate = useNavigate();
   const location = useLocation(); // Add this line to get the location object
 
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
-  const [designation, setDesignation] = useState("");
+  const [batchNo, setBatchNo] = useState("");
 
   const currentUserData = JSON.parse(localStorage.getItem("currentUserData"));
-  const teacherEmail = currentUserData ? currentUserData.email : null;
+  const studentEmail = currentUserData ? currentUserData.email : null;
   const [userData, setUserData] = useState({});
   const [tableData, setTableData] = useState([]);
-  const [selectedFaculty, setSelectedFaculty] = useState(null);
+  const [selectedDepartment, setSelectedDepartment] = useState(null);
 
   useEffect(() => {
-    if (teacherEmail) {
-      fetchFacultyList();
-      fetchTeacherfromEmail();
+    if (studentEmail) {
+      fetchDepartmentList();
+      fetchStudentfromEmail();
     } else {
       navigate("/500", { replace: true });
     }
-  }, [teacherEmail, location.state]);
+  }, [studentEmail, location.state]);
 
-  const fetchFacultyList = async () => {
-    const response = await AdminService.instance.getAllFaculty();
-    if (response.status) setTableData(response.facultyList);
+  const fetchDepartmentList = async () => {
+    const response = await AdminService.instance.getAllDepartment();
+    if (response.status) setTableData(response.departmentList);
   };
 
-  const fetchTeacherfromEmail = async () => {
+  const fetchStudentfromEmail = async () => {
     try {
-      const payload = { email: teacherEmail };
-      const response = await TeacherService.instance.getTeacherByEmail(payload);
+      const payload = { email: studentEmail };
+      const response = await StudentService.instance.getStudentByEmail(payload);
 
       if (response.status) {
         setUserData(response.data);
         setName(response.data.emsUser.name);
-        response.data.designation
-          ? setDesignation(response.data.designation)
-          : setDesignation("");
+        response.data.batchNo
+          ? setBatchNo(response.data.batchNo)
+          : setBatchNo("");
         setEmail(response.data.emsUser.email);
         setPhone(response.data.emsUser.phone);
-        response.data.faculty
-          ? setSelectedFaculty(response.data.faculty.name)
-          : setSelectedFaculty(null);
+        response.data.department
+          ? setSelectedDepartment(response.data.department.name)
+          : setSelectedDepartment(null);
       }
     } catch (error) {
       navigate("/500", { replace: true });
@@ -81,8 +81,8 @@ const TeacherUpdateProfile = () => {
         name.length < 3 ||
         email.length < 3 ||
         phone.length < 3 ||
-        !selectedFaculty ||
-        designation.length < 3
+        !selectedDepartment ||
+        batchNo == 0
       ) {
         Swal.fire({
           title: "Failed!",
@@ -91,8 +91,8 @@ const TeacherUpdateProfile = () => {
         });
         return;
       }
-      const facultyId = tableData.filter(
-        (faculty) => faculty.name === selectedFaculty,
+      const departmentId = tableData.filter(
+        (department) => department.name === selectedDepartment,
       );
 
       const EMSUser = {
@@ -101,19 +101,19 @@ const TeacherUpdateProfile = () => {
         email: email,
         phone: phone,
       };
-      const faculty = {
-        id: facultyId[0].id,
-        name: selectedFaculty,
-        description: facultyId[0].description,
+      const department = {
+        id: departmentId[0].id,
+        name: selectedDepartment,
+        description: departmentId[0].description,
       };
 
       const payload = {
         emsUser: EMSUser,
-        designation: designation,
-        faculty: faculty,
+        batchNo: batchNo,
+        department: department,
       };
       console.log(payload);
-      const response = await TeacherService.instance.updateTeacher(payload);
+      const response = await StudentService.instance.updateStudent(payload);
 
       if (response.status) {
         const currentUserData = JSON.parse(
@@ -126,14 +126,14 @@ const TeacherUpdateProfile = () => {
         );
         Swal.fire({
           title: "Successful!",
-          text: "Profile has been updated.",
+          text: "Account has been updated.",
           icon: "success",
         }).then(() => {
           navigate("/login");
         });
       } else {
         Swal.fire({
-          title: " Failed!",
+          title: "Failed!",
           text: "Please try again.",
           icon: "error",
         });
@@ -188,32 +188,32 @@ const TeacherUpdateProfile = () => {
               </div>
               <div className="mb-3">
                 <CFormLabel htmlFor="exampleFormControlInput4">
-                  Designation
+                  BatchNo
                 </CFormLabel>
                 <CFormInput
-                  type="text"
-                  value={designation}
+                  type="number"
+                  value={batchNo}
                   id="exampleFormControlInput4"
-                  placeholder="Designation"
-                  onChange={(e) => setDesignation(e.target.value)}
+                  placeholder="BatchNo"
+                  onChange={(e) => setBatchNo(e.target.value)}
                 />
               </div>
 
               <div className="mb-3">
                 <CFormLabel htmlFor="exampleFormControlSelect5">
-                  Faculty
+                  Department
                 </CFormLabel>
 
                 <CFormSelect
                   id="formSelectDefault"
                   className="ms-auto"
-                  value={selectedFaculty}
-                  onChange={(e) => setSelectedFaculty(e.target.value)}
+                  value={selectedDepartment}
+                  onChange={(e) => setSelectedDepartment(e.target.value)}
                 >
                   <option value={null}>...</option>
-                  {tableData.map((faculty) => (
-                    <option key={faculty.id} value={faculty.name}>
-                      {faculty.name}
+                  {tableData.map((department) => (
+                    <option key={department.id} value={department.name}>
+                      {department.name}
                     </option>
                   ))}
                 </CFormSelect>
@@ -231,4 +231,4 @@ const TeacherUpdateProfile = () => {
   );
 };
 
-export default TeacherUpdateProfile;
+export default StudentUpdateProfile;

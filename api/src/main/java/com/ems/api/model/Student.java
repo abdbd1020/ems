@@ -5,32 +5,17 @@ import jakarta.persistence.*;
 public class Student {
 
     @Id
-    private String id;
+    private String studentId;
 
     @OneToOne
     @JoinColumn(name = "student_user_id")
     private EMSUser emsUser;
 
     @ManyToOne
-    @JoinColumn(name = "department_name", nullable = false)
+    @JoinColumn(name = "department_name", nullable = true)
     private Department department;
 
-    @ManyToOne
-    @JoinColumn(name = "advisor_id")
-    private Teacher advisor;
-
-    private String studentId;
     private int batchNo;
-
-    // constructors, getters, setters, and other methods
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public EMSUser getEmsUser() {
         return emsUser;
@@ -48,13 +33,7 @@ public class Student {
         this.department = department;
     }
 
-    public Teacher getAdvisor() {
-        return advisor;
-    }
 
-    public void setAdvisor(Teacher advisor) {
-        this.advisor = advisor;
-    }
 
     public String getStudentId() {
         return studentId;
