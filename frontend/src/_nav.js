@@ -94,7 +94,7 @@ const _nav = [
   {
     component: CNavGroup,
     name: "Profile",
-    to: "/teacher",
+    to: "/teacher/",
     icon: <CIcon icon={cilStar} customClassName="nav-icon" />,
     authority: ClientEnum.TEACHER_TYPE,
     items: [
@@ -102,14 +102,33 @@ const _nav = [
         component: CNavItem,
         name: "Update Profile",
         to: "/teacher/profile/update-profile",
-        icon: <CIcon icon={cilDrop} customClassName="nav-icon" />,
         authority: ClientEnum.TEACHER_TYPE,
       },
       {
         component: CNavItem,
         name: "Reset Password",
         to: "/user/reset-password",
-        icon: <CIcon icon={cilDrop} customClassName="nav-icon" />,
+        authority: ClientEnum.TEACHER_TYPE,
+      },
+    ],
+  },
+  {
+    component: CNavGroup,
+    name: "Advisee",
+    to: "/teacher/advisee/",
+    icon: <CIcon icon={cilStar} customClassName="nav-icon" />,
+    authority: ClientEnum.TEACHER_TYPE,
+    items: [
+      {
+        component: CNavItem,
+        name: "Requested Advisee",
+        to: "/teacher/advisee/requested-advisee-list",
+        authority: ClientEnum.TEACHER_TYPE,
+      },
+      {
+        component: CNavItem,
+        name: "Current Advisee",
+        to: "/teacher/advisee/requested-advisee-list",
         authority: ClientEnum.TEACHER_TYPE,
       },
     ],

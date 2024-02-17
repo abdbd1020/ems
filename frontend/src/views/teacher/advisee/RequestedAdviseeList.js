@@ -13,52 +13,66 @@ import {
   CTableHeaderCell,
   CTableRow,
 } from "@coreui/react";
-import StudentService from "src/services/StudentService";
+import TeacherService from "src/services/TeacherService";
 import { Link, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
-const column = ["Name", "Faculty", "Designation", "Action"];
+const column = ["Name", "department", "Batch No", "Action", "Action"];
 
-const AvailableAdvisorList = () => {
+const RequestedAdviseeList = () => {
   const navigate = useNavigate();
   const [tableData, setTableData] = useState([]);
-  const [requestedAdvisorsAssignmentData, setRequestedAdvisorsAssignment] =
-    useState([]);
+  useState([]);
 
   useEffect(() => {
-    fetchAdvisorsList();
+    fetchAdviseeRequestList();
     fetchRequestAdadvisorAssignmentList();
   }, []);
 
-  const fetchAdvisorsList = async () => {
-    const response = await StudentService.instance.getAllAdvisors();
-    if (response.status) setTableData(response.userList);
+  const fetchAdviseeRequestList = async () => {
+    const currentUserData = JSON.parse(localStorage.getItem("currentUserData"));
+    const payload = {
+      email: currentUserData.email,
+    };
+    const response =
+      await TeacherService.instance.getAllAdviseeRequest(payload);
+    if (response.status) setTableData(response.data);
     else {
       navigate("/500", { replace: true });
     }
   };
   const fetchRequestAdadvisorAssignmentList = async () => {
     const currentUserData = JSON.parse(localStorage.getItem("currentUserData"));
-    const payload = {
-      email: currentUserData.email,
-    };
-    const response =
-      await StudentService.instance.getRequestAdadvisorAssignmentList(payload);
-    console.log(response);
-    if (response.status)
-      setRequestedAdvisorsAssignment(response.requestedAdvisorsList);
   };
 
-  const handleSendRequest = async (UserId) => {
+  const handleAcceptorReject = async (requestId, isAccept) => {
     const currentUserData = JSON.parse(localStorage.getItem("currentUserData"));
     const payload = {
-      email: currentUserData.email,
-      id: UserId,
+      id: requestId,
     };
-    const response = await StudentService.instance.sendAdvisorRequest(payload);
-    if (response.status) {
-      alert("Request sent successfully");
+    var response;
+    if (isAccept) {
+      response = await TeacherService.instance.acceptAdvisorRequest(payload);
     } else {
-      alert("Request failed");
+      response = await TeacherService.instance.acceptAdvisorRequest(payload);
+    }
+    if (response.status) {
+      Swal.fire({
+        icon: "success",
+        title: { isAccept } ? "Accepted" : "Rejected",
+        text: { isAccept }
+          ? "Request has been accepted"
+          : "Request has been rejected",
+      }).then(() => {
+        const newTableData = tableData.filter((row) => row.id !== UserId);
+        setTableData(newTableData);
+      });
+    } else {
+      Swal.fire({
+        icon: "error",
+        title: "Failed",
+        text: "Please try again",
+      });
     }
   };
 
@@ -85,26 +99,27 @@ const AvailableAdvisorList = () => {
                 </CTableHead>
                 <CTableBody>
                   {tableData.map((row) => {
-                    const isAlreadyRequested =
-                      requestedAdvisorsAssignmentData.some(
-                        (data) => data.teacherId === row.id && !data.accepted,
-                      );
-
                     return (
                       <CTableRow key={row.id}>
                         <CTableHeaderCell scope="row">
-                          {row.emsUser.name}
+                          {row.adviseeName}
                         </CTableHeaderCell>
-                        <CTableDataCell>{row.faculty.name}</CTableDataCell>
-                        <CTableDataCell>{row.designation}</CTableDataCell>
-
+                        <CTableDataCell>{row.adviseeDepartment}</CTableDataCell>
+                        <CTableDataCell>{row.adviseeBatchNo}</CTableDataCell>
                         <CTableDataCell>
                           <CButton
-                            color={isAlreadyRequested ? "secondary" : "success"}
-                            onClick={() => handleSendRequest(row.id)}
-                            disabled={isAlreadyRequested}
+                            color={"success"}
+                            onClick={() => handleAcceptorReject(row.id, true)}
                           >
-                            {isAlreadyRequested ? "Requested" : "Send Request"}
+                            Accept
+                          </CButton>
+                        </CTableDataCell>
+                        <CTableDataCell>
+                          <CButton
+                            color={"danger"}
+                            onClick={() => handleAcceptorReject(row.id, false)}
+                          >
+                            Reject
                           </CButton>
                         </CTableDataCell>
                       </CTableRow>
@@ -120,4 +135,4 @@ const AvailableAdvisorList = () => {
   );
 };
 
-export default AvailableAdvisorList;
+export default RequestedAdviseeList;

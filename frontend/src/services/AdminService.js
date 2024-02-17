@@ -30,7 +30,7 @@ class AdminService {
     return DefaultService.instance.defaultResponse();
   }
 
-  async getAllSpecifiicUsers(api) {
+  async getAllSpecificUsers(api) {
     let retry = 0;
 
     while (retry++ < 2) {
@@ -57,15 +57,21 @@ class AdminService {
 
   async getAllInactiveUsers() {
     const api = "/getallinactiveusers";
-    return this.getAllSpecifiicUsers(api);
+    return this.getAllSpecificUsers(api);
   }
+
+  async getAllInactiveAndGuestUsers() {
+    const api = "/getallinactiveandguestusers";
+    return this.getAllSpecificUsers(api);
+  }
+
   async getAllTeachers() {
     const api = "/getallteachers";
-    return this.getAllSpecifiicUsers(api);
+    return this.getAllSpecificUsers(api);
   }
   async getAllStudents() {
     const api = "/getallstudents";
-    return this.getAllSpecifiicUsers(api);
+    return this.getAllSpecificUsers(api);
   }
 
   async updateUser(payload) {

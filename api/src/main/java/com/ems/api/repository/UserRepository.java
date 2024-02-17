@@ -2,6 +2,7 @@ package com.ems.api.repository;
 
 import com.ems.api.model.EMSUser;
 import com.ems.api.model.Role;
+import com.ems.api.model.Status;
 import com.ems.api.model.Student;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
@@ -54,5 +55,12 @@ public class UserRepository {
         return entityManager.createQuery("SELECT u FROM EMSUser u WHERE u.email = :email", EMSUser.class)
                 .setParameter("email", email)
                 .getSingleResult();
+    }
+
+    public ArrayList<EMSUser> getAllInActiveAndGuestUsers() {
+        return (ArrayList<EMSUser>) entityManager.createQuery("SELECT u FROM EMSUser u WHERE u.status = :status OR u.role = :role", EMSUser.class)
+                .setParameter("status", Status.INACTIVE)
+                .setParameter("role", Role.GUEST)
+                .getResultList();
     }
 }

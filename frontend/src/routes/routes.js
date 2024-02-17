@@ -37,6 +37,9 @@ const StudentUpdateProfile = React.lazy(
 const AvailableAdvisorList = React.lazy(
   () => import("../views/student/advisor/AvailableAdvisorList"),
 );
+const RequestedAdviseeList = React.lazy(
+  () => import("../views/teacher/advisee/RequestedAdviseeList"),
+);
 
 const ResetPassword = React.lazy(() => import("../views/user/ResetPassword"));
 const routes = [
@@ -102,6 +105,11 @@ const routes = [
     path: "/student/advisor/available-advisor-list",
     name: "Available Advisor List",
     element: AvailableAdvisorList,
+  },
+  {
+    path: "/teacher/advisee/requested-advisee-list",
+    name: "Requested Advisee List",
+    element: RequestedAdviseeList,
   },
 ];
 

@@ -37,7 +37,7 @@ const TeacherUpdateProfile = () => {
   const teacherEmail = currentUserData ? currentUserData.email : null;
   const [userData, setUserData] = useState({});
   const [tableData, setTableData] = useState([]);
-  const [selectedFaculty, setSelectedFaculty] = useState(null);
+  const [selectedFaculty, setSelectedFaculty] = useState("");
 
   useEffect(() => {
     if (teacherEmail) {

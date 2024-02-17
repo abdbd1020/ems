@@ -85,9 +85,9 @@ public class StudentService {
     }
     @Transactional
     public String sendAdvisorRequest(AdvisorRequest advisorRequest) {
-        String studentId = userRepository.findByEmail(advisorRequest.getStudentEmail()).getId();
+        String studentId = userRepository.findByEmail(advisorRequest.getEmail()).getId();
         Student student = studentRepository.getStudentById(studentId);
-        Teacher teacher = teacherRepository.getTeacherById(advisorRequest.getAdvisorId());
+        Teacher teacher = teacherRepository.getTeacherById(advisorRequest.getId());
         AdvisorAssignment advisorAssignment = new AdvisorAssignment();
         advisorAssignment.setStudent(student);
         advisorAssignment.setTeacher(teacher);
@@ -105,6 +105,9 @@ public class StudentService {
         ArrayList<AdvisorAssignmentResponse> advisorAssignmentResponses = new ArrayList<>();
 
         for(AdvisorAssignment advisorAssignment : advisorAssignments) {
+            if(advisorAssignment.getTeacher().getEmsUser().getStatus().equals(Status.INACTIVE)) {
+                continue;
+            }
             AdvisorAssignmentResponse advisorAssignmentResponse = new AdvisorAssignmentResponse();
             advisorAssignmentResponse.setTeacherId(advisorAssignment.getTeacher().getId());
             advisorAssignmentResponse.setId(advisorAssignment.getId());

@@ -28,7 +28,7 @@ const AdminInactiveUserLis = () => {
   }, []);
 
   const fetchUserList = async () => {
-    const response = await AdminService.instance.getAllInactiveUsers();
+    const response = await AdminService.instance.getAllInactiveAndGuestUsers();
     if (response.status) setTableData(response.userList);
     else {
       navigate("/500", { replace: true });

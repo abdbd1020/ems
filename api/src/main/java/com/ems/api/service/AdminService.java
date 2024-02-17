@@ -29,6 +29,10 @@ public class AdminService {
         return adminRepository.getAllUsers();
     }
 
+    public ArrayList<EMSUser> getAllInActiveAndGuestUsers() {
+        return userRepository.getAllInActiveAndGuestUsers();
+    }
+
     @Transactional
     public String updateUser(EMSUser user) {
 
@@ -117,4 +121,6 @@ public class AdminService {
         department.setDescription(departmentRequest.getDescription());
         return department;
     }
+
+
 }

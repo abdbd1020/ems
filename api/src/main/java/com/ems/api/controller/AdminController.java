@@ -38,6 +38,10 @@ public class AdminController {
     public ArrayList<EMSUser> getInactiveUsers() {
         return adminService.getInactiveUsers();
     }
+    @GetMapping("/getallinactiveandguestusers")
+    public ArrayList<EMSUser> getAllInActiveAndGuestUsers() {
+        return adminService.getAllInActiveAndGuestUsers();
+    }
     @GetMapping("/getallstudents")
     public ArrayList<EMSUser> getAllStudents() {
         return adminService.getAllUsersByRole(Role.STUDENT);

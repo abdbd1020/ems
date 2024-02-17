@@ -1,22 +1,23 @@
 package com.ems.api.dto;
 
 public class AdvisorRequest {
-    private String studentEmail;
-    private String advisorId;
+    private String email;
+    private String id;
 
-    public String getStudentEmail() {
-        return studentEmail;
+
+    public String getEmail() {
+        return email;
     }
 
-    public void setStudentEmail(String studentEmail) {
-        this.studentEmail = studentEmail;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public String getAdvisorId() {
-        return advisorId;
+    public String getId() {
+        return id;
     }
 
-    public void setAdvisorId(String advisorId) {
-        this.advisorId = advisorId;
+    public void setId(String id) {
+        this.id = id;
     }
 }
