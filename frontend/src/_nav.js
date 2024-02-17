@@ -142,7 +142,7 @@ const _nav = [
   {
     component: CNavItem,
     name: "IN/OUT Register",
-    to: "/register",
+    to: "/student/advisor/available-advisor-list",
     icon: <CIcon icon={cilDrop} customClassName="nav-icon" />,
     authority: ClientEnum.STUDENT_TYPE,
   },

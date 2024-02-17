@@ -57,6 +57,89 @@ class StudentService {
     }
     return DefaultService.instance.defaultResponse();
   }
+  async getAllAdvisors() {
+    let retry = 0;
+
+    while (retry++ < 2) {
+      console.log(ServerConfig.url.API_URL + "/student/getalladvisors");
+      try {
+        const getTeacherListResponse = await axios.get(
+          ServerConfig.url.API_URL + "/student/getalladvisors",
+          DefaultService.instance.getHeaderWithToken(),
+        );
+        if (getTeacherListResponse.status == "200") {
+          return {
+            status: true,
+            userList: getTeacherListResponse.data,
+          };
+        }
+      } catch (error) {
+        console.log("Error in getalladvisors in services/AdminService.js");
+        console.log(error);
+        retry++;
+      }
+    }
+    return DefaultService.instance.defaultResponse();
+  }
+
+  async getRequestAdadvisorAssignmentList(payload) {
+    let retry = 0;
+
+    while (retry++ < 2) {
+      console.log(
+        ServerConfig.url.API_URL + "/student/requestedadvisorassignmentlist",
+      );
+      try {
+        const getTeacherListResponse = await axios.post(
+          ServerConfig.url.API_URL + "/student/requestedadvisorassignmentlist",
+          payload,
+          DefaultService.instance.getHeaderWithToken(),
+        );
+        if (getTeacherListResponse.status == "200") {
+          return {
+            status: true,
+            requestedAdvisorsList: getTeacherListResponse.data,
+          };
+        }
+      } catch (error) {
+        console.log(
+          "Error in requestedadvisorassignmentlist in services/AdminService.js",
+        );
+        console.log(error);
+        retry++;
+      }
+    }
+    return DefaultService.instance.defaultResponse();
+  }
+
+  async sendAdvisorRequest(payload) {
+    let retry = 0;
+
+    while (retry++ < 2) {
+      console.log(ServerConfig.url.API_URL + "/student/sendadvisorrequest");
+      try {
+        const response = await axios.post(
+          ServerConfig.url.API_URL + "/student/sendadvisorrequest",
+          payload,
+          DefaultService.instance.getHeaderWithToken(),
+        );
+
+        if (response.status == "200") {
+          return {
+            status: true,
+            data: response.data,
+          };
+        }
+      } catch (error) {
+        console.log(
+          "Error in sendadvisorrequest in services/DefaultService.js",
+        );
+        console.log(error);
+        retry++;
+      }
+    }
+    return DefaultService.instance.defaultResponse();
+  }
 }
 
 export default StudentService;

@@ -34,6 +34,10 @@ const TeacherUpdateProfile = React.lazy(
 const StudentUpdateProfile = React.lazy(
   () => import("../views/student/profile/StudentUpdateProfile"),
 );
+const AvailableAdvisorList = React.lazy(
+  () => import("../views/student/advisor/AvailableAdvisorList"),
+);
+
 const ResetPassword = React.lazy(() => import("../views/user/ResetPassword"));
 const routes = [
   { path: "/", exact: true, name: "Home" },
@@ -93,6 +97,11 @@ const routes = [
     path: "/student/profile/update-profile",
     name: "Update Profile",
     element: StudentUpdateProfile,
+  },
+  {
+    path: "/student/advisor/available-advisor-list",
+    name: "Available Advisor List",
+    element: AvailableAdvisorList,
   },
 ];
 

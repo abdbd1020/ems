@@ -12,7 +12,6 @@ export default class DefaultService {
         "Access-Control-Allow-Headers": "*",
         Accept: "application/json",
         "Content-Type": "application/json",
-        // authorization: JSON.parse(localStorage.getItem('authCredential'))['jwtToken']
       },
     };
   }

@@ -18,8 +18,6 @@ import AdminService from "src/services/AdminService";
 import { Link, useNavigate } from "react-router-dom";
 import UserTable from "src/views/Table/UserTable";
 
-const column = ["Name", "Email", "Phone", "Role", "Status", "Action"];
-
 const AdminTeachersList = () => {
   const navigate = useNavigate();
 
