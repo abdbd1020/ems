@@ -5,7 +5,10 @@ import com.ems.api.dto.AdvisorRequest;
 import com.ems.api.dto.EmailRequest;
 import com.ems.api.model.*;
 import com.ems.api.repository.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +16,8 @@ import java.util.ArrayList;
 
 @Service
 public class TeacherService {
+    @Autowired
+    private EntityManager entityManager;
     @Autowired
     private TeacherRepository teacherRepository;
     @Autowired
@@ -30,9 +35,6 @@ public class TeacherService {
         AdvisorAssignment currentAdvisorAssignment = advisorAssignmentRepository.getAdvisorAssignmentsById(advisorAssignment.getId());
         currentAdvisorAssignment.setAccepted(true);
         return advisorAssignmentRepository.acceptAdvisorAssignment(currentAdvisorAssignment);
-
-
-
     }
     @Transactional
     public Teacher getTeacherByEmail(String email) {
@@ -55,7 +57,7 @@ public class TeacherService {
         return jwtService.generateToken(teacher.getEmsUser().getEmail());
 
     }
-
+    @Transactional
     public ArrayList<AdviseeRequest> getAllAdviseeRequest(EmailRequest emailRequest) {
         Teacher teacher = getTeacherByEmail(emailRequest.getEmail());
         ArrayList<AdvisorAssignment> advisorAssignments = advisorAssignmentRepository.getAdvisorAssignmentsByAdvisor(teacher);
@@ -75,9 +77,33 @@ public class TeacherService {
         return adviseeRequests;
 
     }
+    @Transactional
+    public ArrayList<AdvisorAssignment> getAllCurrentAdvisee(EmailRequest emailRequest) {
+        Teacher teacher = getTeacherByEmail(emailRequest.getEmail());
+        ArrayList<AdvisorAssignment> advisorAssignments = advisorAssignmentRepository.getAdvisorAssignmentsByAdvisor(teacher);
+        ArrayList<AdvisorAssignment> finalAdvisorAssignments = new ArrayList<>();
+        for (AdvisorAssignment advisorAssignment : advisorAssignments) {
+            if(advisorAssignment.getStudent().getEmsUser().getStatus().equals(Status.INACTIVE) || !advisorAssignment.isAccepted()) {
+                continue;
+            }
+            entityManager.detach(advisorAssignment);
+            entityManager.detach(advisorAssignment.getStudent().getEmsUser());
+            entityManager.detach(advisorAssignment.getTeacher().getEmsUser());
+            entityManager.detach(advisorAssignment.getTeacher());
 
-    public String rejectAdvisor(AdvisorAssignment advisorAssignment) {
+            advisorAssignment.getStudent().getEmsUser().setPassword("");
+            advisorAssignment.setTeacher(null);
+
+            finalAdvisorAssignments.add(advisorAssignment);
+        }
+        return finalAdvisorAssignments;
+
+    }
+    @Transactional
+    public String rejectAdvisor(@NotNull AdvisorAssignment advisorAssignment) {
         AdvisorAssignment currentAdvisorAssignment = advisorAssignmentRepository.getAdvisorAssignmentsById(advisorAssignment.getId());
         return advisorAssignmentRepository.removeAdvisorAssignment(currentAdvisorAssignment);
     }
+
+
 }

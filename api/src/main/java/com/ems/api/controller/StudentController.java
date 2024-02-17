@@ -47,6 +47,14 @@ public class StudentController {
         System.out.println(emailRequest.getEmail());
         return studentService.requestedAdvisorAssignmentList(emailRequest);
     }
+    @PostMapping("/getcurrentadvisor")
+    public Teacher getCurrentAdvisor(@RequestBody EmailRequest emailRequest) {
+        return studentService.getCurrentAdvisor(emailRequest);
+    }
+    @PostMapping("/removeadvisor")
+    public String removeAdvisor(@RequestBody EmailRequest emailRequest) {
+        return studentService.removeAdvisor(emailRequest);
+    }
 
 
 

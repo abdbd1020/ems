@@ -29,14 +29,17 @@ public class TeacherController {
     }
     @PostMapping("/getalladviseerequest")
     public ArrayList<AdviseeRequest> getAllAdviseeRequest(@RequestBody EmailRequest emailRequest) {
-        System.out.println(emailRequest.getEmail());
         return teacherService.getAllAdviseeRequest(emailRequest);
+    }
+    @PostMapping("/getallcurrentadvisee")
+    public ArrayList<AdvisorAssignment> getAllCurrentAdvisee(@RequestBody EmailRequest emailRequest) {
+        return teacherService.getAllCurrentAdvisee(emailRequest);
     }
     @PostMapping("/acceptadvisorrequest")
     public String acceptAdvisorRequest(@RequestBody AdvisorAssignment advisorAssignment) {
         return teacherService.acceptAdvisor(advisorAssignment);
     }
-    @PostMapping("/rejectadvisorrequest")
+    @PostMapping("/removeadvisorrequest")
     public String rejectAdvisorRequest(@RequestBody AdvisorAssignment advisorAssignment) {
         return teacherService.rejectAdvisor(advisorAssignment);
     }

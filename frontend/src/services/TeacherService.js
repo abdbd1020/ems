@@ -60,7 +60,6 @@ class TeacherService {
   }
 
   async getAllAdviseeRequest(payload) {
-    console.log(payload);
     let retry = 0;
 
     while (retry++ < 2) {
@@ -89,7 +88,6 @@ class TeacherService {
   }
 
   async acceptAdvisorRequest(payload) {
-    console.log(payload);
     let retry = 0;
 
     while (retry++ < 2) {
@@ -118,15 +116,14 @@ class TeacherService {
     return DefaultService.instance.defaultResponse();
   }
 
-  async rejectAdvisorRequest(payload) {
-    console.log(payload);
+  async removeAdvisorRequest(payload) {
     let retry = 0;
 
     while (retry++ < 2) {
-      console.log(ServerConfig.url.API_URL + "/teacher/rejectadvisorrequest");
+      console.log(ServerConfig.url.API_URL + "/teacher/removeadvisorrequest");
       try {
         const response = await axios.post(
-          ServerConfig.url.API_URL + "/teacher/rejectadvisorrequest",
+          ServerConfig.url.API_URL + "/teacher/removeadvisorrequest",
           payload,
           DefaultService.instance.getHeaderWithToken(),
         );
@@ -139,7 +136,37 @@ class TeacherService {
         }
       } catch (error) {
         console.log(
-          "Error in rejectadvisorrequest in services/TeacherService.js",
+          "Error in removeadvisorrequest in services/TeacherService.js",
+        );
+        console.log(error);
+        retry++;
+      }
+    }
+    return DefaultService.instance.defaultResponse();
+  }
+
+  async getAllCurrentAdvisee(payload) {
+    let retry = 0;
+
+    while (retry++ < 2) {
+      console.log(ServerConfig.url.API_URL + "/teacher/getallcurrentadvisee");
+      try {
+        const response = await axios.post(
+          ServerConfig.url.API_URL + "/teacher/getallcurrentadvisee",
+          payload,
+          DefaultService.instance.getHeaderWithToken(),
+        );
+        console.log(response);
+
+        if (response.status == "200") {
+          return {
+            status: true,
+            data: response.data,
+          };
+        }
+      } catch (error) {
+        console.log(
+          "Error in getallcurrentadvisee in services/TeacherService.js",
         );
         console.log(error);
         retry++;

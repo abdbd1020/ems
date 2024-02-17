@@ -70,7 +70,7 @@ class StudentService {
         if (getTeacherListResponse.status == "200") {
           return {
             status: true,
-            userList: getTeacherListResponse.data,
+            data: getTeacherListResponse.data,
           };
         }
       } catch (error) {
@@ -98,7 +98,7 @@ class StudentService {
         if (getTeacherListResponse.status == "200") {
           return {
             status: true,
-            requestedAdvisorsList: getTeacherListResponse.data,
+            data: getTeacherListResponse.data,
           };
         }
       } catch (error) {
@@ -134,6 +134,58 @@ class StudentService {
         console.log(
           "Error in sendadvisorrequest in services/DefaultService.js",
         );
+        console.log(error);
+        retry++;
+      }
+    }
+    return DefaultService.instance.defaultResponse();
+  }
+  async removeAdvisor(payload) {
+    let retry = 0;
+
+    while (retry++ < 2) {
+      console.log(ServerConfig.url.API_URL + "/student/removeadvisor");
+      try {
+        const response = await axios.post(
+          ServerConfig.url.API_URL + "/student/removeadvisor",
+          payload,
+          DefaultService.instance.getHeaderWithToken(),
+        );
+
+        if (response.status == "200") {
+          return {
+            status: true,
+            data: response.data,
+          };
+        }
+      } catch (error) {
+        console.log("Error in removeadvisor in services/DefaultService.js");
+        console.log(error);
+        retry++;
+      }
+    }
+    return DefaultService.instance.defaultResponse();
+  }
+  async getCurrentAdvisor(payload) {
+    let retry = 0;
+
+    while (retry++ < 2) {
+      console.log(ServerConfig.url.API_URL + "/student/getcurrentadvisor");
+      try {
+        const response = await axios.post(
+          ServerConfig.url.API_URL + "/student/getcurrentadvisor",
+          payload,
+          DefaultService.instance.getHeaderWithToken(),
+        );
+
+        if (response.status == "200") {
+          return {
+            status: true,
+            data: response.data,
+          };
+        }
+      } catch (error) {
+        console.log("Error in getcurrentadvisor in services/DefaultService.js");
         console.log(error);
         retry++;
       }

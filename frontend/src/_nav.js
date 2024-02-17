@@ -128,7 +128,7 @@ const _nav = [
       {
         component: CNavItem,
         name: "Current Advisee",
-        to: "/teacher/advisee/requested-advisee-list",
+        to: "/teacher/advisee/current-advisee-list",
         authority: ClientEnum.TEACHER_TYPE,
       },
     ],
@@ -157,13 +157,26 @@ const _nav = [
       },
     ],
   },
-
   {
-    component: CNavItem,
-    name: "IN/OUT Register",
-    to: "/student/advisor/available-advisor-list",
-    icon: <CIcon icon={cilDrop} customClassName="nav-icon" />,
+    component: CNavGroup,
+    name: "Advisor",
+    to: "/student/advisor/",
+    icon: <CIcon icon={cilStar} customClassName="nav-icon" />,
     authority: ClientEnum.STUDENT_TYPE,
+    items: [
+      {
+        component: CNavItem,
+        name: "Available Advisors",
+        to: "/student/advisor/available-advisor-list",
+        authority: ClientEnum.STUDENT_TYPE,
+      },
+      {
+        component: CNavItem,
+        name: "Current Advisee",
+        to: "/student/advisor/current-advisor",
+        authority: ClientEnum.STUDENT_TYPE,
+      },
+    ],
   },
 
   {
@@ -201,12 +214,6 @@ const _nav = [
         to: "/500",
       },
     ],
-  },
-  {
-    component: CNavItem,
-    name: "Docs",
-    href: "https://coreui.io/react/docs/templates/installation/",
-    icon: <CIcon icon={cilDescription} customClassName="nav-icon" />,
   },
 ];
 

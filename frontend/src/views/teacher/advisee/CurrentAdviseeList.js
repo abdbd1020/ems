@@ -17,9 +17,9 @@ import TeacherService from "src/services/TeacherService";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
-const column = ["Name", "department", "Batch No", "Action", "Action"];
+const column = ["Name", "department", "Batch No", "Email", "Phone", "Action"];
 
-const RequestedAdviseeList = () => {
+const CurrentAdviseeList = () => {
   const navigate = useNavigate();
   const [tableData, setTableData] = useState([]);
   useState([]);
@@ -34,30 +34,26 @@ const RequestedAdviseeList = () => {
       email: currentUserData.email,
     };
     const response =
-      await TeacherService.instance.getAllAdviseeRequest(payload);
+      await TeacherService.instance.getAllCurrentAdvisee(payload);
     if (response.status) setTableData(response.data);
     else {
       navigate("/500", { replace: true });
     }
   };
 
-  const handleAcceptorReject = async (requestId, isAccept) => {
+  const handleRemove = async (requestId) => {
     const payload = {
       id: requestId,
     };
-    var response;
-    if (isAccept) {
-      response = await TeacherService.instance.acceptAdvisorRequest(payload);
-    } else {
-      response = await TeacherService.instance.removeAdvisorRequest(payload);
-    }
+
+    const response =
+      await TeacherService.instance.removeAdvisorRequest(payload);
+
     if (response.status) {
       Swal.fire({
         icon: "success",
-        title: { isAccept } ? "Accepted" : "Rejected",
-        text: { isAccept }
-          ? "Request has been accepted"
-          : "Request has been rejected",
+        title: "Removed",
+        text: "Student removed from your advisee list successfully.",
       }).then(() => {
         const newTableData = tableData.filter((row) => row.id !== requestId);
         setTableData(newTableData);
@@ -77,7 +73,7 @@ const RequestedAdviseeList = () => {
         <CCol xs={12}>
           <CCard className="mb-4">
             <CCardHeader>
-              <strong>Advisor Request</strong>
+              <strong>Current Advisee</strong>
             </CCardHeader>
             <CCardBody>
               <CTable striped>
@@ -97,24 +93,24 @@ const RequestedAdviseeList = () => {
                     return (
                       <CTableRow key={row.id}>
                         <CTableHeaderCell scope="row">
-                          {row.adviseeName}
+                          {row.student.emsUser.name}
                         </CTableHeaderCell>
-                        <CTableDataCell>{row.adviseeDepartment}</CTableDataCell>
-                        <CTableDataCell>{row.adviseeBatchNo}</CTableDataCell>
                         <CTableDataCell>
-                          <CButton
-                            color={"success"}
-                            onClick={() => handleAcceptorReject(row.id, true)}
-                          >
-                            Accept
-                          </CButton>
+                          {row.student.department.name}
+                        </CTableDataCell>
+                        <CTableDataCell>{row.student.batchNo}</CTableDataCell>
+                        <CTableDataCell>
+                          {row.student.emsUser.email}
+                        </CTableDataCell>
+                        <CTableDataCell>
+                          {row.student.emsUser.phone}
                         </CTableDataCell>
                         <CTableDataCell>
                           <CButton
                             color={"danger"}
-                            onClick={() => handleAcceptorReject(row.id, false)}
+                            onClick={() => handleRemove(row.id)}
                           >
-                            Reject
+                            Remove
                           </CButton>
                         </CTableDataCell>
                       </CTableRow>
@@ -130,4 +126,4 @@ const RequestedAdviseeList = () => {
   );
 };
 
-export default RequestedAdviseeList;
+export default CurrentAdviseeList;

@@ -50,4 +50,10 @@ public class AdvisorAssignmentRepository {
         entityManager.remove(currentAdvisorAssignment);
         return "Advisor Assignment Removed Successfully";
     }
+
+    public AdvisorAssignment getCurrentAdvisorOfSingleStudent(Student student) {
+        return entityManager.createQuery("SELECT a FROM AdvisorAssignment a WHERE a.student = :student AND a.isAccepted = true", AdvisorAssignment.class)
+                .setParameter("student", student)
+                .getSingleResult();
+    }
 }

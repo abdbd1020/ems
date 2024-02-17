@@ -97,6 +97,7 @@ public class StudentService {
 
 
     }
+    @Transactional
 
     public ArrayList<AdvisorAssignmentResponse> requestedAdvisorAssignmentList(EmailRequest emailRequest) {
         String studentId = userRepository.findByEmail(emailRequest.getEmail()).getId();
@@ -118,5 +119,28 @@ public class StudentService {
         return advisorAssignmentResponses;
 
 
+    }
+    @Transactional
+
+    public Teacher getCurrentAdvisor(EmailRequest emailRequest) {
+        String studentId = userRepository.findByEmail(emailRequest.getEmail()).getId();
+        Student student = studentRepository.getStudentById(studentId);
+        AdvisorAssignment advisorAssignment = advisorAssignmentRepository.getCurrentAdvisorOfSingleStudent(student);
+        if(advisorAssignment.getTeacher().getEmsUser().getStatus().equals(Status.INACTIVE)) {
+            return null;
+        }
+        Teacher teacher = advisorAssignment.getTeacher();
+        entityManager.detach(teacher.getEmsUser());
+        teacher.getEmsUser().setPassword("");
+        return teacher;
+
+    }
+    @Transactional
+
+    public String removeAdvisor(EmailRequest emailRequest) {
+        String studentId = userRepository.findByEmail(emailRequest.getEmail()).getId();
+        Student student = studentRepository.getStudentById(studentId);
+        AdvisorAssignment advisorAssignment = advisorAssignmentRepository.getCurrentAdvisorOfSingleStudent(student);
+        return advisorAssignmentRepository.removeAdvisorAssignment(advisorAssignment);
     }
 }
