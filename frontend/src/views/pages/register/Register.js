@@ -27,6 +27,15 @@ const Register = () => {
   const [password, setPassword] = useState("");
 
   const handleSubmit = async () => {
+    if (email === "" || name === "" || phone === "" || password === "") {
+      Swal.fire({
+        title: "Registration Failed!",
+        text: "Please fill all the fields.",
+        icon: "error",
+      });
+      return;
+    }
+
     const payload = {
       name: name,
       email: email,

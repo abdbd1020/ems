@@ -32,7 +32,7 @@ public class AdminController {
     }
     @PostMapping("/update_user")
     public String updateUser(@RequestBody EMSUser user) {
-        return adminService.updateUser(user);
+        return adminService.updateUserAsAdmin(user);
     }
     @GetMapping("/get_all_inactive_users")
     public ArrayList<EMSUser> getInactiveUsers() {

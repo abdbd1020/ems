@@ -29,7 +29,7 @@ public class AdminService {
 
     @Transactional
     public ArrayList<EMSUser> getAllUsers() {
-        return adminRepository.getAllUsers();
+        return userRepository.getAllUsers();
     }
 
     public ArrayList<EMSUser> getAllInActiveAndGuestUsers() {
@@ -37,10 +37,14 @@ public class AdminService {
     }
 
     @Transactional
-    public String updateUser(@NotNull EMSUser user) {
+    public String updateUserAsAdmin(@NotNull EMSUser user) {
 
         if (user.getRole().equals(Role.STUDENT)) {
             Student student = studentRepository.getStudentById(user.getId());
+            Teacher teacher = teacherRepository.getTeacherById(user.getId());
+            if (teacher != null) {
+                teacherRepository.deleteTeacher(user.getId());
+            }
             if (student == null) {
                 studentRepository.createStudent(user.getId());
             }
@@ -48,13 +52,27 @@ public class AdminService {
         }
         if (user.getRole().equals(Role.TEACHER)) {
             Teacher teacher = teacherRepository.getTeacherById(user.getId());
+            Student student = studentRepository.getStudentById(user.getId());
+            if (student != null) {
+                studentRepository.deleteStudent(user.getId());
+            }
             if (teacher == null) {
                 teacherRepository.createTeacher(user.getId());
             }
 
         }
+        if(user.getRole().equals(Role.GUEST)){
+            Student student = studentRepository.getStudentById(user.getId());
+            Teacher teacher = teacherRepository.getTeacherById(user.getId());
+            if (teacher != null) {
+                teacherRepository.deleteTeacher(user.getId());
+            }
+            if (student != null) {
+                studentRepository.deleteStudent(user.getId());
+            }
+        }
 
-        return adminRepository.updateUser(user);
+        return adminRepository.updateUserAsAdmin(user);
     }
 
     public void ensureAdminExists() {
@@ -73,12 +91,12 @@ public class AdminService {
     @Transactional
 
     public ArrayList<EMSUser> getInactiveUsers() {
-        return adminRepository.getInactiveUsers();
+        return userRepository.getInactiveUsers();
     }
     @Transactional
 
     public ArrayList<EMSUser> getAllUsersByRole(Role role) {
-        return adminRepository.getAllUsersByRole(role);
+        return userRepository.getAllUsersByRole(role);
     }
 
     @Transactional

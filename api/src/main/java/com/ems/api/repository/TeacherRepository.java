@@ -45,4 +45,10 @@ public class TeacherRepository {
     public ArrayList<Teacher> getAllTeachers() {
         return (ArrayList<Teacher>) entityManager.createQuery("SELECT t FROM Teacher t", Teacher.class).getResultList();
     }
+    @Transactional
+    public void deleteTeacher(String id) {
+        entityManager.createQuery("DELETE FROM Teacher t WHERE t.id = :id")
+                .setParameter("id", id)
+                .executeUpdate();
+    }
 }

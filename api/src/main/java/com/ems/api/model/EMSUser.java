@@ -1,6 +1,7 @@
 package com.ems.api.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @Entity
@@ -14,7 +15,6 @@ public class EMSUser {
     private Role role;
     private String name;
     @Column(unique = true)
-
     private String email;
     private String password;
     private String phone;

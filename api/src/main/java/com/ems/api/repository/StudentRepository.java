@@ -35,4 +35,10 @@ public class StudentRepository {
     public void updateStudent(Student student) {
         entityManager.merge(student);
     }
+
+    public void deleteStudent(String id) {
+        entityManager.createQuery("DELETE FROM Student s WHERE s.studentId = :id")
+                .setParameter("id", id)
+                .executeUpdate();
+    }
 }

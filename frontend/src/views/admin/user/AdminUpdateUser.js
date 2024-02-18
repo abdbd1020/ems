@@ -38,9 +38,9 @@ const AdminUpdateUser = () => {
   useEffect(() => {}, []);
 
   const handleSubmit = async () => {
-    if (name === "") return;
-    if (email === "") return;
-    if (phone === "") return;
+    // if (name === "") return;
+    // if (email === "") return;
+    // if (phone === "") return;
 
     userData[0].status = status;
     userData[0].role = type;
