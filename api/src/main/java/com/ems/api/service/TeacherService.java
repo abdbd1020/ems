@@ -31,6 +31,13 @@ public class TeacherService {
     @Transactional
     public String acceptAdvisor(@NotNull AdvisorAssignment advisorAssignment) {
         AdvisorAssignment currentAdvisorAssignment = advisorAssignmentRepository.getAdvisorAssignmentsById(advisorAssignment.getId());
+        Student student = advisorAssignmentRepository.getStudentFromAdvisorAssignment(currentAdvisorAssignment);
+        ArrayList<AdvisorAssignment> advisorAssignments = advisorAssignmentRepository.getRequestedAdvisorAssignmentList(student);
+        for (AdvisorAssignment assignment : advisorAssignments) {
+            if (!assignment.getId().equals(currentAdvisorAssignment.getId())) {
+                advisorAssignmentRepository.removeAdvisorAssignment(assignment);
+            }
+        }
         currentAdvisorAssignment.setAccepted(true);
         return advisorAssignmentRepository.acceptAdvisorAssignment(currentAdvisorAssignment);
     }

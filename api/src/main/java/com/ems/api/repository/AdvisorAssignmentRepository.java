@@ -71,16 +71,20 @@ public class AdvisorAssignmentRepository {
     }
 
 
-
+    @Transactional
     public void deleteAdvisorAssignmentByAdvisor(Teacher teacher) {
         entityManager.createQuery("DELETE FROM AdvisorAssignment a WHERE a.teacher = :teacher")
                 .setParameter("teacher", teacher)
                 .executeUpdate();
     }
-
+    @Transactional
     public void deleteAdvisorAssignmentByStudent(Student student) {
         entityManager.createQuery("DELETE FROM AdvisorAssignment a WHERE a.student = :student")
                 .setParameter("student", student)
                 .executeUpdate();
+    }
+    @Transactional
+    public Student getStudentFromAdvisorAssignment(AdvisorAssignment currentAdvisorAssignment) {
+        return entityManager.find(Student.class, currentAdvisorAssignment.getStudent().getStudentId());
     }
 }
