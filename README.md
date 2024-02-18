@@ -1,6 +1,6 @@
-# Project Name
+# EMS
 
-Welcome to the Education Management System repository!
+Welcome to the Education Management System(EMS) repository!
 
 ## Setting up Database Credentials
 
