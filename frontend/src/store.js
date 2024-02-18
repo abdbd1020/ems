@@ -1,4 +1,4 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore } from '@reduxjs/toolkit';
 
 const initialState = {
   sidebarShow: true,
@@ -6,7 +6,7 @@ const initialState = {
 
 const changeState = (state = initialState, { type, ...rest }) => {
   switch (type) {
-    case "set":
+    case 'set':
       return { ...state, ...rest };
     default:
       return state;
