@@ -55,6 +55,7 @@ VALUES (
 
     ```bash
     npm install
+    npm install @reduxjs/toolkit
     ```
 
 3. Start the development server:
