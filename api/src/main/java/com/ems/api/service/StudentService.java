@@ -145,9 +145,7 @@ public class StudentService {
         Teacher teacher = advisorAssignment.getTeacher();
         entityManager.detach(teacher.getEmsUser());
         teacher.getEmsUser().setPassword("");
-        System.out.println(teacher.getEmsUser().getPassword());
-        System.out.println(teacher.getEmsUser().getEmail());
-        System.out.println(teacher.getEmsUser().getRole());
+
         return teacher;
 
     }
@@ -157,5 +155,11 @@ public class StudentService {
         Student student = studentRepository.getStudentById(studentId);
         AdvisorAssignment advisorAssignment = advisorAssignmentRepository.getCurrentAdvisorOfSingleStudent(student);
         return advisorAssignmentRepository.removeAdvisorAssignment(advisorAssignment);
+    }
+
+    @Transactional
+    public String cancelAdvisorRequest(AdvisorAssignment advisorAssignment) {
+        AdvisorAssignment currentAdvisorAssignment = advisorAssignmentRepository.getAdvisorAssignmentsById(advisorAssignment.getId());
+        return advisorAssignmentRepository.removeAdvisorAssignment(currentAdvisorAssignment);
     }
 }

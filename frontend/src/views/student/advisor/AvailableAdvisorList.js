@@ -15,8 +15,9 @@ import {
 } from "@coreui/react";
 import StudentService from "src/services/StudentService";
 import { Link, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
-const column = ["Name", "Faculty", "Designation", "Action"];
+const column = ["Name", "Faculty", "Designation", "Action", "Action"];
 
 const AvailableAdvisorList = () => {
   const navigate = useNavigate();
@@ -57,17 +58,43 @@ const AvailableAdvisorList = () => {
     }
   };
 
-  const handleSendRequest = async (UserId) => {
+  const handleSendRequest = async (userId) => {
     const currentUserData = JSON.parse(localStorage.getItem("currentUserData"));
     const payload = {
       email: currentUserData.email,
-      id: UserId,
+      id: userId,
     };
     const response = await StudentService.instance.sendAdvisorRequest(payload);
     if (response.status) {
-      alert("Request sent successfully");
+      fetchRequestAdadvisorAssignmentList();
     } else {
-      alert("Request failed");
+      Swal.fire({
+        title: "Failed!",
+        text: "Please try again.",
+        icon: "error",
+      });
+    }
+  };
+  const handleCancelRequest = async (teacherId) => {
+    // get  requestedAdvisorsAssignmentData.id from teacherId
+    const requestId = requestedAdvisorsAssignmentData.find(
+      (data) => data.teacherId === teacherId,
+    );
+
+    const payload = {
+      id: requestId.id,
+    };
+
+    const response =
+      await StudentService.instance.cancelAdvisorRequest(payload);
+    if (response.status) {
+      fetchRequestAdadvisorAssignmentList();
+    } else {
+      Swal.fire({
+        title: "Failed!",
+        text: "Please try again.",
+        icon: "error",
+      });
     }
   };
 
@@ -135,8 +162,21 @@ const AvailableAdvisorList = () => {
                               disabled={isAlreadyRequested}
                             >
                               {isAlreadyRequested
-                                ? "Requested"
+                                ? "Request sent"
                                 : "Send Request"}
+                            </CButton>
+                          </CTableDataCell>
+                          <CTableDataCell>
+                            <CButton
+                              color={
+                                isAlreadyRequested ? "danger" : "secondary"
+                              }
+                              onClick={() => handleCancelRequest(row.id)}
+                              disabled={!isAlreadyRequested}
+                            >
+                              {isAlreadyRequested
+                                ? "Cancel  Request"
+                                : "Not Sent Yet"}
                             </CButton>
                           </CTableDataCell>
                         </CTableRow>

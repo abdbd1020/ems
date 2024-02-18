@@ -35,22 +35,22 @@ public class AdvisorAssignmentRepository {
     }
 
 
-
+    @Transactional
     public String acceptAdvisorAssignment(AdvisorAssignment advisorAssignment) {
         entityManager.merge(advisorAssignment);
         return "Advisor Assignment Accepted Successfully";
 
     }
-
+    @Transactional
     public AdvisorAssignment getAdvisorAssignmentsById(String id) {
         return entityManager.find(AdvisorAssignment.class, id);
     }
-
+    @Transactional
     public String removeAdvisorAssignment(AdvisorAssignment currentAdvisorAssignment) {
         entityManager.remove(currentAdvisorAssignment);
         return "Advisor Assignment Removed Successfully";
     }
-
+    @Transactional
     public AdvisorAssignment getCurrentAdvisorOfSingleStudent(Student student) {
         try{
             return entityManager.createQuery("SELECT a FROM AdvisorAssignment a WHERE a.student = :student AND a.isAccepted = true", AdvisorAssignment.class)
@@ -61,5 +61,12 @@ public class AdvisorAssignmentRepository {
             return null;
         }
 
+    }
+    @Transactional
+    public String removeAdvisorAssignmentById(String id) {
+        entityManager.createQuery("DELETE FROM AdvisorAssignment a WHERE a.id = :id")
+                .setParameter("id", id)
+                .executeUpdate();
+        return "Advisor Assignment Removed Successfully";
     }
 }

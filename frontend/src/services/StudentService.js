@@ -92,7 +92,7 @@ class StudentService {
       try {
         const getTeacherListResponse = await axios.post(
           ServerConfig.url.API_URL +
-            "/student/requested_advisor_assignmentlist",
+            "/student/requested_advisor_assignment_list",
           payload,
           DefaultService.instance.getHeaderWithToken(),
         );
@@ -134,6 +134,35 @@ class StudentService {
       } catch (error) {
         console.log(
           "Error in sendadvisorrequest in services/DefaultService.js",
+        );
+        console.log(error);
+        retry++;
+      }
+    }
+    return DefaultService.instance.defaultResponse();
+  }
+
+  async cancelAdvisorRequest(payload) {
+    let retry = 0;
+
+    while (retry++ < 2) {
+      console.log(ServerConfig.url.API_URL + "/student/cancel_advisor_request");
+      try {
+        const response = await axios.post(
+          ServerConfig.url.API_URL + "/student/cancel_advisor_request",
+          payload,
+          DefaultService.instance.getHeaderWithToken(),
+        );
+
+        if (response.status == "200") {
+          return {
+            status: true,
+            data: response.data,
+          };
+        }
+      } catch (error) {
+        console.log(
+          "Error in canceladvisorrequest in services/DefaultService.js",
         );
         console.log(error);
         retry++;

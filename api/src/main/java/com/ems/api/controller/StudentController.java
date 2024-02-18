@@ -23,7 +23,6 @@ public class StudentController {
 
     @PostMapping("get_student_by_email")
     public Student getStudentByEmail(@RequestBody EmailRequest emailRequest) {
-        System.out.println(emailRequest.getEmail());
         return studentService.getStudentByEmail(emailRequest.getEmail());
     }
     @PostMapping("/update_student")
@@ -40,7 +39,6 @@ public class StudentController {
     }
     @PostMapping("/requested_advisor_assignment_list")
     public ArrayList<AdvisorAssignmentResponse> requestedAdvisorAssignmentList(@RequestBody EmailRequest emailRequest) {
-        System.out.println(emailRequest.getEmail());
         return studentService.requestedAdvisorAssignmentList(emailRequest);
     }
     @PostMapping("/get_current_advisor")
@@ -50,6 +48,10 @@ public class StudentController {
     @PostMapping("/remove_advisor")
     public String removeAdvisor(@RequestBody EmailRequest emailRequest) {
         return studentService.removeAdvisor(emailRequest);
+    }
+    @PostMapping("/cancel_advisor_request")
+    public String cancelAdvisorRequest(@RequestBody AdvisorAssignment advisorAssignment) {
+        return studentService.cancelAdvisorRequest(advisorAssignment);
     }
 
 
