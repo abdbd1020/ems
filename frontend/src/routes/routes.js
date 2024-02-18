@@ -1,8 +1,6 @@
 import React from "react";
 const Dashboard = React.lazy(() => import("../views/dashboard/Dashboard"));
 
-//admin routes
-
 //teacher
 const AdminTeachersList = React.lazy(
   () => import("../views/admin/user/AdminTeachersList"),

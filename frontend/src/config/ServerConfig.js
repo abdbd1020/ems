@@ -1,5 +1,3 @@
-import utility from "../utility/utility";
-
 const prod = {
   url: {
     API_URL: "http://127.0.0.1:8080",
@@ -11,9 +9,14 @@ const dev = {
   },
 };
 
+function removeSpace(str) {
+  if (!str) return;
+  return str.replace(/\s+/g, "");
+}
+
 function getEnvConfig() {
   var config;
-  if (utility.removeSpace(process.env.REACT_APP_ENV_VAR) === "development") {
+  if (removeSpace(process.env.REACT_APP_ENV_VAR) === "development") {
     config = dev;
   } else {
     config = prod;

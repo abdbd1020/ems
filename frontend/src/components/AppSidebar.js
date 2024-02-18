@@ -12,9 +12,6 @@ import CIcon from "@coreui/icons-react";
 
 import { AppSidebarNav } from "./AppSidebarNav";
 
-import { logoNegative } from "../assets/brand/logo-negative";
-import { sygnet } from "../assets/brand/sygnet";
-
 import SimpleBar from "simplebar-react";
 import "simplebar/dist/simplebar.min.css";
 import navigation from "../_nav";
@@ -41,7 +38,7 @@ const AppSidebar = () => {
         style={{ backgroundColor: "#304054" }}
         to="/"
       >
-        <CIcon icon={sygnet} height={35} alt="Logo" />
+        {/* <CIcon icon={sygnet} height={35} alt="Logo" /> */}
       </CSidebarBrand>
       <CSidebarNav>
         <SimpleBar>

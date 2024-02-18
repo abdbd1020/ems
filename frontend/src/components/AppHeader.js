@@ -15,7 +15,6 @@ import {
 import CIcon from "@coreui/icons-react";
 import { cilBell, cilEnvelopeOpen, cilList, cilMenu } from "@coreui/icons";
 
-import { logo } from "src/assets/brand/logo";
 import { ClientEnum } from "../ClientEnum";
 
 const AppHeader = () => {
