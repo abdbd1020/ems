@@ -26,24 +26,23 @@ const Login = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [type, setType] = useState("");
 
   const handleSubmit = async () => {
     const payload = {
       email: email,
       password: password,
-      role: type,
     };
     const response = await DefaultService.instance.login(payload);
 
     if (response.status) {
+      const type = response.data.role;
+
       const currentUserData = {
         email: email,
         role: type,
-        userJWT: response.data,
+        userJWT: response.data.token,
       };
       localStorage.setItem("currentUserData", JSON.stringify(currentUserData));
-
       if (type === ClientEnum.ADMIN_TYPE) {
         navigate("/admin/user/inactive-user-list", { replace: true });
       } else if (type === ClientEnum.TEACHER_TYPE) {
@@ -55,7 +54,7 @@ const Login = () => {
           Swal.fire({
             icon: "success",
             title: "Incomplete Profile.",
-            text: "Please update your profile first!",
+            text: "You are a teacher.Please update your profile first!",
           }).then(() => {
             navigate("/teacher/profile/update-profile", {
               replace: true,
@@ -75,7 +74,7 @@ const Login = () => {
           Swal.fire({
             icon: "success",
             title: "Incomplete Profile.",
-            text: "Please update your profile first!",
+            text: "You are a student.Please update your profile first!",
           }).then(() => {
             navigate("/student/profile/update-profile", {
               replace: true,
@@ -131,35 +130,6 @@ const Login = () => {
                         onChange={(e) => setPassword(e.target.value)}
                         id="exampleFormControlInput2"
                         placeholder="******"
-                      />
-                    </CInputGroup>
-                    <CInputGroup className="mb-3">
-                      <CFormCheck
-                        inline
-                        type="radio"
-                        id="inlineCheckbox1"
-                        value={ClientEnum.ADMIN_TYPE}
-                        label={ClientEnum.ADMIN_TYPE}
-                        checked={type === ClientEnum.ADMIN_TYPE}
-                        onChange={(e) => setType(e.target.value)}
-                      />
-                      <CFormCheck
-                        inline
-                        type="radio"
-                        id="inlineCheckbox2"
-                        value={ClientEnum.TEACHER_TYPE}
-                        label="TEACHER"
-                        checked={type === ClientEnum.TEACHER_TYPE}
-                        onChange={(e) => setType(e.target.value)}
-                      />
-                      <CFormCheck
-                        inline
-                        type="radio"
-                        id="inlineCheckbox3"
-                        value={ClientEnum.STUDENT_TYPE}
-                        label={ClientEnum.STUDENT_TYPE}
-                        checked={type === ClientEnum.STUDENT_TYPE}
-                        onChange={(e) => setType(e.target.value)}
                       />
                     </CInputGroup>
 

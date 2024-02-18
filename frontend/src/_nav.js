@@ -90,28 +90,6 @@ const _nav = [
       },
     ],
   },
-
-  {
-    component: CNavGroup,
-    name: "Profile",
-    to: "/teacher/",
-    icon: <CIcon icon={cilStar} customClassName="nav-icon" />,
-    authority: ClientEnum.TEACHER_TYPE,
-    items: [
-      {
-        component: CNavItem,
-        name: "Update Profile",
-        to: "/teacher/profile/update-profile",
-        authority: ClientEnum.TEACHER_TYPE,
-      },
-      {
-        component: CNavItem,
-        name: "Reset Password",
-        to: "/user/reset-password",
-        authority: ClientEnum.TEACHER_TYPE,
-      },
-    ],
-  },
   {
     component: CNavGroup,
     name: "Advisee",
@@ -137,26 +115,25 @@ const _nav = [
   {
     component: CNavGroup,
     name: "Profile",
-    to: "/student",
+    to: "/teacher/",
     icon: <CIcon icon={cilStar} customClassName="nav-icon" />,
-    authority: ClientEnum.STUDENT_TYPE,
+    authority: ClientEnum.TEACHER_TYPE,
     items: [
       {
         component: CNavItem,
         name: "Update Profile",
-        to: "/student/profile/update-profile",
-        icon: <CIcon icon={cilDrop} customClassName="nav-icon" />,
-        authority: ClientEnum.STUDENT_TYPE,
+        to: "/teacher/profile/update-profile",
+        authority: ClientEnum.TEACHER_TYPE,
       },
       {
         component: CNavItem,
         name: "Reset Password",
         to: "/user/reset-password",
-        icon: <CIcon icon={cilDrop} customClassName="nav-icon" />,
-        authority: ClientEnum.STUDENT_TYPE,
+        authority: ClientEnum.TEACHER_TYPE,
       },
     ],
   },
+
   {
     component: CNavGroup,
     name: "Advisor",
@@ -174,6 +151,30 @@ const _nav = [
         component: CNavItem,
         name: "Current Advisor",
         to: "/student/advisor/current-advisor",
+        authority: ClientEnum.STUDENT_TYPE,
+      },
+    ],
+  },
+
+  {
+    component: CNavGroup,
+    name: "Profile",
+    to: "/student",
+    icon: <CIcon icon={cilStar} customClassName="nav-icon" />,
+    authority: ClientEnum.STUDENT_TYPE,
+    items: [
+      {
+        component: CNavItem,
+        name: "Update Profile",
+        to: "/student/profile/update-profile",
+        icon: <CIcon icon={cilDrop} customClassName="nav-icon" />,
+        authority: ClientEnum.STUDENT_TYPE,
+      },
+      {
+        component: CNavItem,
+        name: "Reset Password",
+        to: "/user/reset-password",
+        icon: <CIcon icon={cilDrop} customClassName="nav-icon" />,
         authority: ClientEnum.STUDENT_TYPE,
       },
     ],

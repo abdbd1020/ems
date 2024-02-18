@@ -1,5 +1,7 @@
 package com.ems.api.controller;
 
+import com.ems.api.dto.LoginRequest;
+import com.ems.api.dto.LoginResponse;
 import com.ems.api.dto.ResetPasswordRequest;
 import com.ems.api.service.UserService;
 import com.ems.api.model.EMSUser;
@@ -29,8 +31,8 @@ public class UserController {
 
 
     @PostMapping("/login")
-    public String logIn(@RequestBody EMSUser user) {
-        return userService.logInAndFetchToken(user);
+    public LoginResponse logIn(@RequestBody LoginRequest loginRequest) {
+        return userService.logInAndFetchToken(loginRequest);
     }
 
 

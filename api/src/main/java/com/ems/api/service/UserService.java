@@ -1,6 +1,8 @@
 package com.ems.api.service;
 
 import com.ems.api.config.SecurityConfig;
+import com.ems.api.dto.LoginRequest;
+import com.ems.api.dto.LoginResponse;
 import com.ems.api.dto.ResetPasswordRequest;
 import com.ems.api.model.EMSUser;
 import com.ems.api.model.Role;
@@ -36,10 +38,10 @@ public class UserService {
     }
 
     @Transactional
-    public String logInAndFetchToken(@NotNull EMSUser emsUser) {
-        EMSUser user = userRepository.getUserByEmail(emsUser.getEmail());
+    public LoginResponse logInAndFetchToken(@NotNull LoginRequest loginRequest) {
+        EMSUser user = userRepository.getUserByEmail(loginRequest.getEmail());
 
-        if (isPasswordNotMatching(emsUser.getPassword(), user.getPassword())) {
+        if (isPasswordNotMatching(loginRequest.getPassword(), user.getPassword())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid credentials");
         }
 
@@ -47,11 +49,13 @@ public class UserService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User is not active");
         }
 
-        if (!emsUser.getRole().equals(user.getRole())) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Role mismatch");
+        if (user.getRole().equals(Role.GUEST)) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Guest user cannot login");
         }
-
-        return jwtService.generateToken(user.getEmail());
+        LoginResponse loginResponse = new LoginResponse();
+        loginResponse.setToken(jwtService.generateToken(user.getEmail()));
+        loginResponse.setRole(user.getRole());
+        return loginResponse;
     }
 
     public String updateUser(EMSUser user) {
