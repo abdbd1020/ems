@@ -1,8 +1,7 @@
 package com.ems.api.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
-import org.springframework.web.bind.annotation.RequestBody;
+
 
 @Entity
 public class EMSUser {

@@ -1,6 +1,5 @@
 package com.ems.api.repository;
 
-import com.ems.api.model.Faculty;
 import com.ems.api.model.Teacher;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;

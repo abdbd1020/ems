@@ -4,11 +4,9 @@ import com.ems.api.dto.AdvisorAssignmentResponse;
 import com.ems.api.dto.AdvisorRequest;
 import com.ems.api.dto.EmailRequest;
 import com.ems.api.model.AdvisorAssignment;
-import com.ems.api.model.EMSUser;
 import com.ems.api.model.Student;
 import com.ems.api.model.Teacher;
 import com.ems.api.service.StudentService;
-import com.ems.api.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

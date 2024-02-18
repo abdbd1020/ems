@@ -1,7 +1,6 @@
 package com.ems.api.repository;
 
 import com.ems.api.model.Faculty;
-import jakarta.persistence.Entity;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;

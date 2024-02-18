@@ -3,7 +3,6 @@ package com.ems.api.repository;
 import com.ems.api.model.EMSUser;
 import com.ems.api.model.Role;
 import com.ems.api.model.Status;
-import com.ems.api.model.Student;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 import org.jetbrains.annotations.NotNull;

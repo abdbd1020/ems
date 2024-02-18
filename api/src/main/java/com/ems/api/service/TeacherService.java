@@ -1,11 +1,9 @@
 package com.ems.api.service;
 
 import com.ems.api.dto.AdviseeRequest;
-import com.ems.api.dto.AdvisorRequest;
 import com.ems.api.dto.EmailRequest;
 import com.ems.api.model.*;
 import com.ems.api.repository.*;
-import jakarta.persistence.Entity;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 import org.jetbrains.annotations.NotNull;
