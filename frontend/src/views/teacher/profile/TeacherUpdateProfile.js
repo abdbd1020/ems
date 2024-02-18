@@ -112,7 +112,6 @@ const TeacherUpdateProfile = () => {
         designation: designation,
         faculty: faculty,
       };
-      console.log(payload);
       const response = await TeacherService.instance.updateTeacher(payload);
 
       if (response.status) {

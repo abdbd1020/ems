@@ -9,7 +9,6 @@ class StudentService {
     let retry = 0;
 
     while (retry++ < 2) {
-      console.log(ServerConfig.url.API_URL + "/student/get_student_by_email");
       try {
         const response = await axios.post(
           ServerConfig.url.API_URL + "/student/get_student_by_email",
@@ -24,7 +23,6 @@ class StudentService {
           };
         }
       } catch (error) {
-        console.log("Error in getstudentbyemail in services/DefaultService.js");
         console.log(error);
         retry++;
       }
@@ -35,7 +33,6 @@ class StudentService {
     let retry = 0;
 
     while (retry++ < 2) {
-      console.log(ServerConfig.url.API_URL + "/student/update_student");
       try {
         const response = await axios.post(
           ServerConfig.url.API_URL + "/student/update_student",
@@ -50,7 +47,6 @@ class StudentService {
           };
         }
       } catch (error) {
-        console.log("Error in getstudentbyemail in services/DefaultService.js");
         console.log(error);
         retry++;
       }
@@ -61,7 +57,6 @@ class StudentService {
     let retry = 0;
 
     while (retry++ < 2) {
-      console.log(ServerConfig.url.API_URL + "/student/get_all_advisors");
       try {
         const getTeacherListResponse = await axios.get(
           ServerConfig.url.API_URL + "/student/get_all_advisors",
@@ -74,7 +69,6 @@ class StudentService {
           };
         }
       } catch (error) {
-        console.log("Error in getalladvisors in services/AdminService.js");
         console.log(error);
         retry++;
       }
@@ -86,9 +80,6 @@ class StudentService {
     let retry = 0;
 
     while (retry++ < 2) {
-      console.log(
-        ServerConfig.url.API_URL + "/student/requested_advisor_assignment_list",
-      );
       try {
         const getTeacherListResponse = await axios.post(
           ServerConfig.url.API_URL +
@@ -103,9 +94,6 @@ class StudentService {
           };
         }
       } catch (error) {
-        console.log(
-          "Error in requestedadvisorassignmentlist in services/AdminService.js",
-        );
         console.log(error);
         retry++;
       }
@@ -117,7 +105,6 @@ class StudentService {
     let retry = 0;
 
     while (retry++ < 2) {
-      console.log(ServerConfig.url.API_URL + "/student/send_advisor_request");
       try {
         const response = await axios.post(
           ServerConfig.url.API_URL + "/student/send_advisor_request",
@@ -132,9 +119,6 @@ class StudentService {
           };
         }
       } catch (error) {
-        console.log(
-          "Error in sendadvisorrequest in services/DefaultService.js",
-        );
         console.log(error);
         retry++;
       }
@@ -146,7 +130,6 @@ class StudentService {
     let retry = 0;
 
     while (retry++ < 2) {
-      console.log(ServerConfig.url.API_URL + "/student/cancel_advisor_request");
       try {
         const response = await axios.post(
           ServerConfig.url.API_URL + "/student/cancel_advisor_request",
@@ -161,9 +144,6 @@ class StudentService {
           };
         }
       } catch (error) {
-        console.log(
-          "Error in canceladvisorrequest in services/DefaultService.js",
-        );
         console.log(error);
         retry++;
       }
@@ -174,7 +154,6 @@ class StudentService {
     let retry = 0;
 
     while (retry++ < 2) {
-      console.log(ServerConfig.url.API_URL + "/student/remove_advisor");
       try {
         const response = await axios.post(
           ServerConfig.url.API_URL + "/student/remove_advisor",
@@ -189,7 +168,6 @@ class StudentService {
           };
         }
       } catch (error) {
-        console.log("Error in removeadvisor in services/DefaultService.js");
         console.log(error);
         retry++;
       }
@@ -200,7 +178,6 @@ class StudentService {
     let retry = 0;
 
     while (retry++ < 2) {
-      console.log(ServerConfig.url.API_URL + "/student/get_current_advisor");
       try {
         const response = await axios.post(
           ServerConfig.url.API_URL + "/student/get_current_advisor",
@@ -215,7 +192,6 @@ class StudentService {
           };
         }
       } catch (error) {
-        console.log("Error in getcurrentadvisor in services/DefaultService.js");
         console.log(error);
         retry++;
       }

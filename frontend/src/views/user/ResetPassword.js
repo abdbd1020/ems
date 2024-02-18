@@ -51,7 +51,6 @@ const ResetPassword = () => {
         newPassword: newPassword,
       };
       const response = await DefaultService.instance.resetPassword(payload);
-      console.log(response);
       if (response.status) {
         setConfirmPassword("");
         setCurrentPassword("");

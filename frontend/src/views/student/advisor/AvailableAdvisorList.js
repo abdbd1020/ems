@@ -46,7 +46,6 @@ const AvailableAdvisorList = () => {
     };
     const response =
       await StudentService.instance.getRequestAdadvisorAssignmentList(payload);
-    console.log(response);
     if (response.status) {
       setRequestedAdvisorsAssignment(response.data);
       for (let i = 0; i < response.data.length; i++) {

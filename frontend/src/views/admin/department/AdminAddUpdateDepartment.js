@@ -52,7 +52,6 @@ const AdminAddUpdateDepartment = () => {
 
   const fetchFacultyList = async () => {
     const response = await AdminService.instance.getAllFaculty();
-    console.log(response);
     if (response.status) setTableData(response.facultyList);
   };
 
@@ -71,9 +70,6 @@ const AdminAddUpdateDepartment = () => {
     const faculty = tableData.filter(
       (faculty) => faculty.name === selectedFaculty,
     );
-
-    console.log(faculty.length);
-    console.log(selectedFaculty);
 
     var response = null;
     const payload = {

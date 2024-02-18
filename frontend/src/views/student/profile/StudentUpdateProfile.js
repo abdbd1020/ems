@@ -115,7 +115,6 @@ const StudentUpdateProfile = () => {
       const response = await StudentService.instance.updateStudent(payload);
 
       if (response.status) {
-        console.log(response.data);
         const currentUserData = JSON.parse(
           localStorage.getItem("currentUserData"),
         );

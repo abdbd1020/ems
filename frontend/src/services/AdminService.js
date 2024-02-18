@@ -9,7 +9,6 @@ class AdminService {
     let retry = 0;
 
     while (retry++ < 2) {
-      console.log(ServerConfig.url.API_URL + "/admin/get_all_users");
       try {
         const getTeacherListResponse = await axios.get(
           ServerConfig.url.API_URL + "/admin/get_all_users",
@@ -22,7 +21,6 @@ class AdminService {
           };
         }
       } catch (error) {
-        console.log("Error in getTeacherList in services/AdminService.js");
         console.log(error);
         retry++;
       }
@@ -34,7 +32,6 @@ class AdminService {
     let retry = 0;
 
     while (retry++ < 2) {
-      console.log(ServerConfig.url.API_URL + "/admin" + api);
       try {
         const getTeacherListResponse = await axios.get(
           ServerConfig.url.API_URL + "/admin" + api,
@@ -47,7 +44,6 @@ class AdminService {
           };
         }
       } catch (error) {
-        console.log("Error in " + api + " in services/AdminService.js");
         console.log(error);
         retry++;
       }
@@ -78,7 +74,6 @@ class AdminService {
     let retry = 0;
 
     while (retry++ < 2) {
-      console.log(ServerConfig.url.API_URL + "/admin/update_user");
       try {
         const addTeacherResponse = await axios.post(
           ServerConfig.url.API_URL + "/admin/update_user",
@@ -93,7 +88,6 @@ class AdminService {
           };
         }
       } catch (error) {
-        console.log("Error in addTeacher in services/AdminService.js");
         console.log(error);
         retry++;
       }
@@ -105,7 +99,6 @@ class AdminService {
   //   let retry = 0;
 
   //   while (retry++ < 2) {
-  //     console.log(ServerConfig.url.API_URL + "/admin_delete_teacher");
   //     try {
   //       const addTeacherResponse = await axios.post(
   //         ServerConfig.url.API_URL + "/admin_delete_teacher",
@@ -118,7 +111,6 @@ class AdminService {
   //           return addTeacherResponse.data;
   //       }
   //     } catch (error) {
-  //       console.log("Error in deleteTeacher in services/AdminService.js");
   //       console.log(error);
   //       retry++;
   //     }
@@ -130,7 +122,6 @@ class AdminService {
     let retry = 0;
 
     while (retry++ < 2) {
-      console.log(ServerConfig.url.API_URL + "/admin/get_all_faculty");
       try {
         const getTeacherListResponse = await axios.get(
           ServerConfig.url.API_URL + "/admin/get_all_faculty",
@@ -143,7 +134,6 @@ class AdminService {
           };
         }
       } catch (error) {
-        console.log("Error in getAllFaculty in services/AdminService.js");
         console.log(error);
         retry++;
       }
@@ -153,13 +143,11 @@ class AdminService {
 
   async createFaculty(payload) {
     for (const key in payload) {
-      console.log(key, payload[key]);
     }
 
     let retry = 0;
 
     while (retry++ < 2) {
-      console.log(ServerConfig.url.API_URL + "/admin/add_faculty");
       try {
         const addTeacherResponse = await axios.post(
           ServerConfig.url.API_URL + "/admin/add_faculty",
@@ -174,7 +162,6 @@ class AdminService {
           };
         }
       } catch (error) {
-        console.log("Error in createFaculty in services/AdminService.js");
         console.log(error);
         retry++;
       }
@@ -184,13 +171,11 @@ class AdminService {
 
   async updateFaculty(payload) {
     for (const key in payload) {
-      console.log(key, payload[key]);
     }
 
     let retry = 0;
 
     while (retry++ < 2) {
-      console.log(ServerConfig.url.API_URL + "/admin/update_faculty");
       try {
         const addTeacherResponse = await axios.post(
           ServerConfig.url.API_URL + "/admin/update_faculty",
@@ -205,7 +190,6 @@ class AdminService {
           };
         }
       } catch (error) {
-        console.log("Error in updatefaculty in services/AdminService.js");
         console.log(error);
         retry++;
       }
@@ -217,7 +201,6 @@ class AdminService {
     let retry = 0;
 
     while (retry++ < 2) {
-      console.log(ServerConfig.url.API_URL + "/admin/get_all_departments");
       try {
         const getTeacherListResponse = await axios.get(
           ServerConfig.url.API_URL + "/admin/get_all_departments",
@@ -230,7 +213,6 @@ class AdminService {
           };
         }
       } catch (error) {
-        console.log("Error in getAllDepartment in services/AdminService.js");
         console.log(error);
         retry++;
       }
@@ -242,7 +224,6 @@ class AdminService {
     let retry = 0;
 
     while (retry++ < 2) {
-      console.log(ServerConfig.url.API_URL + "/admin/add_department");
       try {
         const addTeacherResponse = await axios.post(
           ServerConfig.url.API_URL + "/admin/add_department",
@@ -257,7 +238,6 @@ class AdminService {
           };
         }
       } catch (error) {
-        console.log("Error in createDepartment in services/AdminService.js");
         console.log(error);
         retry++;
       }
@@ -269,7 +249,6 @@ class AdminService {
     let retry = 0;
 
     while (retry++ < 2) {
-      console.log(ServerConfig.url.API_URL + "/admin/update_department");
       try {
         const addTeacherResponse = await axios.post(
           ServerConfig.url.API_URL + "/admin/update_department",
@@ -284,7 +263,6 @@ class AdminService {
           };
         }
       } catch (error) {
-        console.log("Error in updateDepartment in services/AdminService.js");
         console.log(error);
         retry++;
       }

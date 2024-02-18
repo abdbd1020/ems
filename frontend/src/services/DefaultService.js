@@ -41,7 +41,6 @@ export default class DefaultService {
     let retry = 0;
 
     while (retry++ < 2) {
-      console.log(ServerConfig.url.API_URL + "/user/login");
       try {
         const loginResponse = await axios.post(
           ServerConfig.url.API_URL + "/user/login",
@@ -55,7 +54,6 @@ export default class DefaultService {
           };
         }
       } catch (error) {
-        console.log("Error in login in services/DefaultService.js");
         console.log(error);
         retry++;
       }
@@ -67,7 +65,6 @@ export default class DefaultService {
     let retry = 0;
 
     while (retry++ < 2) {
-      console.log(ServerConfig.url.API_URL + "/user/signup");
       try {
         const loginResponse = await axios.post(
           ServerConfig.url.API_URL + "/user/signup",
@@ -82,7 +79,6 @@ export default class DefaultService {
           };
         }
       } catch (error) {
-        console.log("Error in login in services/DefaultService.js");
         console.log(error);
         retry++;
       }
@@ -94,7 +90,6 @@ export default class DefaultService {
     let retry = 0;
 
     while (retry++ < 2) {
-      console.log(ServerConfig.url.API_URL + "/user/reset_password");
       try {
         const loginResponse = await axios.post(
           ServerConfig.url.API_URL + "/user/reset_password",
@@ -109,7 +104,6 @@ export default class DefaultService {
           };
         }
       } catch (error) {
-        console.log("Error in login in services/DefaultService.js");
         console.log(error);
         retry++;
       }

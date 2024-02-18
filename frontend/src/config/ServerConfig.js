@@ -19,7 +19,6 @@ function getEnvConfig() {
     config = prod;
     // config = dev
   }
-  console.log(config);
   return config;
 }
 

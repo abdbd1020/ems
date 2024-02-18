@@ -30,7 +30,6 @@ const AdminDepartmentsList = () => {
 
   const fetchTeacherList = async () => {
     const response = await AdminService.instance.getAllDepartment();
-    console.log(response);
     if (response.status) setTableData(response.departmentList);
   };
 

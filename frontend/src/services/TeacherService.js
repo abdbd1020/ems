@@ -10,7 +10,6 @@ class TeacherService {
     let retry = 0;
 
     while (retry++ < 2) {
-      console.log(ServerConfig.url.API_URL + "/teacher/get_teacher_by_email");
       try {
         const response = await axios.post(
           ServerConfig.url.API_URL + "/teacher/get_teacher_by_email",
@@ -25,7 +24,6 @@ class TeacherService {
           };
         }
       } catch (error) {
-        console.log("Error in getteacherbyemail in services/TeacherService.js");
         console.log(error);
         retry++;
       }
@@ -36,7 +34,6 @@ class TeacherService {
     let retry = 0;
 
     while (retry++ < 2) {
-      console.log(ServerConfig.url.API_URL + "/teacher/update_teacher");
       try {
         const response = await axios.post(
           ServerConfig.url.API_URL + "/teacher/update_teacher",
@@ -51,7 +48,6 @@ class TeacherService {
           };
         }
       } catch (error) {
-        console.log("Error in getteacherbyemail in services/TeacherService.js");
         console.log(error);
         retry++;
       }
@@ -63,16 +59,12 @@ class TeacherService {
     let retry = 0;
 
     while (retry++ < 2) {
-      console.log(
-        ServerConfig.url.API_URL + "/teacher/get_all_advisee_request",
-      );
       try {
         const response = await axios.post(
           ServerConfig.url.API_URL + "/teacher/get_all_advisee_request",
           payload,
           DefaultService.instance.getHeaderWithToken(),
         );
-        console.log(response);
 
         if (response.status == "200") {
           return {
@@ -81,7 +73,6 @@ class TeacherService {
           };
         }
       } catch (error) {
-        console.log("Error in getteacherbyemail in services/TeacherService.js");
         console.log(error);
         retry++;
       }
@@ -93,7 +84,6 @@ class TeacherService {
     let retry = 0;
 
     while (retry++ < 2) {
-      console.log(ServerConfig.url.API_URL + "/teacher/accept_advisor_request");
       try {
         const response = await axios.post(
           ServerConfig.url.API_URL + "/teacher/accept_advisor_request",
@@ -108,9 +98,6 @@ class TeacherService {
           };
         }
       } catch (error) {
-        console.log(
-          "Error in acceptadvisorrequest in services/TeacherService.js",
-        );
         console.log(error);
         retry++;
       }
@@ -122,7 +109,6 @@ class TeacherService {
     let retry = 0;
 
     while (retry++ < 2) {
-      console.log(ServerConfig.url.API_URL + "/teacher/remove_advisor_request");
       try {
         const response = await axios.post(
           ServerConfig.url.API_URL + "/teacher/remove_advisor_request",
@@ -137,9 +123,6 @@ class TeacherService {
           };
         }
       } catch (error) {
-        console.log(
-          "Error in removeadvisorrequest in services/TeacherService.js",
-        );
         console.log(error);
         retry++;
       }
@@ -151,16 +134,12 @@ class TeacherService {
     let retry = 0;
 
     while (retry++ < 2) {
-      console.log(
-        ServerConfig.url.API_URL + "/teacher/get_all_current_advisee",
-      );
       try {
         const response = await axios.post(
           ServerConfig.url.API_URL + "/teacher/get_all_current_advisee",
           payload,
           DefaultService.instance.getHeaderWithToken(),
         );
-        console.log(response);
 
         if (response.status == "200") {
           return {
@@ -169,9 +148,6 @@ class TeacherService {
           };
         }
       } catch (error) {
-        console.log(
-          "Error in getallcurrentadvisee in services/TeacherService.js",
-        );
         console.log(error);
         retry++;
       }
