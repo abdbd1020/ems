@@ -9,10 +9,10 @@ class AdminService {
     let retry = 0;
 
     while (retry++ < 2) {
-      console.log(ServerConfig.url.API_URL + "/admin/getallusers");
+      console.log(ServerConfig.url.API_URL + "/admin/get_all_users");
       try {
         const getTeacherListResponse = await axios.get(
-          ServerConfig.url.API_URL + "/admin/getallusers",
+          ServerConfig.url.API_URL + "/admin/get_all_users",
           DefaultService.instance.getHeaderWithToken(),
         );
         if (getTeacherListResponse.status == "200") {
@@ -56,21 +56,21 @@ class AdminService {
   }
 
   async getAllInactiveUsers() {
-    const api = "/getallinactiveusers";
+    const api = "/get_all_inactive_users";
     return this.getAllSpecificUsers(api);
   }
 
   async getAllInactiveAndGuestUsers() {
-    const api = "/getallinactiveandguestusers";
+    const api = "/get_all_inactive_and_guestusers";
     return this.getAllSpecificUsers(api);
   }
 
   async getAllTeachers() {
-    const api = "/getallteachers";
+    const api = "/get_all_teachers";
     return this.getAllSpecificUsers(api);
   }
   async getAllStudents() {
-    const api = "/getallstudents";
+    const api = "/get_all_students";
     return this.getAllSpecificUsers(api);
   }
 
@@ -78,10 +78,10 @@ class AdminService {
     let retry = 0;
 
     while (retry++ < 2) {
-      console.log(ServerConfig.url.API_URL + "/admin/updateuser");
+      console.log(ServerConfig.url.API_URL + "/admin/update_user");
       try {
         const addTeacherResponse = await axios.post(
-          ServerConfig.url.API_URL + "/admin/updateuser",
+          ServerConfig.url.API_URL + "/admin/update_user",
           payload,
           DefaultService.instance.getHeaderWithToken(),
         );
@@ -130,10 +130,10 @@ class AdminService {
     let retry = 0;
 
     while (retry++ < 2) {
-      console.log(ServerConfig.url.API_URL + "/admin/getallfaculty");
+      console.log(ServerConfig.url.API_URL + "/admin/get_all_faculty");
       try {
         const getTeacherListResponse = await axios.get(
-          ServerConfig.url.API_URL + "/admin/getallfaculty",
+          ServerConfig.url.API_URL + "/admin/get_all_faculty",
           DefaultService.instance.getHeaderWithToken(),
         );
         if (getTeacherListResponse.status == "200") {
@@ -159,10 +159,10 @@ class AdminService {
     let retry = 0;
 
     while (retry++ < 2) {
-      console.log(ServerConfig.url.API_URL + "/admin/addfaculty");
+      console.log(ServerConfig.url.API_URL + "/admin/add_faculty");
       try {
         const addTeacherResponse = await axios.post(
-          ServerConfig.url.API_URL + "/admin/addfaculty",
+          ServerConfig.url.API_URL + "/admin/add_faculty",
           payload,
           DefaultService.instance.getHeaderWithToken(),
         );
@@ -190,10 +190,10 @@ class AdminService {
     let retry = 0;
 
     while (retry++ < 2) {
-      console.log(ServerConfig.url.API_URL + "/admin/updatefaculty");
+      console.log(ServerConfig.url.API_URL + "/admin/update_faculty");
       try {
         const addTeacherResponse = await axios.post(
-          ServerConfig.url.API_URL + "/admin/updatefaculty",
+          ServerConfig.url.API_URL + "/admin/update_faculty",
           payload,
           DefaultService.instance.getHeaderWithToken(),
         );
@@ -217,10 +217,10 @@ class AdminService {
     let retry = 0;
 
     while (retry++ < 2) {
-      console.log(ServerConfig.url.API_URL + "/admin/getalldepartments");
+      console.log(ServerConfig.url.API_URL + "/admin/get_all_departments");
       try {
         const getTeacherListResponse = await axios.get(
-          ServerConfig.url.API_URL + "/admin/getalldepartments",
+          ServerConfig.url.API_URL + "/admin/get_all_departments",
           DefaultService.instance.getHeaderWithToken(),
         );
         if (getTeacherListResponse.status == "200") {
@@ -242,10 +242,10 @@ class AdminService {
     let retry = 0;
 
     while (retry++ < 2) {
-      console.log(ServerConfig.url.API_URL + "/admin/adddepartment");
+      console.log(ServerConfig.url.API_URL + "/admin/add_department");
       try {
         const addTeacherResponse = await axios.post(
-          ServerConfig.url.API_URL + "/admin/adddepartment",
+          ServerConfig.url.API_URL + "/admin/add_department",
           payload,
           DefaultService.instance.getHeaderWithToken(),
         );
@@ -269,10 +269,10 @@ class AdminService {
     let retry = 0;
 
     while (retry++ < 2) {
-      console.log(ServerConfig.url.API_URL + "/admin/updatedepartment");
+      console.log(ServerConfig.url.API_URL + "/admin/update_department");
       try {
         const addTeacherResponse = await axios.post(
-          ServerConfig.url.API_URL + "/admin/updatedepartment",
+          ServerConfig.url.API_URL + "/admin/update_department",
           payload,
           DefaultService.instance.getHeaderWithToken(),
         );

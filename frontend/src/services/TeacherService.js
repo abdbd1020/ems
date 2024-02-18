@@ -10,10 +10,10 @@ class TeacherService {
     let retry = 0;
 
     while (retry++ < 2) {
-      console.log(ServerConfig.url.API_URL + "/teacher/getteacherbyemail");
+      console.log(ServerConfig.url.API_URL + "/teacher/get_teacher_by_email");
       try {
         const response = await axios.post(
-          ServerConfig.url.API_URL + "/teacher/getteacherbyemail",
+          ServerConfig.url.API_URL + "/teacher/get_teacher_by_email",
           payload,
           DefaultService.instance.getHeaderWithToken(),
         );
@@ -36,10 +36,10 @@ class TeacherService {
     let retry = 0;
 
     while (retry++ < 2) {
-      console.log(ServerConfig.url.API_URL + "/teacher/updateteacher");
+      console.log(ServerConfig.url.API_URL + "/teacher/update_teacher");
       try {
         const response = await axios.post(
-          ServerConfig.url.API_URL + "/teacher/updateteacher",
+          ServerConfig.url.API_URL + "/teacher/update_teacher",
           payload,
           DefaultService.instance.getHeaderWithToken(),
         );
@@ -63,10 +63,12 @@ class TeacherService {
     let retry = 0;
 
     while (retry++ < 2) {
-      console.log(ServerConfig.url.API_URL + "/teacher/getalladviseerequest");
+      console.log(
+        ServerConfig.url.API_URL + "/teacher/get_all_advisee_request",
+      );
       try {
         const response = await axios.post(
-          ServerConfig.url.API_URL + "/teacher/getalladviseerequest",
+          ServerConfig.url.API_URL + "/teacher/get_all_advisee_request",
           payload,
           DefaultService.instance.getHeaderWithToken(),
         );
@@ -91,10 +93,10 @@ class TeacherService {
     let retry = 0;
 
     while (retry++ < 2) {
-      console.log(ServerConfig.url.API_URL + "/teacher/acceptadvisorrequest");
+      console.log(ServerConfig.url.API_URL + "/teacher/accept_advisor_request");
       try {
         const response = await axios.post(
-          ServerConfig.url.API_URL + "/teacher/acceptadvisorrequest",
+          ServerConfig.url.API_URL + "/teacher/accept_advisor_request",
           payload,
           DefaultService.instance.getHeaderWithToken(),
         );
@@ -120,10 +122,10 @@ class TeacherService {
     let retry = 0;
 
     while (retry++ < 2) {
-      console.log(ServerConfig.url.API_URL + "/teacher/removeadvisorrequest");
+      console.log(ServerConfig.url.API_URL + "/teacher/remove_advisor_request");
       try {
         const response = await axios.post(
-          ServerConfig.url.API_URL + "/teacher/removeadvisorrequest",
+          ServerConfig.url.API_URL + "/teacher/remove_advisor_request",
           payload,
           DefaultService.instance.getHeaderWithToken(),
         );
@@ -149,10 +151,12 @@ class TeacherService {
     let retry = 0;
 
     while (retry++ < 2) {
-      console.log(ServerConfig.url.API_URL + "/teacher/getallcurrentadvisee");
+      console.log(
+        ServerConfig.url.API_URL + "/teacher/get_all_current_advisee",
+      );
       try {
         const response = await axios.post(
-          ServerConfig.url.API_URL + "/teacher/getallcurrentadvisee",
+          ServerConfig.url.API_URL + "/teacher/get_all_current_advisee",
           payload,
           DefaultService.instance.getHeaderWithToken(),
         );

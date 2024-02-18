@@ -26,55 +26,55 @@ public class AdminController {
     private AdminService adminService;
     @Autowired
     private JwtService jwtService;
-    @GetMapping("/getallusers")
+    @GetMapping("/get_all_users")
     public ArrayList<EMSUser> getAllUsers() {
         return adminService.getAllUsers();
     }
-    @PostMapping("/updateuser")
+    @PostMapping("/update_user")
     public String updateUser(@RequestBody EMSUser user) {
         return adminService.updateUser(user);
     }
-    @GetMapping("/getallinactiveusers")
+    @GetMapping("/get_all_inactive_users")
     public ArrayList<EMSUser> getInactiveUsers() {
         return adminService.getInactiveUsers();
     }
-    @GetMapping("/getallinactiveandguestusers")
+    @GetMapping("/get_all_inactive_and_guest_users")
     public ArrayList<EMSUser> getAllInActiveAndGuestUsers() {
         return adminService.getAllInActiveAndGuestUsers();
     }
-    @GetMapping("/getallstudents")
+    @GetMapping("/get_all_students")
     public ArrayList<EMSUser> getAllStudents() {
         return adminService.getAllUsersByRole(Role.STUDENT);
     }
-    @GetMapping("/getallteachers")
+    @GetMapping("/get_all_teachers")
     public ArrayList<EMSUser> getAllTeachers() {
         return adminService.getAllUsersByRole(Role.TEACHER);
     }
 
-    @GetMapping("/getalldepartments")
+    @GetMapping("/get_all_departments")
     public ArrayList<Department> getAllDepartments() {
         return adminService.getAllDepartments();
     }
-    @GetMapping("/getallfaculty")
+    @GetMapping("/get_all_faculty")
     public ArrayList<Faculty> getAllFaculty() {
           return adminService.getAllFaculty();
 
     }
-    @PostMapping("/addfaculty")
+    @PostMapping("/add_faculty")
     public String addFaculty(@RequestBody Faculty faculty) {
 
         return adminService.addFaculty(faculty);
     }
-    @PostMapping("/updatefaculty")
+    @PostMapping("/update_faculty")
     public String updateFaculty(@RequestBody Faculty faculty) {
         return adminService.updateFaculty(faculty);
     }
-    @PostMapping("/adddepartment")
+    @PostMapping("/add_department")
     public String addDepartment(@RequestBody DepartmentRequest departmentRequest){
 
         return adminService.addDepartment(departmentRequest);
     }
-    @PostMapping("/updatedepartment")
+    @PostMapping("/update_department")
     public String updateDepartment(@RequestBody DepartmentRequest departmentRequest){
         return adminService.updateDepartment(departmentRequest);
     }

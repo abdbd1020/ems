@@ -94,10 +94,10 @@ export default class DefaultService {
     let retry = 0;
 
     while (retry++ < 2) {
-      console.log(ServerConfig.url.API_URL + "/user/resetpassword");
+      console.log(ServerConfig.url.API_URL + "/user/reset_password");
       try {
         const loginResponse = await axios.post(
-          ServerConfig.url.API_URL + "/user/resetpassword",
+          ServerConfig.url.API_URL + "/user/reset_password",
           payload,
           DefaultService.instance.getHeaderWithToken(),
         );

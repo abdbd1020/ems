@@ -9,10 +9,10 @@ class StudentService {
     let retry = 0;
 
     while (retry++ < 2) {
-      console.log(ServerConfig.url.API_URL + "/student/getstudentbyemail");
+      console.log(ServerConfig.url.API_URL + "/student/get_student_by_email");
       try {
         const response = await axios.post(
-          ServerConfig.url.API_URL + "/student/getstudentbyemail",
+          ServerConfig.url.API_URL + "/student/get_student_by_email",
           payload,
           DefaultService.instance.getHeaderWithToken(),
         );
@@ -35,10 +35,10 @@ class StudentService {
     let retry = 0;
 
     while (retry++ < 2) {
-      console.log(ServerConfig.url.API_URL + "/student/updatestudent");
+      console.log(ServerConfig.url.API_URL + "/student/update_student");
       try {
         const response = await axios.post(
-          ServerConfig.url.API_URL + "/student/updatestudent",
+          ServerConfig.url.API_URL + "/student/update_student",
           payload,
           DefaultService.instance.getHeaderWithToken(),
         );
@@ -61,10 +61,10 @@ class StudentService {
     let retry = 0;
 
     while (retry++ < 2) {
-      console.log(ServerConfig.url.API_URL + "/student/getalladvisors");
+      console.log(ServerConfig.url.API_URL + "/student/get_all_advisors");
       try {
         const getTeacherListResponse = await axios.get(
-          ServerConfig.url.API_URL + "/student/getalladvisors",
+          ServerConfig.url.API_URL + "/student/get_all_advisors",
           DefaultService.instance.getHeaderWithToken(),
         );
         if (getTeacherListResponse.status == "200") {
@@ -87,11 +87,12 @@ class StudentService {
 
     while (retry++ < 2) {
       console.log(
-        ServerConfig.url.API_URL + "/student/requestedadvisorassignmentlist",
+        ServerConfig.url.API_URL + "/student/requested_advisor_assignment_list",
       );
       try {
         const getTeacherListResponse = await axios.post(
-          ServerConfig.url.API_URL + "/student/requestedadvisorassignmentlist",
+          ServerConfig.url.API_URL +
+            "/student/requested_advisor_assignmentlist",
           payload,
           DefaultService.instance.getHeaderWithToken(),
         );
@@ -116,10 +117,10 @@ class StudentService {
     let retry = 0;
 
     while (retry++ < 2) {
-      console.log(ServerConfig.url.API_URL + "/student/sendadvisorrequest");
+      console.log(ServerConfig.url.API_URL + "/student/send_advisor_request");
       try {
         const response = await axios.post(
-          ServerConfig.url.API_URL + "/student/sendadvisorrequest",
+          ServerConfig.url.API_URL + "/student/send_advisor_request",
           payload,
           DefaultService.instance.getHeaderWithToken(),
         );
@@ -144,10 +145,10 @@ class StudentService {
     let retry = 0;
 
     while (retry++ < 2) {
-      console.log(ServerConfig.url.API_URL + "/student/removeadvisor");
+      console.log(ServerConfig.url.API_URL + "/student/remove_advisor");
       try {
         const response = await axios.post(
-          ServerConfig.url.API_URL + "/student/removeadvisor",
+          ServerConfig.url.API_URL + "/student/remove_advisor",
           payload,
           DefaultService.instance.getHeaderWithToken(),
         );
@@ -170,10 +171,10 @@ class StudentService {
     let retry = 0;
 
     while (retry++ < 2) {
-      console.log(ServerConfig.url.API_URL + "/student/getcurrentadvisor");
+      console.log(ServerConfig.url.API_URL + "/student/get_current_advisor");
       try {
         const response = await axios.post(
-          ServerConfig.url.API_URL + "/student/getcurrentadvisor",
+          ServerConfig.url.API_URL + "/student/get_current_advisor",
           payload,
           DefaultService.instance.getHeaderWithToken(),
         );

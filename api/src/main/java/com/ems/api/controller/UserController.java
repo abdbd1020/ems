@@ -33,11 +33,8 @@ public class UserController {
         return userService.logInAndFetchToken(user);
     }
 
-//    @GetMapping("/getuserbyid")
-//    public EMSUser getUserById(@RequestParam String id) {
-//        return userService.getUserById(id);
-//    }
-    @PostMapping("/resetpassword")
+
+    @PostMapping("/reset_password")
     public String resetPassword(@RequestBody ResetPasswordRequest resetPasswordRequest) {
         return userService.resetPassword(resetPasswordRequest);
     }

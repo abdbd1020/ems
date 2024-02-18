@@ -19,27 +19,27 @@ public class TeacherController {
     @Autowired
     private TeacherService teacherService;
 
-    @PostMapping("/getteacherbyemail")
+    @PostMapping("/get_teacher_by_email")
     public Teacher getTeacherById(@RequestBody EmailRequest email) {
         return teacherService.getTeacherByEmail(email.getEmail());
     }
-    @PostMapping("/updateteacher")
+    @PostMapping("/update_teacher")
     public String updateTeacher(@RequestBody Teacher teacher) {
         return teacherService.updateTeacherAndFetchToken(teacher);
     }
-    @PostMapping("/getalladviseerequest")
+    @PostMapping("/get_all_advisee_request")
     public ArrayList<AdviseeRequest> getAllAdviseeRequest(@RequestBody EmailRequest emailRequest) {
         return teacherService.getAllAdviseeRequest(emailRequest);
     }
-    @PostMapping("/getallcurrentadvisee")
+    @PostMapping("/get_all_current_advisee")
     public ArrayList<AdvisorAssignment> getAllCurrentAdvisee(@RequestBody EmailRequest emailRequest) {
         return teacherService.getAllCurrentAdvisee(emailRequest);
     }
-    @PostMapping("/acceptadvisorrequest")
+    @PostMapping("/accept_advisor_request")
     public String acceptAdvisorRequest(@RequestBody AdvisorAssignment advisorAssignment) {
         return teacherService.acceptAdvisor(advisorAssignment);
     }
-    @PostMapping("/removeadvisorrequest")
+    @PostMapping("/remove_advisor_request")
     public String rejectAdvisorRequest(@RequestBody AdvisorAssignment advisorAssignment) {
         return teacherService.rejectAdvisor(advisorAssignment);
     }

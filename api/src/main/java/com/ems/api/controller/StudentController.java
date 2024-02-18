@@ -20,38 +20,34 @@ import java.util.ArrayList;
 public class StudentController {
     @Autowired
     private StudentService studentService;
-    @PostMapping("/requestAdvisor")
-    public String signUp(@RequestBody String studentId,@RequestBody String advisorId) {
 
-        return studentService.requestAdvisor(studentId, advisorId);
-    }
-    @PostMapping("getstudentbyemail")
+    @PostMapping("get_student_by_email")
     public Student getStudentByEmail(@RequestBody EmailRequest emailRequest) {
         System.out.println(emailRequest.getEmail());
         return studentService.getStudentByEmail(emailRequest.getEmail());
     }
-    @PostMapping("/updatestudent")
+    @PostMapping("/update_student")
     public String updateStudent(@RequestBody Student student) {
         return studentService.updateStudentAndFetchToken(student);
     }
-    @GetMapping("/getalladvisors")
+    @GetMapping("/get_all_advisors")
     public ArrayList<Teacher> getAllAdvisors() {
         return studentService.getAllAdvisors();
     }
-    @PostMapping("/sendadvisorrequest")
+    @PostMapping("/send_advisor_request")
     public String sendAdvisorRequest(@RequestBody AdvisorRequest advisorRequest) {
         return studentService.sendAdvisorRequest(advisorRequest);
     }
-    @PostMapping("/requestedadvisorassignmentlist")
+    @PostMapping("/requested_advisor_assignment_list")
     public ArrayList<AdvisorAssignmentResponse> requestedAdvisorAssignmentList(@RequestBody EmailRequest emailRequest) {
         System.out.println(emailRequest.getEmail());
         return studentService.requestedAdvisorAssignmentList(emailRequest);
     }
-    @PostMapping("/getcurrentadvisor")
+    @PostMapping("/get_current_advisor")
     public Teacher getCurrentAdvisor(@RequestBody EmailRequest emailRequest) {
         return studentService.getCurrentAdvisor(emailRequest);
     }
-    @PostMapping("/removeadvisor")
+    @PostMapping("/remove_advisor")
     public String removeAdvisor(@RequestBody EmailRequest emailRequest) {
         return studentService.removeAdvisor(emailRequest);
     }
