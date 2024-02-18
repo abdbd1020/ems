@@ -56,21 +56,32 @@ public class StudentService {
     @Transactional
     public ArrayList<Teacher> getAllAdvisors() {
         ArrayList<Teacher> teachers = teacherRepository.getAllTeachers();
-        for (Teacher teacher : teachers) {
+        for (int i = 0; i < teachers.size(); i++) {
+            Teacher teacher = teachers.get(i);
               EMSUser user = userRepository.findByEmail(teacher.getEmsUser().getEmail());
+
               if(user!=null&&user.getRole().equals(Role.TEACHER)&&user.getStatus().equals(Status.ACTIVE)){
                   teacher.setEmsUser(user);
               }
               else {
                   teachers.remove(teacher);
+                    continue;
               }
-              Faculty faculty = facultyRepository.getFacultyById(teacher.getFaculty().getId());
-              if(faculty!=null){
-                  teacher.setFaculty(faculty);
-              }
-              else {
+              if(teacher.getFaculty()==null){
                   teachers.remove(teacher);
+                  continue;
               }
+              else{
+                  Faculty faculty = facultyRepository.getFacultyById(teacher.getFaculty().getId());
+                  if(faculty!=null){
+                      teacher.setFaculty(faculty);
+                  }
+                  else {
+                      teachers.remove(teacher);
+                      continue;
+                  }
+              }
+
             entityManager.detach(teacher.getEmsUser());
 
               teacher.getEmsUser().setPassword("");

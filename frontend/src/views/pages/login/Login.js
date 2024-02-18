@@ -58,13 +58,11 @@ const Login = () => {
             text: "Please update your profile first!",
           }).then(() => {
             navigate("/teacher/profile/update-profile", {
-              state: { email: email },
               replace: true,
             });
           });
         } else {
-          navigate("/teacher/profile/update-profile", {
-            state: { email: email },
+          navigate("/teacher/advisee/requested-advisee-list", {
             replace: true,
           });
         }
@@ -73,20 +71,18 @@ const Login = () => {
           email: email,
         });
 
-        if (!studentData.data.faculty) {
+        if (!studentData.data.department) {
           Swal.fire({
             icon: "success",
             title: "Incomplete Profile.",
             text: "Please update your profile first!",
           }).then(() => {
             navigate("/student/profile/update-profile", {
-              state: { email: email },
               replace: true,
             });
           });
         } else {
-          navigate("/student/profile/update-profile", {
-            state: { email: email },
+          navigate("/student/advisor/available-advisor-list", {
             replace: true,
           });
         }

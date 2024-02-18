@@ -48,9 +48,13 @@ public class AdminService {
             if (student == null) {
                 studentRepository.createStudent(user.getId());
             }
+            Student tempStudent = studentRepository.getStudentById(user.getId());
+            tempStudent.setEmsUser(user);
+            studentRepository.updateStudent(tempStudent);
+
 
         }
-        if (user.getRole().equals(Role.TEACHER)) {
+        else if (user.getRole().equals(Role.TEACHER)) {
             Teacher teacher = teacherRepository.getTeacherById(user.getId());
             Student student = studentRepository.getStudentById(user.getId());
             if (student != null) {
@@ -59,9 +63,12 @@ public class AdminService {
             if (teacher == null) {
                 teacherRepository.createTeacher(user.getId());
             }
+            Teacher tempTeacher = teacherRepository.getTeacherById(user.getId());
+            tempTeacher.setEmsUser(user);
+            teacherRepository.updateTeacher(tempTeacher);
 
         }
-        if(user.getRole().equals(Role.GUEST)){
+        else if(user.getRole().equals(Role.GUEST)){
             Student student = studentRepository.getStudentById(user.getId());
             Teacher teacher = teacherRepository.getTeacherById(user.getId());
             if (teacher != null) {
@@ -72,7 +79,11 @@ public class AdminService {
             }
         }
 
+        else {
+            throw new RuntimeException("Invalid Role");
+        }
         return adminRepository.updateUserAsAdmin(user);
+
     }
 
     public void ensureAdminExists() {
