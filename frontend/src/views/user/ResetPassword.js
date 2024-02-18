@@ -104,13 +104,13 @@ const ResetPassword = () => {
                 />
               </div>
               <div className="mb-3">
-                <CFormLabel htmlFor="exampleFormControlInput2">
+                <CFormLabel htmlFor="exampleFormControlInput3">
                   Confirm Password
                 </CFormLabel>
                 <CFormInput
                   type="text"
                   value={confirmPassword}
-                  id="exampleFormControlInput2"
+                  id="exampleFormControlInput3"
                   placeholder="Password"
                   onChange={(e) => setConfirmPassword(e.target.value)}
                 />

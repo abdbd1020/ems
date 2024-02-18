@@ -172,7 +172,7 @@ const _nav = [
       },
       {
         component: CNavItem,
-        name: "Current Advisee",
+        name: "Current Advisor",
         to: "/student/advisor/current-advisor",
         authority: ClientEnum.STUDENT_TYPE,
       },

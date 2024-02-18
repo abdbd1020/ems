@@ -128,8 +128,6 @@ const TeacherUpdateProfile = () => {
           title: "Successful!",
           text: "Profile has been updated.",
           icon: "success",
-        }).then(() => {
-          navigate("/login");
         });
       } else {
         Swal.fire({

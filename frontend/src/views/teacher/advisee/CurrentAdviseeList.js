@@ -50,14 +50,8 @@ const CurrentAdviseeList = () => {
       await TeacherService.instance.removeAdvisorRequest(payload);
 
     if (response.status) {
-      Swal.fire({
-        icon: "success",
-        title: "Removed",
-        text: "Student removed from your advisee list successfully.",
-      }).then(() => {
-        const newTableData = tableData.filter((row) => row.id !== requestId);
-        setTableData(newTableData);
-      });
+      const newTableData = tableData.filter((row) => row.id !== requestId);
+      setTableData(newTableData);
     } else {
       Swal.fire({
         icon: "error",

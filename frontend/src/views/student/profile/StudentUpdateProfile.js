@@ -112,10 +112,10 @@ const StudentUpdateProfile = () => {
         batchNo: batchNo,
         department: department,
       };
-      console.log(payload);
       const response = await StudentService.instance.updateStudent(payload);
 
       if (response.status) {
+        console.log(response.data);
         const currentUserData = JSON.parse(
           localStorage.getItem("currentUserData"),
         );
@@ -128,8 +128,6 @@ const StudentUpdateProfile = () => {
           title: "Successful!",
           text: "Account has been updated.",
           icon: "success",
-        }).then(() => {
-          navigate("/login");
         });
       } else {
         Swal.fire({

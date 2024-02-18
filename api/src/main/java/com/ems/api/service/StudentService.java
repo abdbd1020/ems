@@ -28,6 +28,8 @@ public class StudentService {
     private AdvisorAssignmentRepository advisorAssignmentRepository;
     @Autowired
     private EntityManager entityManager;
+    @Autowired
+    private JwtService jwtService;
 
     @Transactional
     public String requestAdvisor(String studentId, String advisorId) {
@@ -51,7 +53,7 @@ public class StudentService {
         student.setStudentId(user.getId());
         student.setEmsUser(user);
         studentRepository.updateStudent(student);
-        return "Token";
+        return jwtService.generateToken(student.getEmsUser().getEmail());
     }
     @Transactional
     public ArrayList<Teacher> getAllAdvisors() {

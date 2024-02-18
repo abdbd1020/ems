@@ -52,16 +52,8 @@ const RequestedAdviseeList = () => {
       response = await TeacherService.instance.removeAdvisorRequest(payload);
     }
     if (response.status) {
-      Swal.fire({
-        icon: "success",
-        title: { isAccept } ? "Accepted" : "Rejected",
-        text: { isAccept }
-          ? "Request has been accepted"
-          : "Request has been rejected",
-      }).then(() => {
-        const newTableData = tableData.filter((row) => row.id !== requestId);
-        setTableData(newTableData);
-      });
+      const newTableData = tableData.filter((row) => row.id !== requestId);
+      setTableData(newTableData);
     } else {
       Swal.fire({
         icon: "error",
