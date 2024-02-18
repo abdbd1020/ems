@@ -53,6 +53,9 @@ const ResetPassword = () => {
       const response = await DefaultService.instance.resetPassword(payload);
       console.log(response);
       if (response.status) {
+        setConfirmPassword("");
+        setCurrentPassword("");
+        setNewPassword("");
         Swal.fire({
           icon: "success",
           title: "Password Updated",

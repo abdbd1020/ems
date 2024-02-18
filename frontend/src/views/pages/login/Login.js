@@ -87,6 +87,12 @@ const Login = () => {
           });
         }
       }
+    } else {
+      Swal.fire({
+        title: "Failed!",
+        text: "Invalid credentials. Please try again.",
+        icon: "error",
+      });
     }
   };
 
