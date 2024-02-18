@@ -16,7 +16,8 @@ import {
 } from "@coreui/react";
 import AdminService from "src/services/AdminService";
 import { Link, useNavigate } from "react-router-dom";
-import UserTable from "src/views/Table/UserTable";
+import UserTable from "src/views/admin/user/UserTable";
+import { ClientEnum } from "src/ClientEnum";
 
 const AdminInactiveUserLis = () => {
   const navigate = useNavigate();
@@ -42,7 +43,7 @@ const AdminInactiveUserLis = () => {
 
   return (
     <div>
-      <UserTable userList={tableData} />
+      <UserTable userList={tableData} type={"Inactive And Guest  List"} />
     </div>
   );
 };

@@ -18,7 +18,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 const column = ["Name", "Email", "Phone", "Role", "Status", "Action"];
 
-const UserTable = ({ userList }) => {
+const UserTable = ({ userList, type }) => {
   const navigate = useNavigate();
 
   const handleUpdate = async (UserId) => {
@@ -31,7 +31,7 @@ const UserTable = ({ userList }) => {
       <CCol xs={12}>
         <CCard className="mb-4">
           <CCardHeader>
-            <strong>Instructor List</strong>
+            <strong>{type}</strong>
           </CCardHeader>
           <CCardBody>
             <CTable striped>

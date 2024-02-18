@@ -26,13 +26,11 @@ import AdminService from "src/services/AdminService";
 
 const StudentUpdateProfile = () => {
   const navigate = useNavigate();
-  const location = useLocation(); // Add this line to get the location object
-
+  const location = useLocation();
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [batchNo, setBatchNo] = useState("");
-
   const currentUserData = JSON.parse(localStorage.getItem("currentUserData"));
   const studentEmail = currentUserData ? currentUserData.email : null;
   const [userData, setUserData] = useState({});
