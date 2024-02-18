@@ -61,7 +61,7 @@ public class TeacherService {
         ArrayList<AdvisorAssignment> advisorAssignments = advisorAssignmentRepository.getAdvisorAssignmentsByAdvisor(teacher);
         ArrayList<AdviseeRequest> adviseeRequests = new ArrayList<>();
         for (AdvisorAssignment advisorAssignment : advisorAssignments) {
-            if(advisorAssignment.getStudent().getEmsUser().getStatus().equals(Status.INACTIVE) ||advisorAssignment.isAccepted()) {
+            if(advisorAssignment.getStudent().getEmsUser().getStatus().equals(Status.INACTIVE) ||advisorAssignment.isAccepted()||advisorAssignment.getStudent().getDepartment()==null) {
                 continue;
             }
 
