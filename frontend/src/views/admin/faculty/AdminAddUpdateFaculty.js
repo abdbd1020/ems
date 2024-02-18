@@ -72,8 +72,6 @@ const AdminAddUpdateFaculty = () => {
         title: "Failed!",
         text: "Please try again.",
         icon: "error",
-      }).then(() => {
-        navigate("/admin/faculty/faculty-list");
       });
     }
   };

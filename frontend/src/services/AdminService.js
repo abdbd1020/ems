@@ -61,7 +61,7 @@ class AdminService {
   }
 
   async getAllInactiveAndGuestUsers() {
-    const api = "/get_all_inactive_and_guestusers";
+    const api = "/get_all_inactive_and_guest_users";
     return this.getAllSpecificUsers(api);
   }
 

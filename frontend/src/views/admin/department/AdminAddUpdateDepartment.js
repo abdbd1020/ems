@@ -34,7 +34,7 @@ const AdminAddUpdateDepartment = () => {
   const [tableData, setTableData] = useState([]);
   const [name, setName] = useState();
   const [description, setDescription] = useState();
-  const [selectedFaculty, setSelectedFaculty] = useState(null);
+  const [selectedFaculty, setSelectedFaculty] = useState("");
   const [updateOrCreateString, setUpdateOrCreateString] = useState(
     departmentData ? "Update Department" : "Create Department ",
   );
@@ -57,23 +57,28 @@ const AdminAddUpdateDepartment = () => {
   };
 
   const handleSubmit = async () => {
-    console.log(selectedFaculty);
-    // get faculty id
-    const faculty = tableData.filter(
-      (faculty) => faculty.name === selectedFaculty,
-    );
-    if (faculty.length === 0 || name.length < 3 || description.length < 3) {
+    if (name?.length < 3 || description?.length < 3 || selectedFaculty == "") {
       Swal.fire({
         title: "Failed!",
         text: "Please fill all the fields.",
         icon: "error",
+      }).then(() => {
+        return;
       });
     }
+
+    // get faculty id
+    const faculty = tableData.filter(
+      (faculty) => faculty.name === selectedFaculty,
+    );
+
+    console.log(faculty.length);
+    console.log(selectedFaculty);
 
     var response = null;
     const payload = {
       id: isUpdate ? departmentData[0].id : null,
-      facultyId: faculty[0].id,
+      facultyId: faculty[0]?.id,
       name: name,
       description: description,
     };
@@ -98,8 +103,6 @@ const AdminAddUpdateDepartment = () => {
         title: "Failed!",
         text: "Please try again.",
         icon: "error",
-      }).then(() => {
-        navigate("/admin/department/department-list");
       });
     }
   };

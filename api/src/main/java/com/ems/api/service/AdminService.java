@@ -23,6 +23,8 @@ public class AdminService {
     private StudentRepository studentRepository;
     @Autowired
     private TeacherRepository teacherRepository;
+    @Autowired
+    private DepartmentRepository departmentRepository;
 
 
     @Transactional
@@ -81,21 +83,21 @@ public class AdminService {
 
     @Transactional
     public ArrayList<Department> getAllDepartments() {
-        return adminRepository.getAllDepartments();
+        return departmentRepository.getAllDepartments();
     }
     @Transactional
     public ArrayList<Faculty> getAllFaculty() {
-        return adminRepository.getAllFaculty();
+        return facultyRepository.getAllFaculty();
     }
     @Transactional
     public String addFaculty(Faculty faculty) {
-        adminRepository.saveFaculty(faculty);
+        facultyRepository.saveFaculty(faculty);
         return "Faculty Added Successfully";
     }
 
     @Transactional
     public String updateFaculty(Faculty faculty) {
-        return adminRepository.updateFaculty(faculty);
+        return facultyRepository.updateFaculty(faculty);
     }
 
     @Transactional
@@ -103,14 +105,14 @@ public class AdminService {
 
         Department department = getDepartmentFromRequest(departmentRequest);
 
-        return adminRepository.addDepartment(department);
+        return departmentRepository.addDepartment(department);
     }
 
     @Transactional
     public String updateDepartment(DepartmentRequest departmentRequest) {
         Department department = getDepartmentFromRequest(departmentRequest);
         department.setId(departmentRequest.getId());
-        return adminRepository.updateDepartment(department);
+        return departmentRepository.updateDepartment(department);
 
     }
     @Transactional

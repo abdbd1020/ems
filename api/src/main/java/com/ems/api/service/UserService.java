@@ -39,8 +39,6 @@ public class UserService {
     public String logInAndFetchToken(@NotNull EMSUser emsUser) {
         EMSUser user = userRepository.getUserByEmail(emsUser.getEmail());
 
-
-
         if (isPasswordNotMatching(emsUser.getPassword(), user.getPassword())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid credentials");
         }
