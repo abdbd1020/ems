@@ -69,4 +69,18 @@ public class AdvisorAssignmentRepository {
                 .executeUpdate();
         return "Advisor Assignment Removed Successfully";
     }
+
+
+
+    public void deleteAdvisorAssignmentByAdvisor(Teacher teacher) {
+        entityManager.createQuery("DELETE FROM AdvisorAssignment a WHERE a.teacher = :teacher")
+                .setParameter("teacher", teacher)
+                .executeUpdate();
+    }
+
+    public void deleteAdvisorAssignmentByStudent(Student student) {
+        entityManager.createQuery("DELETE FROM AdvisorAssignment a WHERE a.student = :student")
+                .setParameter("student", student)
+                .executeUpdate();
+    }
 }

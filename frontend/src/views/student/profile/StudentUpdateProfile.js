@@ -37,7 +37,7 @@ const StudentUpdateProfile = () => {
   const studentEmail = currentUserData ? currentUserData.email : null;
   const [userData, setUserData] = useState({});
   const [tableData, setTableData] = useState([]);
-  const [selectedDepartment, setSelectedDepartment] = useState(null);
+  const [selectedDepartment, setSelectedDepartment] = useState("");
 
   useEffect(() => {
     if (studentEmail) {

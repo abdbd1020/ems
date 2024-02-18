@@ -25,6 +25,8 @@ public class AdminService {
     private TeacherRepository teacherRepository;
     @Autowired
     private DepartmentRepository departmentRepository;
+    @Autowired
+    private AdvisorAssignmentRepository advisorAssignmentRepository;
 
 
     @Transactional
@@ -43,6 +45,7 @@ public class AdminService {
             Student student = studentRepository.getStudentById(user.getId());
             Teacher teacher = teacherRepository.getTeacherById(user.getId());
             if (teacher != null) {
+                advisorAssignmentRepository.deleteAdvisorAssignmentByAdvisor(teacher);
                 teacherRepository.deleteTeacher(user.getId());
             }
             if (student == null) {
@@ -58,6 +61,7 @@ public class AdminService {
             Teacher teacher = teacherRepository.getTeacherById(user.getId());
             Student student = studentRepository.getStudentById(user.getId());
             if (student != null) {
+                advisorAssignmentRepository.deleteAdvisorAssignmentByStudent(student);
                 studentRepository.deleteStudent(user.getId());
             }
             if (teacher == null) {
