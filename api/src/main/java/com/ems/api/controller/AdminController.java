@@ -10,6 +10,7 @@ import com.ems.api.service.AdminService;
 import com.ems.api.service.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -51,10 +52,12 @@ public class AdminController {
         return adminService.getAllUsersByRole(Role.TEACHER);
     }
 
+    @PreAuthorize("hasRole('STUDENT') or hasRole('ADMIN')")
     @GetMapping("/get_all_departments")
     public ArrayList<Department> getAllDepartments() {
         return adminService.getAllDepartments();
     }
+    @PreAuthorize("hasRole('TEACHER') or hasRole('ADMIN')")
     @GetMapping("/get_all_faculty")
     public ArrayList<Faculty> getAllFaculty() {
           return adminService.getAllFaculty();

@@ -20,8 +20,8 @@ import java.time.Instant;
 
 @Component
 public class GoogleAuthFilter {
-    @Value("${google.token.auth.provider.url}")
-    private String googleURL;
+//    @Value("${google.token.auth.provider.url}")
+    private final String googleURL = "https://oauth2.googleapis.com/tokeninfo?id_token=";
 
 
     public Boolean isGoogleTokenValid(LoginRequest loginRequest){
