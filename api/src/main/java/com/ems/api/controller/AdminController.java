@@ -11,12 +11,15 @@ import com.ems.api.service.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.ArrayList;
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/admin")
 public class AdminController {
+
+
 
 
     @Autowired
@@ -26,6 +29,9 @@ public class AdminController {
     private AdminService adminService;
     @Autowired
     private JwtService jwtService;
+
+
+
     @GetMapping("/get_all_users")
     public ArrayList<EMSUser> getAllUsers() {
         return adminService.getAllUsers();
