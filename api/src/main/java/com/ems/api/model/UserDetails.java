@@ -18,7 +18,7 @@ public class UserDetails implements org.springframework.security.core.userdetail
     public UserDetails(EMSUser emsUser) {
         name=emsUser.getEmail();
         password=emsUser.getPassword();
-        authorities= Arrays.stream(new String[]{emsUser.getRole().toString()})
+        authorities = Arrays.stream(new String[]{"ROLE_" + emsUser.getRole().toString()})
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
 
