@@ -6,7 +6,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class ApiApplication {
 
-	//csrf token disable
 	/*
 
 	INSERT INTO EMSUser (id,name, email, password, role, status)

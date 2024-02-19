@@ -53,7 +53,6 @@ public class TeacherService {
     @Transactional
     public String updateTeacherAndFetchToken(@NotNull Teacher teacher) {
         EMSUser user = userRepository.getUserByEmail(teacher.getEmsUser().getEmail());
-        user.setEmail(teacher.getEmsUser().getEmail());
         user.setName(teacher.getEmsUser().getName());
         user.setPhone(teacher.getEmsUser().getPhone());
         teacher.setId(user.getId());

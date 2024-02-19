@@ -33,20 +33,14 @@ const TeacherUpdateProfile = () => {
   const [phone, setPhone] = useState("");
   const [designation, setDesignation] = useState("");
 
-  const currentUserData = JSON.parse(localStorage.getItem("currentUserData"));
-  const teacherEmail = currentUserData ? currentUserData.email : null;
   const [userData, setUserData] = useState({});
   const [tableData, setTableData] = useState([]);
   const [selectedFaculty, setSelectedFaculty] = useState("");
 
   useEffect(() => {
-    if (teacherEmail) {
-      fetchFacultyList();
-      fetchTeacherfromEmail();
-    } else {
-      navigate("/500", { replace: true });
-    }
-  }, [teacherEmail, location.state]);
+    fetchFacultyList();
+    fetchTeacherfromEmail();
+  }, []);
 
   const fetchFacultyList = async () => {
     const response = await AdminService.instance.getAllFaculty();
@@ -55,7 +49,12 @@ const TeacherUpdateProfile = () => {
 
   const fetchTeacherfromEmail = async () => {
     try {
+      const currentUserData = JSON.parse(
+        localStorage.getItem("currentUserData"),
+      );
+      const teacherEmail = currentUserData.email;
       const payload = { email: teacherEmail };
+
       const response = await TeacherService.instance.getTeacherByEmail(payload);
 
       if (response.status) {
@@ -164,6 +163,7 @@ const TeacherUpdateProfile = () => {
                   Email
                 </CFormLabel>
                 <CFormInput
+                  readOnly
                   type="text"
                   value={email}
                   id="exampleFormControlInput2"

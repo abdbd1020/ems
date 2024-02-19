@@ -46,7 +46,6 @@ public class StudentService {
     @Transactional
     public String updateStudentAndFetchToken(@NotNull Student student) {
         EMSUser user = userRepository.getUserByEmail(student.getEmsUser().getEmail());
-        user.setEmail(student.getEmsUser().getEmail());
         user.setName(student.getEmsUser().getName());
         user.setPhone(student.getEmsUser().getPhone());
         student.setStudentId(user.getId());

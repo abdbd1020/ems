@@ -47,17 +47,17 @@ const Login = () => {
     try {
       await google.accounts.id.prompt();
     } catch (error) {
-      console.error("Error during Google sign-in:", error);
+      console.error(error);
     }
   };
 
   const handleSubmit = async (googleResponse) => {
-    const currentUserData = JSON.parse(localStorage.getItem("tempData"));
+    const tempData = JSON.parse(localStorage.getItem("tempData"));
     localStorage.removeItem("tempData");
 
     const payload = {
-      email: currentUserData.email,
-      password: currentUserData.password,
+      email: tempData.email,
+      password: tempData.password,
       googleToken: googleResponse.credential,
     };
 
@@ -67,7 +67,7 @@ const Login = () => {
       const type = response.data.role;
 
       const currentUserData = {
-        email: email,
+        email: tempData.email,
         role: type,
         userJWT: response.data.token,
       };
@@ -79,7 +79,7 @@ const Login = () => {
           email: email,
         });
 
-        if (!teacherData.data.faculty) {
+        if (!teacherData.data?.faculty) {
           Swal.fire({
             icon: "success",
             title: "Incomplete Profile.",
@@ -99,7 +99,7 @@ const Login = () => {
           email: email,
         });
 
-        if (!studentData.data.department) {
+        if (!studentData.data?.department) {
           Swal.fire({
             icon: "success",
             title: "Incomplete Profile.",

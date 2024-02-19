@@ -134,7 +134,7 @@ const StudentUpdateProfile = () => {
         });
       }
     } catch (error) {
-      console.error("Error submitting form:", error);
+      console.error(error);
     }
   };
 
@@ -162,6 +162,7 @@ const StudentUpdateProfile = () => {
                   Email
                 </CFormLabel>
                 <CFormInput
+                  readOnly
                   type="text"
                   value={email}
                   id="exampleFormControlInput2"

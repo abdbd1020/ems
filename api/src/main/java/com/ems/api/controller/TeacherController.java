@@ -18,7 +18,7 @@ public class TeacherController {
     private TeacherService teacherService;
 
     @PostMapping("/get_teacher_by_email")
-    public Teacher getTeacherById(@RequestBody EmailRequest email) {
+    public Teacher getTeacherByEmail(@RequestBody EmailRequest email) {
         return teacherService.getTeacherByEmail(email.getEmail());
     }
     @PostMapping("/update_teacher")
