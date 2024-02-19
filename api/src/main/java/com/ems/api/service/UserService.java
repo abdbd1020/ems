@@ -4,6 +4,7 @@ import com.ems.api.config.SecurityConfig;
 import com.ems.api.dto.LoginRequest;
 import com.ems.api.dto.LoginResponse;
 import com.ems.api.dto.ResetPasswordRequest;
+import com.ems.api.filter.GoogleAuthFilter;
 import com.ems.api.model.EMSUser;
 import com.ems.api.model.Role;
 import com.ems.api.model.Status;
@@ -19,8 +20,10 @@ import org.springframework.web.server.ResponseStatusException;
 public class UserService {
 
     @Autowired
-    JwtService jwtService;
+    private JwtService jwtService;
 
+    @Autowired
+    private GoogleAuthFilter googleAuthFilter;
     @Autowired
     private UserRepository userRepository;
 
@@ -39,6 +42,8 @@ public class UserService {
 
     @Transactional
     public LoginResponse logInAndFetchToken(@NotNull LoginRequest loginRequest) {
+
+
         EMSUser user = userRepository.getUserByEmail(loginRequest.getEmail());
 
         if (isPasswordNotMatching(loginRequest.getPassword(), user.getPassword())) {
@@ -80,5 +85,29 @@ public class UserService {
         user.setPassword(securityConfig.passwordEncoder().encode(resetPasswordRequest.getNewPassword()));
         userRepository.updateUser(user);
         return "Password reset successful";
+    }
+
+    public LoginResponse authorizeGoogleTokenLogInAndFetchNewToken(LoginRequest loginRequest) {
+        if(!googleAuthFilter.isGoogleTokenValid(loginRequest.getGoogleToken(), loginRequest.getEmail())){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid google token");
+        }
+
+        EMSUser user = userRepository.getUserByEmail(loginRequest.getEmail());
+
+        if (isPasswordNotMatching(loginRequest.getPassword(), user.getPassword())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid credentials");
+        }
+
+        if (!user.getStatus().equals(Status.ACTIVE)) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User is not active");
+        }
+
+        if (user.getRole().equals(Role.GUEST)) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Guest user cannot login");
+        }
+        LoginResponse loginResponse = new LoginResponse();
+        loginResponse.setToken(jwtService.generateToken(user.getEmail()));
+        loginResponse.setRole(user.getRole());
+        return loginResponse;
     }
 }

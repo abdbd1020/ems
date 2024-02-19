@@ -26,15 +26,15 @@ const AppHeader = () => {
   let name;
   let type;
 
-  if (user.type === ClientEnum.ADMIN_TYPE) {
+  if (user?.type === ClientEnum.ADMIN_TYPE) {
     name = user.adminName;
     type = user.type;
   }
-  if (user.type === ClientEnum.TEACHER_TYPE) {
+  if (user?.type === ClientEnum.TEACHER_TYPE) {
     name = user.teacherName;
     type = user.type;
   }
-  if (user.type === ClientEnum.STUDENT_TYPE) {
+  if (user?.type === ClientEnum.STUDENT_TYPE) {
     name = user.studentName;
     type = user.type;
   }

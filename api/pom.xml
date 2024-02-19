@@ -43,6 +43,7 @@
 			<version>${spring-security.version}</version>
 		</dependency>
 
+
 		<!-- Spring Security JWT -->
 		<dependency>
 			<groupId>io.jsonwebtoken</groupId>

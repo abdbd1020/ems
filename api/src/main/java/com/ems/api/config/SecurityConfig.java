@@ -39,9 +39,8 @@ public class SecurityConfig {
         http.csrf(AbstractHttpConfigurer::disable);
         http.authorizeHttpRequests(requests -> requests
                         .requestMatchers(new AntPathRequestMatcher("/user/signup")).permitAll()
-                        .requestMatchers(new AntPathRequestMatcher("/admin/authenticate/**")).permitAll()
+                        .requestMatchers(new AntPathRequestMatcher("/user/test/**")).permitAll()
                         .requestMatchers(new AntPathRequestMatcher("/user/login")).permitAll()
-                        .requestMatchers(new AntPathRequestMatcher("/admin/authenticate")).permitAll()
                         .requestMatchers(new AntPathRequestMatcher("/admin/**")).hasRole("ADMIN")
                         .requestMatchers(new AntPathRequestMatcher("/student/**")).hasRole("STUDENT")
                         .requestMatchers(new AntPathRequestMatcher("/teacher/**")).hasRole("TEACHER")
@@ -71,6 +70,8 @@ public class SecurityConfig {
         source.registerCorsConfiguration("/**", config);
         return new CorsFilter((CorsConfigurationSource) source);
     }
+
+
 
 
 

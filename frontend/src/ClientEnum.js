@@ -12,5 +12,7 @@ module.exports = {
     SUPERINDENDENT_TYPE: "SUPERINTENDENT",
     IN_OUT_CLERK: "IN OUT CLERK",
     ACCEPTANCE_CLERK: "ACCEPTANCE CLERK",
+    GOOGLE_CLIENT_ID:
+      "915230421827-m7d6lm7ckch672s8dep5qu5dq3lkaiuk.apps.googleusercontent.com",
   },
 };

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
   CButton,
@@ -21,18 +21,49 @@ import DefaultService from "../../../services/DefaultService";
 import TeacherService from "src/services/TeacherService";
 import StudentService from "src/services/StudentService";
 import Swal from "sweetalert2";
+import googleLogo from "src/views/icons/google.png";
 
 const Login = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = async () => {
-    const payload = {
+  useEffect(() => {
+    /* global google */
+    google.accounts.id.initialize({
+      client_id: ClientEnum.GOOGLE_CLIENT_ID,
+      callback: handleSubmit,
+    });
+  }, []);
+
+  const handleSignInClick = async () => {
+    // save email password to local storage
+    const tempData = {
       email: email,
       password: password,
     };
+    localStorage.setItem("tempData", JSON.stringify(tempData));
+
+    try {
+      await google.accounts.id.prompt();
+    } catch (error) {
+      console.error("Error during Google sign-in:", error);
+    }
+  };
+
+  const handleSubmit = async (googleResponse) => {
+    const currentUserData = JSON.parse(localStorage.getItem("tempData"));
+    localStorage.removeItem("tempData");
+
+    const payload = {
+      email: currentUserData.email,
+      password: currentUserData.password,
+      googleToken: googleResponse.credential,
+    };
+    console.log(payload);
+
     const response = await DefaultService.instance.login(payload);
+    console.log(response);
 
     if (response.status) {
       const type = response.data.role;
@@ -132,21 +163,48 @@ const Login = () => {
                         placeholder="******"
                       />
                     </CInputGroup>
-
-                    <CRow>
-                      <CCol xs={6}>
-                        <CButton
-                          color="primary"
-                          className="px-4"
-                          onClick={handleSubmit}
-                        >
-                          Login
-                        </CButton>
-                      </CCol>
-                    </CRow>
+                    <div className="mb-3">
+                      <CButton
+                        color="primary"
+                        className="px-4"
+                        onClick={handleSignInClick}
+                        style={{
+                          width: "100%",
+                          backgroundColor: "white",
+                          color: "black",
+                          borderColor: "black",
+                          borderRadius: "25px",
+                          boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          cursor: "pointer",
+                          transition:
+                            "background-color 0.3s, color 0.3s, border-color 0.3s",
+                        }}
+                        onMouseEnter={() => {
+                          document.getElementById(
+                            "googleButton",
+                          ).style.backgroundColor = "#b1b1b1";
+                        }}
+                        onMouseLeave={() => {
+                          document.getElementById(
+                            "googleButton",
+                          ).style.backgroundColor = "white";
+                        }}
+                        id="googleButton"
+                      >
+                        <img
+                          src={googleLogo}
+                          alt="Google logo"
+                          style={{ marginRight: "10px", height: "1.5em" }}
+                        />
+                        Sign in with Google authorization
+                      </CButton>
+                    </div>
                     <CRow className="text-end">
                       <p>
-                        Don&apos;t have an account?
+                        Don't have an account?
                         <Link to="/register"> Register </Link>
                       </p>
                     </CRow>
