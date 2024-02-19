@@ -31,20 +31,14 @@ const StudentUpdateProfile = () => {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [batchNo, setBatchNo] = useState("");
-  const currentUserData = JSON.parse(localStorage.getItem("currentUserData"));
-  const studentEmail = currentUserData ? currentUserData.email : null;
   const [userData, setUserData] = useState({});
   const [tableData, setTableData] = useState([]);
   const [selectedDepartment, setSelectedDepartment] = useState("");
 
   useEffect(() => {
-    if (studentEmail) {
-      fetchDepartmentList();
-      fetchStudentfromEmail();
-    } else {
-      navigate("/500", { replace: true });
-    }
-  }, [studentEmail, location.state]);
+    fetchDepartmentList();
+    fetchStudentfromEmail();
+  }, []);
 
   const fetchDepartmentList = async () => {
     const response = await AdminService.instance.getAllDepartment();
@@ -53,6 +47,11 @@ const StudentUpdateProfile = () => {
 
   const fetchStudentfromEmail = async () => {
     try {
+      const currentUserData = JSON.parse(
+        localStorage.getItem("currentUserData"),
+      );
+      console.log(currentUserData);
+      const studentEmail = currentUserData.email;
       const payload = { email: studentEmail };
       const response = await StudentService.instance.getStudentByEmail(payload);
 

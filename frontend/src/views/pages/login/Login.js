@@ -22,6 +22,7 @@ import TeacherService from "src/services/TeacherService";
 import StudentService from "src/services/StudentService";
 import Swal from "sweetalert2";
 import googleLogo from "src/views/icons/google.png";
+import { cilAt } from "@coreui/icons";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -76,7 +77,7 @@ const Login = () => {
         navigate("/admin/user/inactive-user-list", { replace: true });
       } else if (type === ClientEnum.TEACHER_TYPE) {
         const teacherData = await TeacherService.instance.getTeacherByEmail({
-          email: email,
+          email: tempData.email,
         });
 
         if (!teacherData.data?.faculty) {
@@ -96,7 +97,7 @@ const Login = () => {
         }
       } else if (type === ClientEnum.STUDENT_TYPE) {
         const studentData = await StudentService.instance.getStudentByEmail({
-          email: email,
+          email: tempData.email,
         });
 
         if (!studentData.data?.department) {
@@ -139,7 +140,7 @@ const Login = () => {
                     </p>
                     <CInputGroup className="mb-3">
                       <CInputGroupText>
-                        <CIcon icon={cilUser} />
+                        <CIcon icon={cilAt} />
                       </CInputGroupText>
                       <CFormInput
                         type="email"
