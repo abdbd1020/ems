@@ -43,7 +43,6 @@ public class UserRepository {
     @Transactional
 
     public EMSUser getUserByEmail(String email) {
-        System.out.println("email: " + email);
 
         return entityManager.createQuery("SELECT u FROM EMSUser u WHERE u.email = :email", EMSUser.class)
                 .setParameter("email", email)

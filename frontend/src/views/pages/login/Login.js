@@ -60,10 +60,8 @@ const Login = () => {
       password: currentUserData.password,
       googleToken: googleResponse.credential,
     };
-    console.log(payload);
 
     const response = await DefaultService.instance.login(payload);
-    console.log(response);
 
     if (response.status) {
       const type = response.data.role;

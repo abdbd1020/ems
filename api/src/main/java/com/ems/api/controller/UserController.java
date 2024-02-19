@@ -32,9 +32,7 @@ public class UserController {
 
     @PostMapping("/login")
     public LoginResponse logIn(@RequestBody LoginRequest loginRequest) {
-        System.out.println("email: " + loginRequest.getEmail());
-        System.out.println("password: " + loginRequest.getPassword());
-        System.out.println("jwt: " + loginRequest.getGoogleToken());
+
         return userService.authorizeGoogleTokenLogInAndFetchNewToken(loginRequest);
     }
 
