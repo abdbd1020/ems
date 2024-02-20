@@ -2,6 +2,7 @@ package com.ems.api.config;
 
 import com.ems.api.filter.JwtAuthFilter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -23,6 +24,8 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
+import java.util.List;
+
 
 @Configuration
 @EnableWebSecurity
@@ -30,7 +33,13 @@ import org.springframework.web.filter.CorsFilter;
 public class SecurityConfig {
 
     @Autowired
-    JwtAuthFilter jwtAuthFilter;
+    private JwtAuthFilter jwtAuthFilter;
+
+    @Autowired
+    private OAuth2LoginSuccessHandler oAuth2LoginSuccessHandler;
+
+    @Value("${frontend.url}")
+    private String frontendUrl;
 
 
 
@@ -44,7 +53,12 @@ public class SecurityConfig {
                         .requestMatchers(new AntPathRequestMatcher("/admin/**")).hasRole("ADMIN")
                         .requestMatchers(new AntPathRequestMatcher("/student/**")).hasRole("STUDENT")
                         .requestMatchers(new AntPathRequestMatcher("/teacher/**")).hasRole("TEACHER")
-                        .anyRequest().authenticated()).addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+                        .anyRequest().authenticated())
+//                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+                .oauth2Login(oath2 -> {
+//                    oath2.loginPage("/login").permitAll();
+//                    oath2.successHandler(oAuth2LoginSuccessHandler);
+                });
 
 
 //
@@ -56,19 +70,17 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
+
     @Bean
-    public CorsFilter corsFilter() {
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        CorsConfiguration config = new CorsConfiguration();
-        config.addAllowedOrigin("*");
-        config.addAllowedHeader("*");
-        config.addAllowedMethod("OPTIONS");
-        config.addAllowedMethod("GET");
-        config.addAllowedMethod("POST");
-        config.addAllowedMethod("PUT");
-        config.addAllowedMethod("DELETE");
-        source.registerCorsConfiguration("/**", config);
-        return new CorsFilter((CorsConfigurationSource) source);
+    CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(List.of(frontendUrl));
+        configuration.addAllowedHeader("*");
+        configuration.addAllowedMethod("*");
+        configuration.setAllowCredentials(true);
+        UrlBasedCorsConfigurationSource urlBasedCorsConfigurationSource = new UrlBasedCorsConfigurationSource();
+        urlBasedCorsConfigurationSource.registerCorsConfiguration("/**", configuration);
+        return urlBasedCorsConfigurationSource;
     }
 
 

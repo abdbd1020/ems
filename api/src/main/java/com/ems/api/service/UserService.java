@@ -72,6 +72,9 @@ public class UserService {
         userRepository.updateUser(user);
         return "Password reset successful";
     }
+    public EMSUser getUserByEmail(String email) {
+        return userRepository.getUserByEmail(email);
+    }
 
     public LoginResponse authorizeGoogleTokenLogInAndFetchNewToken(LoginRequest loginRequest) {
 
@@ -79,6 +82,29 @@ public class UserService {
         if (!googleAuthFilter.isGoogleTokenValid(loginRequest)) {
            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid credentials");
         }
+
+
+
+        EMSUser user = userRepository.getUserByEmail(loginRequest.getEmail());
+
+        if (isPasswordNotMatching(loginRequest.getPassword(), user.getPassword())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid credentials");
+        }
+
+        if (!user.getStatus().equals(Status.ACTIVE)) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User is not active");
+        }
+
+        if (user.getRole().equals(Role.GUEST)) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Guest user cannot login");
+        }
+        LoginResponse loginResponse = new LoginResponse();
+        loginResponse.setToken(jwtService.generateToken(user.getEmail()));
+        loginResponse.setRole(user.getRole());
+        return loginResponse;
+    }
+
+    public LoginResponse logInAndFetchNewToken(LoginRequest loginRequest) {
 
 
 

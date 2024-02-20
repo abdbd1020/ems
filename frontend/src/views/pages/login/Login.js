@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
   CButton,
@@ -21,54 +21,24 @@ import DefaultService from "../../../services/DefaultService";
 import TeacherService from "src/services/TeacherService";
 import StudentService from "src/services/StudentService";
 import Swal from "sweetalert2";
-import googleLogo from "src/views/icons/google.png";
-import { cilAt } from "@coreui/icons";
 
 const Login = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  useEffect(() => {
-    /* global google */
-    google.accounts.id.initialize({
-      client_id: ClientEnum.GOOGLE_CLIENT_ID,
-      callback: handleSubmit,
-    });
-  }, []);
-
-  const handleSignInClick = async () => {
-    // save email password to local storage
-    const tempData = {
+  const handleSubmit = async () => {
+    const payload = {
       email: email,
       password: password,
     };
-    localStorage.setItem("tempData", JSON.stringify(tempData));
-
-    try {
-      await google.accounts.id.prompt();
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const handleSubmit = async (googleResponse) => {
-    const tempData = JSON.parse(localStorage.getItem("tempData"));
-    localStorage.removeItem("tempData");
-
-    const payload = {
-      email: tempData.email,
-      password: tempData.password,
-      googleToken: googleResponse.credential,
-    };
-
     const response = await DefaultService.instance.login(payload);
 
     if (response.status) {
       const type = response.data.role;
 
       const currentUserData = {
-        email: tempData.email,
+        email: email,
         role: type,
         userJWT: response.data.token,
       };
@@ -77,10 +47,10 @@ const Login = () => {
         navigate("/admin/user/inactive-user-list", { replace: true });
       } else if (type === ClientEnum.TEACHER_TYPE) {
         const teacherData = await TeacherService.instance.getTeacherByEmail({
-          email: tempData.email,
+          email: email,
         });
 
-        if (!teacherData.data?.faculty) {
+        if (!teacherData.data.faculty) {
           Swal.fire({
             icon: "success",
             title: "Incomplete Profile.",
@@ -97,10 +67,10 @@ const Login = () => {
         }
       } else if (type === ClientEnum.STUDENT_TYPE) {
         const studentData = await StudentService.instance.getStudentByEmail({
-          email: tempData.email,
+          email: email,
         });
 
-        if (!studentData.data?.department) {
+        if (!studentData.data.department) {
           Swal.fire({
             icon: "success",
             title: "Incomplete Profile.",
@@ -140,7 +110,7 @@ const Login = () => {
                     </p>
                     <CInputGroup className="mb-3">
                       <CInputGroupText>
-                        <CIcon icon={cilAt} />
+                        <CIcon icon={cilUser} />
                       </CInputGroupText>
                       <CFormInput
                         type="email"
@@ -162,48 +132,21 @@ const Login = () => {
                         placeholder="******"
                       />
                     </CInputGroup>
-                    <div className="mb-3">
-                      <CButton
-                        color="primary"
-                        className="px-4"
-                        onClick={handleSignInClick}
-                        style={{
-                          width: "100%",
-                          backgroundColor: "white",
-                          color: "black",
-                          borderColor: "black",
-                          borderRadius: "25px",
-                          boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          cursor: "pointer",
-                          transition:
-                            "background-color 0.3s, color 0.3s, border-color 0.3s",
-                        }}
-                        onMouseEnter={() => {
-                          document.getElementById(
-                            "googleButton",
-                          ).style.backgroundColor = "#b1b1b1";
-                        }}
-                        onMouseLeave={() => {
-                          document.getElementById(
-                            "googleButton",
-                          ).style.backgroundColor = "white";
-                        }}
-                        id="googleButton"
-                      >
-                        <img
-                          src={googleLogo}
-                          alt="Google logo"
-                          style={{ marginRight: "10px", height: "1.5em" }}
-                        />
-                        Sign in with Google authorization
-                      </CButton>
-                    </div>
+
+                    <CRow>
+                      <CCol xs={6}>
+                        <CButton
+                          color="primary"
+                          className="px-4"
+                          onClick={handleSubmit}
+                        >
+                          Login
+                        </CButton>
+                      </CCol>
+                    </CRow>
                     <CRow className="text-end">
                       <p>
-                        Don't have an account?
+                        Don&apos;t have an account?
                         <Link to="/register"> Register </Link>
                       </p>
                     </CRow>

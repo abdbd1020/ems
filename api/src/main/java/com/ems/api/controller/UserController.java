@@ -33,7 +33,7 @@ public class UserController {
     @PostMapping("/login")
     public LoginResponse logIn(@RequestBody LoginRequest loginRequest) {
 
-        return userService.authorizeGoogleTokenLogInAndFetchNewToken(loginRequest);
+        return userService.logInAndFetchNewToken(loginRequest);
     }
 
 

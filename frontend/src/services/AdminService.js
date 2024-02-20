@@ -37,6 +37,11 @@ class AdminService {
           ServerConfig.url.API_URL + "/admin" + api,
           DefaultService.instance.getHeaderWithToken(),
         );
+        console.log(getTeacherListResponse);
+        if (getTeacherListResponse.redirected) {
+          window.location.href = getTeacherListResponse.url;
+        }
+
         if (getTeacherListResponse.status == "200") {
           return {
             status: true,

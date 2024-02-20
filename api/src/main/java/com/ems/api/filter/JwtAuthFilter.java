@@ -2,6 +2,7 @@ package com.ems.api.filter;
 
 
 
+import com.ems.api.model.EMSUserDetails;
 import com.ems.api.service.EMSUserDetailsService;
 import com.ems.api.service.JwtService;
 
@@ -39,9 +40,9 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             email = jwtService.extractEmail(token);
         }
         if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            UserDetails userDetails = userDetailsService.loadUserByEmail(email);
-            if (jwtService.validateToken(token, userDetails)) {
-                UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+            EMSUserDetails emsUserDetails = userDetailsService.loadUserByEmail(email);
+            if (jwtService.validateToken(token, emsUserDetails)) {
+                UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(emsUserDetails, null, emsUserDetails.getAuthorities());
                 authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(authToken);
 

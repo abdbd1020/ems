@@ -8,14 +8,14 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class UserDetails implements org.springframework.security.core.userdetails.UserDetails {
+public class EMSUserDetails implements org.springframework.security.core.userdetails.UserDetails {
 
 
     private String name;
     private String password;
     private List<GrantedAuthority> authorities;
 
-    public UserDetails(EMSUser emsUser) {
+    public EMSUserDetails(EMSUser emsUser) {
         name=emsUser.getEmail();
         password=emsUser.getPassword();
         authorities = Arrays.stream(new String[]{"ROLE_" + emsUser.getRole().toString()})
