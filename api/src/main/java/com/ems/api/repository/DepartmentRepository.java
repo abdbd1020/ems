@@ -13,7 +13,6 @@ public class DepartmentRepository {
     @Autowired
     private EntityManager entityManager;
 
-    @Transactional
     public ArrayList<Department> getAllDepartments() {
         return (ArrayList<Department>) entityManager.createQuery("SELECT d FROM Department d", Department.class).getResultList();
     }

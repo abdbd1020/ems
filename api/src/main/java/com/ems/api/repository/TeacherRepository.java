@@ -16,7 +16,6 @@ public class TeacherRepository {
     public String acceptAdvisor(String studentId, String advisorId) {
         return "Advisor accepted successfully!";
     }
-    @Transactional
     public Teacher getTeacherById(String id) {
 
             return entityManager.find(Teacher.class, id);
@@ -40,7 +39,6 @@ public class TeacherRepository {
 
         entityManager.merge(teacher);
     }
-    @Transactional
     public ArrayList<Teacher> getAllTeachers() {
         return (ArrayList<Teacher>) entityManager.createQuery("SELECT t FROM Teacher t", Teacher.class).getResultList();
     }

@@ -41,10 +41,12 @@ public class SecurityConfig {
                         .requestMatchers(new AntPathRequestMatcher("/user/signup")).permitAll()
                         .requestMatchers(new AntPathRequestMatcher("/user/test/**")).permitAll()
                         .requestMatchers(new AntPathRequestMatcher("/user/login")).permitAll()
-                        .requestMatchers(new AntPathRequestMatcher("/admin/**")).hasRole("ADMIN")
                         .requestMatchers(new AntPathRequestMatcher("/student/**")).hasRole("STUDENT")
                         .requestMatchers(new AntPathRequestMatcher("/teacher/**")).hasRole("TEACHER")
-                        .anyRequest().authenticated()).addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+                .requestMatchers(new AntPathRequestMatcher("/admin/get_all_departments")).hasAnyRole("ADMIN", "STUDENT")
+                .requestMatchers(new AntPathRequestMatcher("/admin/get_all_faculty")).hasAnyRole("ADMIN", "TEACHER")
+                .requestMatchers(new AntPathRequestMatcher("/admin/**")).hasRole("ADMIN")
+                .anyRequest().authenticated()).addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
 
 //

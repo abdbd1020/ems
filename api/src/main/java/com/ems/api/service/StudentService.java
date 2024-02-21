@@ -30,13 +30,7 @@ public class StudentService {
     @Autowired
     private JwtService jwtService;
 
-    @Transactional
-    public String requestAdvisor(String studentId, String advisorId) {
 
-        return studentRepository.requestAdvisor(studentId, advisorId);
-
-    }
-    @Transactional
     public Student getStudentByEmail(String email) {
         EMSUser user = userRepository.findByEmail(email);
         Student student = studentRepository.getStudentById(user.getId());
@@ -53,9 +47,10 @@ public class StudentService {
         studentRepository.updateStudent(student);
         return jwtService.generateToken(student.getEmsUser().getEmail());
     }
-    @Transactional
     public ArrayList<Teacher> getAllAdvisors() {
         ArrayList<Teacher> teachers = teacherRepository.getAllTeachers();
+        ArrayList<Teacher> finalTeachersList = new ArrayList<>();
+
         for (int i = 0; i < teachers.size(); i++) {
             Teacher teacher = teachers.get(i);
               EMSUser user = userRepository.findByEmail(teacher.getEmsUser().getEmail());
@@ -89,9 +84,10 @@ public class StudentService {
               teacher.getEmsUser().setStatus(null);
               teacher.getEmsUser().setPhone("");
               teacher.getEmsUser().setEmail("");
+            finalTeachersList.add(teacher);
 
         }
-        return teachers;
+        return finalTeachersList;
 
 
     }
@@ -109,7 +105,6 @@ public class StudentService {
 
 
     }
-    @Transactional
     public ArrayList<AdvisorAssignmentResponse> requestedAdvisorAssignmentList(@NotNull EmailRequest emailRequest) {
         String studentId = userRepository.findByEmail(emailRequest.getEmail()).getId();
         Student student = studentRepository.getStudentById(studentId);
@@ -131,7 +126,6 @@ public class StudentService {
 
 
     }
-    @Transactional
     public Teacher getCurrentAdvisor(@NotNull EmailRequest emailRequest) {
         String studentId = userRepository.findByEmail(emailRequest.getEmail()).getId();
         Student student = studentRepository.getStudentById(studentId);

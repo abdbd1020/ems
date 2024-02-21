@@ -13,14 +13,12 @@ import java.util.ArrayList;
 public class FacultyRepository {
     @Autowired
     private EntityManager entityManager;
-    @Transactional
     public Faculty getFacultyById(String id) {
         return entityManager.createQuery("SELECT f FROM Faculty f WHERE f.id = :id", Faculty.class)
                 .setParameter("id", id)
                 .getSingleResult();
     }
 
-    @Transactional
     public ArrayList<Faculty> getAllFaculty() {
         return (ArrayList<Faculty>) entityManager.createQuery("SELECT f FROM Faculty f", Faculty.class).getResultList();
     }

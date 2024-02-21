@@ -35,7 +35,7 @@ public class TeacherController {
     }
     @PostMapping("/accept_advisor_request")
     public String acceptAdvisorRequest(@RequestBody AdvisorAssignment advisorAssignment) {
-        return teacherService.acceptAdvisor(advisorAssignment);
+        return teacherService.acceptAdvisorRequest(advisorAssignment);
     }
     @PostMapping("/remove_advisor_request")
     public String rejectAdvisorRequest(@RequestBody AdvisorAssignment advisorAssignment) {

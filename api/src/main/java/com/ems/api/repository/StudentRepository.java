@@ -12,17 +12,12 @@ public class StudentRepository {
    @Autowired
     private EntityManager entityManager;
 
-   @Transactional
     public Student getStudentById(String id) {
             return entityManager.find(Student.class, id);
 
 
     }
-    @Transactional
-    public String requestAdvisor(String studentId, String advisorId) {
-        return "Request sent to advisor successfully!";
 
-    }
     @Transactional
     public void createStudent(String studentId) {
         entityManager.createNativeQuery("INSERT INTO Student (student_id, batch_no) VALUES (:studentId, :batchNo)")
@@ -35,6 +30,7 @@ public class StudentRepository {
     public void updateStudent(Student student) {
         entityManager.merge(student);
     }
+    @Transactional
 
     public void deleteStudent(String id) {
         entityManager.createQuery("DELETE FROM Student s WHERE s.studentId = :id")

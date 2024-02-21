@@ -29,7 +29,6 @@ public class AdminService {
     private AdvisorAssignmentRepository advisorAssignmentRepository;
 
 
-    @Transactional
     public ArrayList<EMSUser> getAllUsers() {
         return userRepository.getAllUsers();
     }
@@ -90,35 +89,17 @@ public class AdminService {
 
     }
 
-    public void ensureAdminExists() {
-        EMSUser admin = userRepository.findByRole(Role.ADMIN);
-
-        if (admin == null) {
-            EMSUser newAdmin = new EMSUser();
-            newAdmin.setEmail("a@a.com");
-            newAdmin.setPassword("123456");
-            newAdmin.setRole(Role.ADMIN);
-            newAdmin.setStatus(Status.ACTIVE);
-            userRepository.saveUser(newAdmin);
-            System.out.println("Created admin user with email: " + newAdmin.getEmail() + " and password: " + newAdmin.getPassword());
-        }
-    }
-    @Transactional
 
     public ArrayList<EMSUser> getInactiveUsers() {
         return userRepository.getInactiveUsers();
     }
-    @Transactional
-
     public ArrayList<EMSUser> getAllUsersByRole(Role role) {
         return userRepository.getAllUsersByRole(role);
     }
 
-    @Transactional
     public ArrayList<Department> getAllDepartments() {
         return departmentRepository.getAllDepartments();
     }
-    @Transactional
     public ArrayList<Faculty> getAllFaculty() {
         return facultyRepository.getAllFaculty();
     }

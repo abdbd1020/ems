@@ -16,18 +16,17 @@ public class AdvisorAssignmentRepository {
     @Autowired
     private EntityManager entityManager;
 
+    @Transactional
     public String saveAdvisorAssignment(AdvisorAssignment advisorAssignment) {
         entityManager.persist(advisorAssignment);
         return "Advisor Assignment Saved Successfully";
     }
-    @Transactional
     public ArrayList<AdvisorAssignment> getRequestedAdvisorAssignmentList(Student student) {
         return (ArrayList<AdvisorAssignment>) entityManager.createQuery("SELECT a FROM AdvisorAssignment a WHERE a.student = :student", AdvisorAssignment.class)
                 .setParameter("student", student)
                 .getResultList();
 
     }
-    @Transactional
     public ArrayList<AdvisorAssignment> getAdvisorAssignmentsByAdvisor(Teacher teacher) {
         return (ArrayList<AdvisorAssignment>) entityManager.createQuery("SELECT a FROM AdvisorAssignment a WHERE a.teacher = :teacher", AdvisorAssignment.class)
                 .setParameter("teacher", teacher)
@@ -41,7 +40,6 @@ public class AdvisorAssignmentRepository {
         return "Advisor Assignment Accepted Successfully";
 
     }
-    @Transactional
     public AdvisorAssignment getAdvisorAssignmentsById(String id) {
         return entityManager.find(AdvisorAssignment.class, id);
     }
@@ -50,7 +48,6 @@ public class AdvisorAssignmentRepository {
         entityManager.remove(currentAdvisorAssignment);
         return "Advisor Assignment Removed Successfully";
     }
-    @Transactional
     public AdvisorAssignment getCurrentAdvisorOfSingleStudent(Student student) {
         try{
             return entityManager.createQuery("SELECT a FROM AdvisorAssignment a WHERE a.student = :student AND a.isAccepted = true", AdvisorAssignment.class)
@@ -83,7 +80,6 @@ public class AdvisorAssignmentRepository {
                 .setParameter("student", student)
                 .executeUpdate();
     }
-    @Transactional
     public Student getStudentFromAdvisorAssignment(AdvisorAssignment currentAdvisorAssignment) {
         return entityManager.find(Student.class, currentAdvisorAssignment.getStudent().getStudentId());
     }

@@ -52,12 +52,10 @@ public class AdminController {
         return adminService.getAllUsersByRole(Role.TEACHER);
     }
 
-    @PreAuthorize("hasRole('STUDENT') or hasRole('ADMIN')")
     @GetMapping("/get_all_departments")
     public ArrayList<Department> getAllDepartments() {
         return adminService.getAllDepartments();
     }
-    @PreAuthorize("hasRole('TEACHER') or hasRole('ADMIN')")
     @GetMapping("/get_all_faculty")
     public ArrayList<Faculty> getAllFaculty() {
           return adminService.getAllFaculty();

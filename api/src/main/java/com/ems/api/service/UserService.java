@@ -61,7 +61,7 @@ public class UserService {
             return !rawPassword.equals(hashedPassword);
         }
     }
-
+    @Transactional
     public String resetPassword(@NotNull ResetPasswordRequest resetPasswordRequest) {
         EMSUser user = userRepository.getUserByEmail(resetPasswordRequest.getEmail());
 //        check if current password is correct
@@ -72,7 +72,7 @@ public class UserService {
         userRepository.updateUser(user);
         return "Password reset successful";
     }
-
+    @Transactional
     public LoginResponse authorizeGoogleTokenLogInAndFetchNewToken(LoginRequest loginRequest) {
 
 
