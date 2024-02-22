@@ -83,7 +83,7 @@ VALUES (
 3. The backend server should start, and you can access it at [http://localhost:8080](http://localhost:8080).
 4. Or just use intellij to run
 
-Now, both the frontend and backend components of your application are up and running. Feel free to customize these instructions based on your project structure and requirements.
+Now, both the frontend and backend components of your application are up and running.
 
 
 ...
